@@ -82,6 +82,9 @@ export const translations = {
     "Webshopunk hamarosan elérhető lesz": "Webshopunk hamarosan elérhető lesz",
     "Vissza a főoldalra": "Vissza a főoldalra",
     Hamarosan: "Hamarosan",
+    Termékeink: "Termékeink", // Added new key
+    "Termék neve": "Termék neve", // Added new key
+    Kosárba: "Kosárba", // Added new key
   },
   en: {
     // Header
@@ -163,6 +166,9 @@ export const translations = {
     "Webshopunk hamarosan elérhető lesz": "Our webshop will be available soon",
     "Vissza a főoldalra": "Back to Homepage",
     Hamarosan: "Coming Soon",
+    Termékeink: "Our Products", // Added new key
+    "Termék neve": "Product Name", // Added new key
+    Kosárba: "Add to Cart", // Added new key
   },
   de: {
     // Header
@@ -238,7 +244,7 @@ export const translations = {
     "Válassz napot": "Wählen Sie einen Tag",
     "Időpont: -tól -ig": "Termin: von - bis",
     "Csak 9:00 és 17:00 között lehet foglalni, minimum 1 óra":
-      "Buchung nur zwischen 9:00 und 17:00 Uhr möglich, mindestens 1 Stunde",
+      "Buchung nur zwischen 9:00 és 17:00 Uhr möglich, mindestens 1 Stunde",
     "Üzenet (opcionális)": "Nachricht (optional)",
     "Időpont lefoglalása": "Termin buchen",
     // Webshop Page
@@ -246,6 +252,9 @@ export const translations = {
       "Unser Webshop wird bald verfügbar sein",
     "Vissza a főoldalra": "Zurück zur Startseite",
     Hamarosan: "Demnächst",
+    Termékeink: "Unsere Produkte", // Added new key
+    "Termék neve": "Produktname", // Added new key
+    Kosárba: "In den Warenkorb", // Added new key
   },
 };
 

@@ -6,6 +6,7 @@ import PriceModal from "../components/PriceModal";
 import BookingModal from "../components/BookingModal";
 import { useTranslation } from "../contexts/TranslationContext";
 import LanguageSelector from "../components/LanguageSelector";
+import { Phone, Instagram, Youtube, Facebook } from "lucide-react"; // Import Lucide icons
 
 export default function Home() {
   const { t } = useTranslation();
@@ -29,17 +30,20 @@ export default function Home() {
             </a>
             <div className="contact-icons">
               <a href="tel:+36302542292" className="phone">
-                <i className="fas fa-phone"></i> +36 30 254 2292
+                <Phone size={18} />
+                +36 30 254 2292
               </a>
               <div className="social-icons">
                 <a href="#" aria-label="Instagram">
-                  <i className="fab fa-instagram"></i>
+                  <Instagram size={20} />
                 </a>
                 <a href="#" aria-label="TikTok">
-                  <i className="fab fa-tiktok"></i>
+                  {" "}
+                  {/* Using Youtube as placeholder for TikTok */}
+                  <Youtube size={20} />
                 </a>
                 <a href="#" aria-label="Facebook">
-                  <i className="fab fa-facebook-f"></i>
+                  <Facebook size={20} />
                 </a>
                 <LanguageSelector />
               </div>
