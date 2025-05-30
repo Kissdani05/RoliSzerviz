@@ -17,7 +17,8 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const id = searchParams.get("id");
   const action = searchParams.get("action");
-
+  console.log("Foglalás ID:", id);
+  console.log("Művelet:", action);
   if (!id || !action) {
     return new NextResponse(
       "<p style='color:red;'>Hiányzó ID vagy művelet.</p>",

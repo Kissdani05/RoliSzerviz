@@ -52,9 +52,9 @@ export async function POST(request: Request) {
   await saveBooking(newBooking);
 
   // Construct the base URL for links, Vercel provides this environment variable
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000";
+  const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
+  ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+  : "http://localhost:3000";
 
   const adminHtml = emailWrapper(`
     <h2 style="color: #f47b20;">Új időpont foglalás érkezett</h2>
@@ -75,9 +75,8 @@ export async function POST(request: Request) {
       .join("")}</ul>
     ${message ? `<p><strong>Üzenet:</strong> ${message}</p>` : ""}
     <div class="button-container" style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
-      <a href="${baseUrl}/api/confirm?id=${id}&action=accept" style="background: #4CAF50; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px;">✅ Elfogadom</a>
-      <a href="${baseUrl}/api/confirm?id=${id}&action=reject" style="background: #f44336; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px;">❌ Elutasítom</a>
-      <a href="${baseUrl}/api/modify?id=${id}" style="background: #2196F3; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px;">🔁 Módosítást ajánlok</a>
+      <a href="${baseUrl}/api/confirm?id=${id}&action=accept">✅ Elfogadom</a>
+<a href="${baseUrl}/api/confirm?id=${id}&action=reject">❌ Elutasítom</a>
     </div>
   `);
 

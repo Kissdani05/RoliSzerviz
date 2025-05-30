@@ -60,37 +60,7 @@ export default function WebshopPage() {
         </div>
       </section>
       {/* Placeholder for Webshop content - To be developed */}
-      <section className="webshop-content py-12">
-        <div className="container">
-          <h2 className="section-title text-center mb-8">{t("Termékeink")}</h2>
-          {/* Add a translation key for "Termékeink" if needed */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {/* Example Product Card - Repeat for each product */}
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
-              <div
-                key={item}
-                className="product-card bg-gray-800 p-4 rounded-lg shadow-lg text-center flex flex-col justify-between"
-              >
-                <div className="product-image-placeholder bg-gray-700 w-full h-48 rounded mb-4 flex items-center justify-center">
-                  <PackageSearch size={48} className="text-gray-500" />{" "}
-                  {/* Corrected Placeholder Icon */}
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-2">
-                    {t("Termék neve")} {item}
-                  </h3>{" "}
-                  {/* Added t() for product name */}
-                  <p className="text-primary-color font-bold mb-3">10.000 Ft</p>
-                  <button className="btn btn-primary w-full">
-                    {t("Kosárba")}
-                  </button>{" "}
-                  {/* Added t() for button */}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      
     </>
   );
 }
