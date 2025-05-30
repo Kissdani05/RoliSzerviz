@@ -9,6 +9,7 @@ import {
   Instagram,
   Youtube,
   Facebook,
+  PackageSearch,
 } from "lucide-react"; // Added PackageSearch
 
 export default function WebshopPage() {

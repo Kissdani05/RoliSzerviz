@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-import { generateId, saveBooking, Booking } from "../../../lib/bookingStore"; // Updated import to use KV functions
+import { generateId, saveBooking, Booking } from "../../../lib/bookingStore";
 import { emailWrapper } from "../../../lib/emailUtils";
 
 const transporter = nodemailer.createTransport({
@@ -27,7 +27,9 @@ export async function POST(request: Request) {
     message,
   } = await request.json();
 
+  // Generate unique ID for the booking
   const id = generateId(email, date, time);
+
   const newBooking: Booking = {
     id,
     name,
@@ -48,35 +50,28 @@ export async function POST(request: Request) {
     originalTime: time,
   };
 
-  // Save to Vercel KV instead of in-memory object
+  // Save booking to Vercel KV
   await saveBooking(newBooking);
 
-  // Construct the base URL for links, Vercel provides this environment variable
+  // Construct the base URL for links
   const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
-  ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-  : "http://localhost:3000";
+    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+    : "http://localhost:3000";
 
   const adminHtml = emailWrapper(`
-    <h2 style="color: #f47b20;">Új időpont foglalás érkezett</h2>
+    <h2>Új időpont foglalás</h2>
     <p><strong>Név:</strong> ${name}</p>
     <p><strong>Email:</strong> ${email}</p>
     <p><strong>Telefonszám:</strong> ${phone}</p>
-    <p><strong>Szállítási cím:</strong> ${postalCode} ${shippingAddress}</p>
-    ${
-      differentBilling
-        ? `<p><strong>Számlázási cím:</strong> ${billingPostalCode} ${billingAddress}</p>`
-        : ""
-    }
-    <p><strong>Dátum:</strong> ${date}</p>
-    <p><strong>Idő:</strong> ${time}</p>
     <p><strong>Szolgáltatások:</strong></p>
     <ul>${services
       .map((service: string) => `<li>${service}</li>`)
       .join("")}</ul>
+    <p><strong>Időpont:</strong> ${date} ${time}</p>
     ${message ? `<p><strong>Üzenet:</strong> ${message}</p>` : ""}
     <div class="button-container" style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
       <a href="${baseUrl}/api/confirm?id=${id}&action=accept">✅ Elfogadom</a>
-<a href="${baseUrl}/api/confirm?id=${id}&action=reject">❌ Elutasítom</a>
+      <a href="${baseUrl}/api/confirm?id=${id}&action=reject">❌ Elutasítom</a>
     </div>
   `);
 
