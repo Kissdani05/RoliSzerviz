@@ -41,8 +41,6 @@ export async function POST(request: Request) {
     billingPostalCode,
     billingAddress,
     services,
-    date,
-    time,
     message,
     status: "pending",
     modificationSent: false,

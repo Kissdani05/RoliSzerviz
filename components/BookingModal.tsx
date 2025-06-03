@@ -66,21 +66,18 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
     }
   }, [isOpen]);
 
-  // ... (rest of the useEffect hooks and functions remain the same)
-  // ... (updateAvailableHours, updateToHours, handleChange, handleSubmit)
-
   // Ensure these useEffects also run when isOpen changes and formData.bookingDate is set
   useEffect(() => {
     if (isOpen && formData.bookingDate) {
       updateAvailableHours(formData.bookingDate);
     }
-  }, [isOpen, formData.bookingDate]);
+  }, [isOpen, formData.bookingDate, updateAvailableHours]);
 
   useEffect(() => {
     if (isOpen && formData.bookingFrom) {
       updateToHours(parseInt(formData.bookingFrom));
     }
-  }, [isOpen, formData.bookingFrom]);
+  }, [isOpen, formData.bookingFrom, updateToHours]);
 
   const updateAvailableHours = (date: string) => {
     const now = new Date();

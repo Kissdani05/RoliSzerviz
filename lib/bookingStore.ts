@@ -56,7 +56,7 @@ function toDb(booking: Booking | Partial<Booking>) {
 }
 
 // Helper to map db row to Booking
-function fromDb(row: any): Booking {
+function fromDb(row: Record<string, unknown>): Booking {
   return {
     id: row.id,
     email: row.email,
