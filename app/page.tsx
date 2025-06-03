@@ -6,7 +6,7 @@ import PriceModal from "../components/PriceModal";
 import BookingModal from "../components/BookingModal";
 import { useTranslation } from "../contexts/TranslationContext";
 import LanguageSelector from "../components/LanguageSelector";
-import { Phone, Instagram, Youtube, Facebook } from "lucide-react"; // Import Lucide icons
+import { Phone, Instagram, Facebook } from "lucide-react"; // Import Lucide icons
 
 export default function Home() {
   const { t } = useTranslation();
@@ -34,15 +34,13 @@ export default function Home() {
                 +36 30 254 2292
               </a>
               <div className="social-icons">
-                <a href="#" aria-label="Instagram">
+                <a href="https://www.instagram.com/roliszerviz.hu/" aria-label="Instagram">
                   <Instagram size={20} />
                 </a>
-                <a href="#" aria-label="TikTok">
-                  {" "}
-                  {/* Using Youtube as placeholder for TikTok */}
-                  <Youtube size={20} />
+                <a href="https://www.tiktok.com/@roliszerviz" aria-label="TikTok">
+                  <Image src="/logok/Tiktok Icon.png" alt="TikTok" width={20} height={20} style={{ display: 'inline', verticalAlign: 'middle' }} />
                 </a>
-                <a href="#" aria-label="Facebook">
+                <a href="https://www.facebook.com/Roliszerviz.huDebrecen?locale=hu_HU" aria-label="Facebook">
                   <Facebook size={20} />
                 </a>
                 <LanguageSelector />
@@ -152,6 +150,7 @@ export default function Home() {
       </section>
 
       {/* Reklam */}
+      {/*
       <div className="ad-container">
         <div className="ad-title">{t("Ajánlatunk")}</div>
         <div className="ad-content">
@@ -175,6 +174,7 @@ export default function Home() {
           </button>
         </div>
       </div>
+      */}
 
       <PriceModal isOpen={isPriceModalOpen} onClose={closePriceModal} />
       <BookingModal isOpen={isBookingModalOpen} onClose={closeBookingModal} />
