@@ -86,6 +86,7 @@ export async function GET(request: NextRequest) {
     <!DOCTYPE html>
     <html>
     <head>
+        <meta charset="UTF-8">
         <title>Időpont módosítása</title>
         <style>
             body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: 0 auto; background-color: #0e0e0e; color: #ffffff; }
@@ -103,8 +104,8 @@ export async function GET(request: NextRequest) {
         <h2>Ajánlj új időpontot</h2>
         <div class="info">
             <p><strong>Eredeti foglalás:</strong></p>
-            <p>Dátum: ${foglalas.date}</p>
-            <p>Idő: ${foglalas.time}</p>
+            <p>Dátum: ${foglalas.originalDate}</p>
+            <p>Idő: ${foglalas.originalTime}</p>
         </div>
         <form action="${baseUrl}/api/propose-change" method="POST">
             <input type="hidden" name="id" value="${id}" />

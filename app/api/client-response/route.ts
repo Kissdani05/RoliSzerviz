@@ -43,20 +43,21 @@ export async function GET(request: NextRequest) {
     if (clientAction === "accept") {
       updatedBookingState = await updateBooking(id, {
         status: "client_accepted",
-        date: foglalas.newDate, // Apply the new date
-        time: foglalas.newTime, // Apply the new time
+        newDate: foglalas.newDate, // Apply the new date
+        newTime: foglalas.newTime, // Apply the new time
       });
       if (!updatedBookingState)
         throw new Error("Booking update failed for client accept");
 
       const adminNotificationHtml = emailWrapper(
         `
+        <meta charset="UTF-8">
         <h2>Ügyfél elfogadta az új időpontot</h2>
         <p>${updatedBookingState.name} (${
           updatedBookingState.email
         }) elfogadta a következő időpontot:</p>
-        <p><strong>${updatedBookingState.date} ${
-          updatedBookingState.time
+        <p><strong>${updatedBookingState.newDate ?? "N/A"} ${
+          updatedBookingState.newTime ?? "N/A"
         }</strong></p>
         <p>Eredeti időpont: ${updatedBookingState.originalDate} ${
           updatedBookingState.originalTime
@@ -77,11 +78,12 @@ export async function GET(request: NextRequest) {
 
       const clientConfirmationHtml = emailWrapper(
         `
+        <meta charset="UTF-8">
         <h2 style="color: white;">Foglalás visszaigazolva</h2>
         <p style="color: white;">Kedves ${updatedBookingState.name}!</p>
         <p style="color: white;">Köszönjük, hogy elfogadta az új időpontot:</p>
-        <p style="color: white;"><strong>${updatedBookingState.date} ${
-          updatedBookingState.time
+        <p style="color: white;"><strong>${updatedBookingState.newDate ?? "N/A"} ${
+          updatedBookingState.newTime ?? "N/A"
         }</strong></p>
         <p style="color: white;">Szállítási cím:</p>
         <p style="color: white;"><strong>Cím:</strong> ${
@@ -105,9 +107,9 @@ export async function GET(request: NextRequest) {
       return new NextResponse(
         `
         <!DOCTYPE html>
-        <html><head><title>Elfogadva</title><style>body{font-family:Arial,sans-serif;padding:20px;max-width:600px;margin:0 auto;text-align:center;background-color:#0e0e0e;color:#fff}h2{color:#4CAF50}p{margin:20px 0}button{background:#f47b20;color:#0e0e0e;border:none;padding:10px 15px;cursor:pointer;border-radius:4px;font-weight:bold}</style></head>
+        <html><meta charset="UTF-8"><head><title>Elfogadva</title><style>body{font-family:Arial,sans-serif;padding:20px;max-width:600px;margin:0 auto;text-align:center;background-color:#0e0e0e;color:#fff}h2{color:#4CAF50}p{margin:20px 0}button{background:#f47b20;color:#0e0e0e;border:none;padding:10px 15px;cursor:pointer;border-radius:4px;font-weight:bold}</style></head>
         <body><h2>Elfogadva</h2><p>Köszönjük, hogy elfogadta az új időpontot.</p>
-        <p><strong>${updatedBookingState.date} ${updatedBookingState.time}</strong></p><p>Egy visszaigazoló emailt is küldtünk Önnek.</p>
+        <p><strong>${updatedBookingState.newDate ?? "N/A"} ${updatedBookingState.newTime ?? "N/A"}</strong></p><p>Egy visszaigazoló emailt is küldtünk Önnek.</p>
         <p><button onclick="window.close()">Bezárás</button></p></body></html>
       `,
         { headers: { "Content-Type": "text/html" } }
@@ -123,6 +125,7 @@ export async function GET(request: NextRequest) {
 
       const adminNotificationHtml = emailWrapper(
         `
+        <meta charset="UTF-8">
         <h2>Ügyfél elutasította az új időpontot</h2>
         <p>${updatedBookingState.name} (${
           updatedBookingState.email
@@ -146,6 +149,7 @@ export async function GET(request: NextRequest) {
       });
       const clientNotificationHtml = emailWrapper(
         `
+        <meta charset="UTF-8">
         <h2 style="color: white;">Foglalás visszautasítva</h2>
         <p style="color: white;">Kedves ${updatedBookingState.name}!</p>
         <p style="color: white;">Értesítését megkaptuk, hogy nem fogadja el a javasolt új időpontot.</p>
@@ -163,7 +167,7 @@ export async function GET(request: NextRequest) {
       return new NextResponse(
         `
         <!DOCTYPE html>
-        <html><head><title>Elutasítva</title><style>body{font-family:Arial,sans-serif;padding:20px;max-width:600px;margin:0 auto;text-align:center;background-color:#0e0e0e;color:#fff}h2{color:#f44336}p{margin:20px 0}button{background:#f47b20;color:#0e0e0e;border:none;padding:10px 15px;cursor:pointer;border-radius:4px;font-weight:bold}</style></head>
+        <html><meta charset="UTF-8"><head><title>Elutasítva</title><style>body{font-family:Arial,sans-serif;padding:20px;max-width:600px;margin:0 auto;text-align:center;background-color:#0e0e0e;color:#fff}h2{color:#f44336}p{margin:20px 0}button{background:#f47b20;color:#0e0e0e;border:none;padding:10px 15px;cursor:pointer;border-radius:4px;font-weight:bold}</style></head>
         <body><h2>Elutasítva</h2><p>Értesítését megkaptuk, hogy nem fogadja el a javasolt új időpontot.</p>
         <p>Kérjük, látogasson vissza oldalunkra és foglaljon másik időpontot, vagy vegye fel velünk a kapcsolatot.</p>
         <p><button onclick="window.close()">Bezárás</button></p></body></html>

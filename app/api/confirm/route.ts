@@ -50,25 +50,23 @@ export async function GET(request: NextRequest) {
       if (!updatedBooking) throw new Error("Booking update failed");
 
       const acceptHtml = emailWrapper(
-        `<h2>Foglalás visszaigazolás</h2>
-        <p>Kedves ${updatedBooking.name}!</p>
-        <p>A(z) ${updatedBooking.date} ${
-          updatedBooking.time
-        } időpontot elfogadtuk.</p>
-        <p><strong>Szolgáltatások:</strong></p>
-        <ul>${updatedBooking.services
+        `<h2 style="color:#fff;">Foglalás visszaigazolás</h2>
+        <p style="color:#fff;">Kedves ${updatedBooking.name}!</p>
+        <p style="color:#fff;">A(z) ${updatedBooking.originalDate} ${updatedBooking.originalTime} időpontot elfogadtuk.</p>
+        <p style="color:#fff;"><strong>Szolgáltatások:</strong></p>
+        <ul style="color:#fff;">${updatedBooking.services
           .map((service) => `<li>${service}</li>`)
           .join("")}</ul>
-        <p><strong>Szállítási cím:</strong> ${updatedBooking.postalCode} ${
+        <p style="color:#fff;"><strong>Szállítási cím:</strong> ${updatedBooking.postalCode} ${
           updatedBooking.shippingAddress
         }</p>
         ${
           updatedBooking.differentBilling
-            ? `<p><strong>Számlázási cím:</strong> ${updatedBooking.billingPostalCode} ${updatedBooking.billingAddress}</p>`
+            ? `<p style="color:#fff;"><strong>Számlázási cím:</strong> ${updatedBooking.billingPostalCode} ${updatedBooking.billingAddress}</p>`
             : ""
         }
-        <p>Köszönjük foglalását!</p>
-        <p>Üdvözlettel,<br>Roli Szervíz</p>`
+        <p style="color:#fff;">Köszönjük foglalását!</p>
+        <p style="color:#fff;">Üdvözlettel,<br>Roli Szervíz</p>`
       );
       await transporter.sendMail({
         from: process.env.BOOKING_EMAIL_USER,
@@ -77,7 +75,9 @@ export async function GET(request: NextRequest) {
         html: acceptHtml,
       });
       return new NextResponse(
-        "<p style='color:green;'>Foglalás elfogadva és visszaigazolva az ügyfélnek.</p>",
+        `
+        <meta charset="UTF-8">
+        <p style='color:green;'>Foglalás elfogadva és visszaigazolva az ügyfélnek.</p>`,
         { headers: { "Content-Type": "text/html" } }
       );
     }
@@ -88,11 +88,11 @@ export async function GET(request: NextRequest) {
       if (!updatedBooking) throw new Error("Booking update failed");
 
       const rejectHtml = emailWrapper(
-        `<h2>Foglalás elutasítva</h2>
-        <p>Kedves ${updatedBooking.name}!</p>
-        <p>Sajnáljuk, a(z) ${updatedBooking.date} ${updatedBooking.time} időpontot nem tudjuk elfogadni.</p>
-        <p>Kérjük, látogasson vissza oldalunkra és foglaljon másik időpontot.</p>
-        <p>Üdvözlettel,<br>Roli Szervíz</p>`
+        `<h2 style="color:#fff;">Foglalás elutasítva</h2>
+        <p style="color:#fff;">Kedves ${updatedBooking.name}!</p>
+        <p style="color:#fff;">Sajnáljuk, a(z) ${updatedBooking.originalDate} ${updatedBooking.originalTime} időpontot nem tudjuk elfogadni.</p>
+        <p style="color:#fff;">Kérjük, látogasson vissza oldalunkra és foglaljon másik időpontot.</p>
+        <p style="color:#fff;">Üdvözlettel,<br>Roli Szervíz</p>`
       );
       await transporter.sendMail({
         from: process.env.BOOKING_EMAIL_USER,
@@ -101,7 +101,8 @@ export async function GET(request: NextRequest) {
         html: rejectHtml,
       });
       return new NextResponse(
-        "<p style='color:green;'>Foglalás elutasítva és az ügyfelet értesítettük.</p>",
+        `<meta charset="UTF-8">
+        <p style='color:red;'>Foglalás elutasítva és az ügyfelet értesítettük.</p>`,
         { headers: { "Content-Type": "text/html" } }
       );
     }

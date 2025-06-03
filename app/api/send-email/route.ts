@@ -73,7 +73,7 @@ export async function POST(request: Request) {
       
       <a href="${baseUrl}/api/confirm?id=${id}&action=accept">✅ Elfogadom</a>
       <a href="${baseUrl}/api/confirm?id=${id}&action=reject">❌ Elutasítom</a>
-      
+      <a href="${baseUrl}/api/modify?id=${id}" style="background: #2196F3; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px;">🔁 Módosítást ajánlok</a>
     </div>
   `);
 
