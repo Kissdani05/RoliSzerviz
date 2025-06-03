@@ -95,7 +95,7 @@ export const translations = {
     Webshop: "Webshop",
     Szerviz: "Service",
     // Hero section
-    ÜDVÖZLÜNK: "WELCOME",
+    ÜDVÖZLÜNK: "WELCOME!",
     "A ROLI SZERVIZNÉL!": "TO ROLLER SERVICE!",
     "Elektromos roller és kerékpár szerviz Debrecenben":
       "Electric scooter and bike service in Debrecen",
