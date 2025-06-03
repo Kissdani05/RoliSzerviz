@@ -1,9 +1,8 @@
-import { kv } from "@vercel/kv";
+import { getSupabaseClient } from "./supabaseClient";
 
 export interface Booking {
+  id: string;
   email: string;
-  date: string;
-  time: string;
   status:
     | "pending"
     | "accepted"
@@ -25,33 +24,82 @@ export interface Booking {
   originalTime: string;
   newDate?: string;
   newTime?: string;
-  id: string; // Add id to the booking interface
 }
 
 export function generateId(email: string, date: string, time: string): string {
-  // Simple unique ID generation for this example. In production, consider UUIDs or database IDs.
   return Buffer.from(`${email}_${date}_${time}_${Date.now()}`).toString(
     "base64url"
   );
 }
 
-// Functions to interact with Vercel KV
+// Helper to map Booking camelCase to db snake/lowercase
+function toDb(booking: Booking | Partial<Booking>) {
+  return {
+    id: booking.id,
+    email: booking.email,
+    status: booking.status,
+    name: booking.name,
+    phone: booking.phone,
+    postalcode: booking.postalCode,
+    shippingaddress: booking.shippingAddress,
+    differentbilling: booking.differentBilling,
+    billingpostalcode: booking.billingPostalCode ?? null,
+    billingaddress: booking.billingAddress ?? null,
+    services: booking.services ? JSON.stringify(booking.services) : undefined,
+    message: booking.message ?? null,
+    modificationsent: booking.modificationSent,
+    originaldate: booking.originalDate,
+    originaltime: booking.originalTime,
+    newdate: booking.newDate ?? null,
+    newtime: booking.newTime ?? null,
+  };
+}
+
+// Helper to map db row to Booking
+function fromDb(row: any): Booking {
+  return {
+    id: row.id,
+    email: row.email,
+    status: row.status,
+    name: row.name,
+    phone: row.phone,
+    postalCode: row.postalcode,
+    shippingAddress: row.shippingaddress,
+    differentBilling: !!row.differentbilling,
+    billingPostalCode: row.billingpostalcode ?? undefined,
+    billingAddress: row.billingaddress ?? undefined,
+    services: typeof row.services === "string" ? JSON.parse(row.services) : row.services,
+    message: row.message ?? undefined,
+    modificationSent: !!row.modificationsent,
+    originalDate: row.originaldate,
+    originalTime: row.originaltime,
+    newDate: row.newdate ?? undefined,
+    newTime: row.newtime ?? undefined,
+  };
+}
+
+// Functions to interact with Supabase
 export async function getBooking(id: string): Promise<Booking | null> {
-  try {
-    const booking = await kv.get<Booking>(`booking:${id}`);
-    return booking;
-  } catch (error) {
-    console.error("Error fetching booking from KV:", error);
+  const supabase = getSupabaseClient();
+  const { data, error } = await supabase
+    .from("bookings")
+    .select("*")
+    .eq("id", id)
+    .single();
+  if (error || !data) {
+    console.error("Error fetching booking from Supabase:", error);
     return null;
   }
+  return fromDb(data);
 }
 
 export async function saveBooking(booking: Booking): Promise<void> {
-  try {
-    await kv.set(`booking:${booking.id}`, booking);
-  } catch (error) {
-    console.error("Error saving booking to KV:", error);
-    // Handle error appropriately
+  const supabase = getSupabaseClient();
+  const { error } = await supabase.from("bookings").insert([
+    toDb(booking),
+  ]);
+  if (error) {
+    console.error("Error saving booking to Supabase:", error);
   }
 }
 
@@ -59,26 +107,22 @@ export async function updateBooking(
   id: string,
   updates: Partial<Booking>
 ): Promise<Booking | null> {
-  try {
-    const existingBooking = await getBooking(id);
-    if (!existingBooking) {
-      console.error(`Booking with id ${id} not found for update.`);
-      return null;
-    }
-    const updatedBooking = { ...existingBooking, ...updates };
-    await kv.set(`booking:${id}`, updatedBooking);
-    return updatedBooking;
-  } catch (error) {
-    console.error("Error updating booking in KV:", error);
+  const supabase = getSupabaseClient();
+  const { error } = await supabase
+    .from("bookings")
+    .update(toDb(updates))
+    .eq("id", id);
+  if (error) {
+    console.error("Error updating booking in Supabase:", error);
     return null;
   }
+  return getBooking(id);
 }
 
-// If you need to delete bookings (optional)
 export async function deleteBooking(id: string): Promise<void> {
-  try {
-    await kv.del(`booking:${id}`);
-  } catch (error) {
-    console.error("Error deleting booking from KV:", error);
+  const supabase = getSupabaseClient();
+  const { error } = await supabase.from("bookings").delete().eq("id", id);
+  if (error) {
+    console.error("Error deleting booking from Supabase:", error);
   }
 }

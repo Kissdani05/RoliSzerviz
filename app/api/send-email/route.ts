@@ -70,8 +70,10 @@ export async function POST(request: Request) {
     <p><strong>Időpont:</strong> ${date} ${time}</p>
     ${message ? `<p><strong>Üzenet:</strong> ${message}</p>` : ""}
     <div class="button-container" style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+      
       <a href="${baseUrl}/api/confirm?id=${id}&action=accept">✅ Elfogadom</a>
       <a href="${baseUrl}/api/confirm?id=${id}&action=reject">❌ Elutasítom</a>
+      
     </div>
   `);
 
