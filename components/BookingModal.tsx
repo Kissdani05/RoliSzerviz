@@ -36,6 +36,43 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
   const [availableFromHours, setAvailableFromHours] = useState<number[]>([]);
   const [availableToHours, setAvailableToHours] = useState<number[]>([]);
 
+  const updateToHours = React.useCallback((selectedFrom: number) => {
+    const toHours: number[] = [];
+    if (!isNaN(selectedFrom)) {
+      for (let h = selectedFrom + 1; h <= 17; h++) {
+        toHours.push(h);
+      }
+    }
+    setAvailableToHours(toHours);
+    if (toHours.length > 0) {
+      setFormData((prev) => ({ ...prev, bookingTo: toHours[0].toString() }));
+    } else {
+      setFormData((prev) => ({ ...prev, bookingTo: "" }));
+    }
+  }, []);
+
+  const updateAvailableHours = React.useCallback((date: string) => {
+    const now = new Date();
+    const isToday = now.toISOString().split("T")[0] === date;
+    const currentHour = now.getHours();
+    const fromHours: number[] = [];
+    for (let h = 9; h <= 16; h++) {
+      if (isToday && h <= currentHour) continue;
+      fromHours.push(h);
+    }
+    setAvailableFromHours(fromHours);
+    if (fromHours.length > 0) {
+      setFormData((prev) => ({
+        ...prev,
+        bookingFrom: fromHours[0].toString(),
+      }));
+      updateToHours(fromHours[0]);
+    } else {
+      setFormData((prev) => ({ ...prev, bookingFrom: "", bookingTo: "" }));
+      setAvailableToHours([]);
+    }
+  }, [updateToHours]);
+
   useEffect(() => {
     if (isOpen) {
       setIsRendered(true);
@@ -78,46 +115,6 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
       updateToHours(parseInt(formData.bookingFrom));
     }
   }, [isOpen, formData.bookingFrom, updateToHours]);
-
-  const updateAvailableHours = (date: string) => {
-    const now = new Date();
-    // const selectedDate = new Date(date);
-    const isToday = now.toISOString().split("T")[0] === date;
-    const currentHour = now.getHours();
-
-    const fromHours: number[] = [];
-    for (let h = 9; h <= 16; h++) {
-      if (isToday && h <= currentHour) continue;
-      fromHours.push(h);
-    }
-    setAvailableFromHours(fromHours);
-
-    if (fromHours.length > 0) {
-      setFormData((prev) => ({
-        ...prev,
-        bookingFrom: fromHours[0].toString(),
-      }));
-      updateToHours(fromHours[0]);
-    } else {
-      setFormData((prev) => ({ ...prev, bookingFrom: "", bookingTo: "" }));
-      setAvailableToHours([]);
-    }
-  };
-
-  const updateToHours = (selectedFrom: number) => {
-    const toHours: number[] = [];
-    if (!isNaN(selectedFrom)) {
-      for (let h = selectedFrom + 1; h <= 17; h++) {
-        toHours.push(h);
-      }
-    }
-    setAvailableToHours(toHours);
-    if (toHours.length > 0) {
-      setFormData((prev) => ({ ...prev, bookingTo: toHours[0].toString() }));
-    } else {
-      setFormData((prev) => ({ ...prev, bookingTo: "" }));
-    }
-  };
 
   const handleChange = (
     e: React.ChangeEvent<

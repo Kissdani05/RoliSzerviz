@@ -58,23 +58,23 @@ function toDb(booking: Booking | Partial<Booking>) {
 // Helper to map db row to Booking
 function fromDb(row: Record<string, unknown>): Booking {
   return {
-    id: row.id,
-    email: row.email,
-    status: row.status,
-    name: row.name,
-    phone: row.phone,
-    postalCode: row.postalcode,
-    shippingAddress: row.shippingaddress,
+    id: row.id as string,
+    email: row.email as string,
+    status: row.status as Booking["status"],
+    name: row.name as string,
+    phone: row.phone as string,
+    postalCode: row.postalcode as string,
+    shippingAddress: row.shippingaddress as string,
     differentBilling: !!row.differentbilling,
-    billingPostalCode: row.billingpostalcode ?? undefined,
-    billingAddress: row.billingaddress ?? undefined,
-    services: typeof row.services === "string" ? JSON.parse(row.services) : row.services,
-    message: row.message ?? undefined,
+    billingPostalCode: row.billingpostalcode ? String(row.billingpostalcode) : undefined,
+    billingAddress: row.billingaddress ? String(row.billingaddress) : undefined,
+    services: typeof row.services === "string" ? JSON.parse(row.services as string) : (row.services as string[]),
+    message: row.message ? String(row.message) : undefined,
     modificationSent: !!row.modificationsent,
-    originalDate: row.originaldate,
-    originalTime: row.originaltime,
-    newDate: row.newdate ?? undefined,
-    newTime: row.newtime ?? undefined,
+    originalDate: row.originaldate as string,
+    originalTime: row.originaltime as string,
+    newDate: row.newdate ? String(row.newdate) : undefined,
+    newTime: row.newtime ? String(row.newtime) : undefined,
   };
 }
 
