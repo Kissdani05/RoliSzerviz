@@ -80,7 +80,7 @@ const PriceModal: React.FC<PriceModalProps> = ({ isOpen, onClose }) => {
           <div className="price-item">
             <h3>{t("Csuklószerkezet javítás")}</h3>
             <p>{t("(anyagdíjat nem tartalmaz)")}</p>
-            <span className="price">10.000 {t("Ft")}-{t("-tól")}</span>
+            <span className="price">6.000 {t("Ft")}-{t("-tól")}</span>
           </div>
           <div className="price-item">
             <h3>{t("Csapágycsere")}</h3>
