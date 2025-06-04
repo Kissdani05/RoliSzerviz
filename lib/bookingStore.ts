@@ -24,6 +24,7 @@ export interface Booking {
   originalTime: string;
   newDate?: string;
   newTime?: string;
+  city: string;
 }
 
 export function generateId(email: string, date: string, time: string): string {
@@ -52,6 +53,7 @@ function toDb(booking: Booking | Partial<Booking>) {
     originaltime: booking.originalTime,
     newdate: booking.newDate ?? null,
     newtime: booking.newTime ?? null,
+    city: booking.city,
   };
 }
 
@@ -75,6 +77,7 @@ function fromDb(row: Record<string, unknown>): Booking {
     originalTime: row.originaltime as string,
     newDate: row.newdate ? String(row.newdate) : undefined,
     newTime: row.newtime ? String(row.newtime) : undefined,
+    city: row.city as string,
   };
 }
 

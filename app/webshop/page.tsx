@@ -7,9 +7,9 @@ import LanguageSelector from "../../components/LanguageSelector"; // Adjusted pa
 import {
   Phone,
   Instagram,
-  Youtube,
   Facebook,
 } from "lucide-react"; // Added PackageSearch
+import Image from "next/image";
 
 export default function WebshopPage() {
   const { t } = useTranslation();
@@ -23,20 +23,20 @@ export default function WebshopPage() {
             <Link href="/" className="webshop-btn">
               {t("Szerviz")}
             </Link>
-            <div className="contact-icons">
+             <div className="contact-icons">
               <a href="tel:+36302542292" className="phone">
-                <Phone size={18} /> {/* Lucide Phone icon */}
+                <Phone size={18} />
                 +36 30 254 2292
               </a>
               <div className="social-icons">
-                <a href="#" aria-label="Instagram">
-                  <Instagram size={20} /> {/* Lucide Instagram icon */}
+                <a href="https://www.instagram.com/roliszerviz.hu/" aria-label="Instagram">
+                  <Instagram size={20} />
                 </a>
-                <a href="#" aria-label="TikTok">
-                  <Youtube size={20} /> {/* Lucide Youtube icon */}
+                <a href="https://www.tiktok.com/@roliszerviz" aria-label="TikTok">
+                  <Image src="/logok/Tiktok Icon.png" alt="TikTok" width={20} height={20} style={{ display: 'inline', verticalAlign: 'middle' }} />
                 </a>
-                <a href="#" aria-label="Facebook">
-                  <Facebook size={20} /> {/* Lucide Facebook icon */}
+                <a href="https://www.facebook.com/Roliszerviz.huDebrecen?locale=hu_HU" aria-label="Facebook">
+                  <Facebook size={20} />
                 </a>
                 <LanguageSelector />
               </div>

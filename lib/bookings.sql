@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS bookings (
   email TEXT NOT NULL,
   status TEXT NOT NULL,
   name TEXT NOT NULL,
+  city TEXT NOT NULL,
   phone TEXT NOT NULL,
   postalCode TEXT NOT NULL,
   shippingAddress TEXT NOT NULL,

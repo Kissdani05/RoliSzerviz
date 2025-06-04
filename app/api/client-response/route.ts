@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { getBooking, updateBooking, Booking } from "../../../lib/bookingStore"; // Updated import to use KV functions
 import { emailWrapper } from "../../../lib/emailUtils";
+import { addBookingToCalendar } from '../../../lib/googleCalendar';
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -48,6 +49,21 @@ export async function GET(request: NextRequest) {
       });
       if (!updatedBookingState)
         throw new Error("Booking update failed for client accept");
+      // Add to Google Calendar
+      try {
+        const [from, to] = (updatedBookingState.newTime ?? '').split(' - ');
+        const startDateTime = `${updatedBookingState.newDate}T${from.trim()}:00+02:00`;
+        const endDateTime = `${updatedBookingState.newDate}T${to.trim()}:00+02:00`;
+        await addBookingToCalendar({
+          summary: `Roli Szerviz foglalás: ${updatedBookingState.name}`,
+          description: `Szolgáltatások: ${updatedBookingState.services.join(', ')}\nÜzenet: ${updatedBookingState.message ?? ''}`,
+          startDateTime,
+          endDateTime,
+          location: `${updatedBookingState.city}, ${updatedBookingState.postalCode} ${updatedBookingState.shippingAddress}`,
+        });
+      } catch (calendarError) {
+        console.error('Google Calendar event error:', calendarError);
+      }
 
       const adminNotificationHtml = emailWrapper(
         `

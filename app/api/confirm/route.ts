@@ -4,6 +4,7 @@ import nodemailer from "nodemailer";
 // Updated import to use KV functions
 import { getBooking, updateBooking, Booking } from "../../../lib/bookingStore";
 import { emailWrapper } from "../../../lib/emailUtils";
+import { addBookingToCalendar } from '../../../lib/googleCalendar';
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -48,6 +49,21 @@ export async function GET(request: NextRequest) {
       // Update booking in Vercel KV
       updatedBooking = await updateBooking(id, { status: "accepted" });
       if (!updatedBooking) throw new Error("Booking update failed");
+      // Add to Google Calendar
+      try {
+        const [from, to] = updatedBooking.originalTime.split(' - ');
+        const startDateTime = `${updatedBooking.originalDate}T${from.trim()}:00+02:00`;
+        const endDateTime = `${updatedBooking.originalDate}T${to.trim()}:00+02:00`;
+        await addBookingToCalendar({
+          summary: `Roli Szerviz foglalás: ${updatedBooking.name}`,
+          description: `Szolgáltatások: ${updatedBooking.services.join(', ')}\nÜzenet: ${updatedBooking.message ?? ''}`,
+          startDateTime,
+          endDateTime,
+          location: `${updatedBooking.city}, ${updatedBooking.postalCode} ${updatedBooking.shippingAddress}`.replace(/\s*\d{1,2}:\d{2}(-\d{1,2}:\d{2})?/g, ''), // órát eltávolítja
+        });
+      } catch (calendarError) {
+        console.error('Google Calendar event error:', calendarError);
+      }
 
       const acceptHtml = emailWrapper(
         `<h2 style="color:#fff;">Foglalás visszaigazolás</h2>

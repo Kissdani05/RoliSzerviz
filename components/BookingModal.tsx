@@ -16,6 +16,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
 
   const [formData, setFormData] = useState({
     name: "",
+    city: "",
     email: "",
     phone: "",
     postalCode: "",
@@ -157,6 +158,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
 
     const {
       name,
+      city,
       email,
       phone,
       postalCode,
@@ -229,6 +231,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
         },
         body: JSON.stringify({
           name,
+          city: formData.city,
           email,
           phone,
           postalCode,
@@ -250,6 +253,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
         onClose();
         setFormData({
           name: "",
+          city: "",
           email: "",
           phone: "",
           postalCode: "",
@@ -308,6 +312,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
               required
             />
           </div>
+          
           <div className="form-group">
             <label htmlFor="email">{t("Email cím")}</label>
             <input
@@ -327,6 +332,18 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
               name="phone"
               value={formData.phone}
               onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="city">{t("Város")}</label>
+            <input
+              type="text"
+              name="city"
+              value={formData.city}
+              onChange={handleChange}
+              placeholder={t("Város")}
+              className="form-control"
               required
             />
           </div>
@@ -498,6 +515,14 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
               value={formData.bookingDate}
               onChange={handleChange}
               required
+              min={(() => {
+                const now = new Date();
+                const year = now.getFullYear();
+                const month = (now.getMonth() + 1).toString().padStart(2, '0');
+                const day = now.getDate().toString().padStart(2, '0');
+                return `${year}-${month}-${day}`;
+              })()}
+              style={{ color: formData.bookingDate && new Date(formData.bookingDate) < new Date(new Date().toISOString().split('T')[0]) ? '#aaa' : undefined, background: formData.bookingDate && new Date(formData.bookingDate) < new Date(new Date().toISOString().split('T')[0]) ? '#eee' : undefined }}
             />
           </div>
 
@@ -511,11 +536,19 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
                 onChange={handleChange}
                 required
               >
-                {availableFromHours.map((hour) => (
-                  <option key={hour} value={hour}>
-                    {hour}:00
-                  </option>
-                ))}
+                {availableFromHours.map((hour) => {
+                  const isPast = formData.bookingDate === new Date().toISOString().split("T")[0] && hour <= new Date().getHours();
+                  return (
+                    <option
+                      key={hour}
+                      value={hour}
+                      disabled={isPast}
+                      style={isPast ? { color: '#aaa', background: '#eee' } : {}}
+                    >
+                      {hour}:00
+                    </option>
+                  );
+                })}
               </select>
               <select
                 id="bookingTo"
