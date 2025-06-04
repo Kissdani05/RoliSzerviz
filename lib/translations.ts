@@ -1,4 +1,8 @@
-export const translations = {
+// Fix: Define Locale and TranslationObject types first, then use them for translations
+export type Locale = 'hu' | 'en' | 'de';
+export type TranslationObject = { [key: string]: string };
+
+export const translations: Record<Locale, TranslationObject> = {
   hu: {
     // Header
     "ROLI SZERVIZ": "ROLI SZERVIZ",
@@ -284,5 +288,4 @@ export const translations = {
   },
 };
 
-export type Locale = keyof typeof translations;
 export type TranslationKey = string;

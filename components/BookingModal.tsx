@@ -102,7 +102,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
       }, 300);
       return () => clearTimeout(timer);
     }
-  }, [isOpen]);
+  }, [isOpen, updateAvailableHours]);
 
   // Ensure these useEffects also run when isOpen changes and formData.bookingDate is set
   useEffect(() => {
@@ -158,7 +158,6 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
 
     const {
       name,
-      city,
       email,
       phone,
       postalCode,
