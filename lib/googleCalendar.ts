@@ -1,5 +1,6 @@
 import { google } from 'googleapis';
 import { JWT } from 'google-auth-library';
+import path from 'path';
 
 // Path to your service account JSON file (place this file in your project and add to .gitignore!)
 const SERVICE_ACCOUNT_FILE = process.env.GOOGLE_SERVICE_ACCOUNT_JSON || './google-service-account.json';
@@ -11,7 +12,7 @@ const SCOPES = ['https://www.googleapis.com/auth/calendar'];
 // Helper to get JWT client
 function getGoogleAuth() {
   return new JWT({
-    keyFile: SERVICE_ACCOUNT_FILE,
+    keyFile: path.resolve(process.cwd(), 'google-service-account.json'),
     scopes: SCOPES,
   });
 }
