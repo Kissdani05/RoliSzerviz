@@ -1,16 +1,23 @@
 import { google } from 'googleapis';
 import { JWT } from 'google-auth-library';
 import path from 'path';
+import fs from 'fs';
 
 const CALENDAR_ID = process.env.GOOGLE_CALENDAR_ID || process.env.BOOKING_EMAIL_USER;
 
 // Scopes required for Google Calendar
 const SCOPES = ['https://www.googleapis.com/auth/calendar'];
 
+// Write service account JSON from env if needed (for Vercel/serverless)
+const SERVICE_ACCOUNT_PATH = path.resolve(process.cwd(), 'google-service-account.json');
+if (!fs.existsSync(SERVICE_ACCOUNT_PATH) && process.env.GOOGLE_SERVICE_ACCOUNT_JSON) {
+  fs.writeFileSync(SERVICE_ACCOUNT_PATH, process.env.GOOGLE_SERVICE_ACCOUNT_JSON, 'utf-8');
+}
+
 // Helper to get JWT client
 function getGoogleAuth() {
   return new JWT({
-    keyFile: path.resolve(process.cwd(), 'google-service-account.json'),
+    keyFile: SERVICE_ACCOUNT_PATH,
     scopes: SCOPES,
   });
 }
