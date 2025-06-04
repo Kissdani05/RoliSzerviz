@@ -2,8 +2,6 @@ import { google } from 'googleapis';
 import { JWT } from 'google-auth-library';
 import path from 'path';
 
-// Path to your service account JSON file (place this file in your project and add to .gitignore!)
-const SERVICE_ACCOUNT_FILE = process.env.GOOGLE_SERVICE_ACCOUNT_JSON || './google-service-account.json';
 const CALENDAR_ID = process.env.GOOGLE_CALENDAR_ID || process.env.BOOKING_EMAIL_USER;
 
 // Scopes required for Google Calendar
