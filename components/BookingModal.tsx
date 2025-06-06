@@ -24,6 +24,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
     differentBilling: false,
     billingPostalCode: "",
     billingAddress: "",
+    billingCity: "",
     services: [] as string[],
     bookingDate: "",
     bookingFrom: "",
@@ -132,6 +133,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
           differentBilling: checked,
           billingPostalCode: checked ? prev.billingPostalCode : "",
           billingAddress: checked ? prev.billingAddress : "",
+          billingCity: checked ? prev.billingCity : "",
         }));
       } else if (name === "services") {
         const serviceValue = (e.target as HTMLInputElement).value;
@@ -165,6 +167,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
       differentBilling,
       billingPostalCode,
       billingAddress,
+      billingCity,
       services,
       bookingDate,
       bookingFrom,
@@ -238,6 +241,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
           differentBilling,
           billingPostalCode,
           billingAddress,
+          billingCity,
           services: selectedServices,
           date: bookingDate,
           time: timeRange,
@@ -260,6 +264,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
           differentBilling: false,
           billingPostalCode: "",
           billingAddress: "",
+          billingCity: "",
           services: [],
           bookingDate: "",
           bookingFrom: "",
@@ -301,7 +306,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
         <h2>{t("Időpontfoglalás")}</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="name">{t("Név")}</label>
+            <label htmlFor="name">{t("Név")}<span style={{color: 'var(--primary-color)', marginLeft: 4}}>*</span></label>
             <input
               type="text"
               id="name"
@@ -313,7 +318,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
           </div>
           
           <div className="form-group">
-            <label htmlFor="email">{t("Email cím")}</label>
+            <label htmlFor="email">{t("Email cím")}<span style={{color: 'var(--primary-color)', marginLeft: 4}}>*</span></label>
             <input
               type="email"
               id="email"
@@ -324,7 +329,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="phone">{t("Telefonszám")}</label>
+            <label htmlFor="phone">{t("Telefonszám")}<span style={{color: 'var(--primary-color)', marginLeft: 4}}>*</span></label>
             <input
               type="tel"
               id="phone"
@@ -335,7 +340,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="city">{t("Város")}</label>
+            <label htmlFor="city">{t("Város")}<span style={{color: 'var(--primary-color)', marginLeft: 4}}>*</span></label>
             <input
               type="text"
               name="city"
@@ -347,7 +352,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="postalCode">{t("Irányítószám")}</label>
+            <label htmlFor="postalCode">{t("Irányítószám")}<span style={{color: 'var(--primary-color)', marginLeft: 4}}>*</span></label>
             <input
               type="text"
               id="postalCode"
@@ -360,7 +365,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="shippingAddress">{t("Szállítási cím")}</label>
+            <label htmlFor="shippingAddress">{t("Szállítási cím")}<span style={{color: 'var(--primary-color)', marginLeft: 4}}>*</span></label>
             <input
               type="text"
               id="shippingAddress"
@@ -412,6 +417,17 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
                   required={formData.differentBilling}
                 />
               </div>
+              <div className="form-group">
+                <label htmlFor="billingCity">{t("Város")}</label>
+                <input
+                  type="text"
+                  id="billingCity"
+                  name="billingCity"
+                  value={formData.billingCity}
+                  onChange={handleChange}
+                  required={formData.differentBilling}
+                />
+              </div>
             </div>
           )}
           <div className="form-group">
@@ -422,71 +438,89 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
                   type="checkbox"
                   id="service1"
                   name="services"
-                  value="Háztól házig szerviz"
-                  checked={formData.services.includes("Háztól házig szerviz")}
+                  value="Gumiszerelés, defektfajítás"
+                  checked={formData.services.includes("Gumiszerelés, defektfajítás")}
                   onChange={handleChange}
                 />
-                <label htmlFor="service1">{t("Háztól házig szerviz")}</label>
+                <label htmlFor="service1">{t("Gumiszerelés, defektfajítás")}</label>
               </div>
               <div className="checkbox-item">
                 <input
                   type="checkbox"
                   id="service2"
                   name="services"
-                  value="Gumiszerelés, defektfajítás"
-                  checked={formData.services.includes(
-                    "Gumiszerelés, defektfajítás"
-                  )}
+                  value="Fék beállítás, szerelés, légtelenítés"
+                  checked={formData.services.includes("Fék beállítás, szerelés, légtelenítés")}
                   onChange={handleChange}
                 />
-                <label htmlFor="service2">
-                  {t("Gumiszerelés, defektfajítás")}
-                </label>
+                <label htmlFor="service2">{t("Fék beállítás, szerelés, légtelenítés")}</label>
               </div>
               <div className="checkbox-item">
                 <input
                   type="checkbox"
                   id="service3"
                   name="services"
-                  value="Fék beállítás"
-                  checked={formData.services.includes("Fék beállítás")}
+                  value="Karbantartás"
+                  checked={formData.services.includes("Karbantartás")}
                   onChange={handleChange}
                 />
-                <label htmlFor="service3">{t("Fék beállítás")}</label>
+                <label htmlFor="service3">{t("Karbantartás")}</label>
               </div>
               <div className="checkbox-item">
                 <input
                   type="checkbox"
                   id="service4"
                   name="services"
-                  value="Karbantartás"
-                  checked={formData.services.includes("Karbantartás")}
+                  value="Elektromos hibafeltárás, javítás"
+                  checked={formData.services.includes("Elektromos hibafeltárás, javítás")}
                   onChange={handleChange}
                 />
-                <label htmlFor="service4">{t("Karbantartás")}</label>
+                <label htmlFor="service4">{t("Elektromos hibafeltárás, javítás")}</label>
               </div>
               <div className="checkbox-item">
                 <input
                   type="checkbox"
                   id="service5"
                   name="services"
-                  value="Elektromos javítás"
-                  checked={formData.services.includes("Elektromos javítás")}
+                  value="Csapágycsere"
+                  checked={formData.services.includes("Csapágycsere")}
                   onChange={handleChange}
                 />
-                <label htmlFor="service5">{t("Elektromos javítás")}</label>
+                <label htmlFor="service5">{t("Csapágycsere")}</label>
               </div>
               <div className="checkbox-item">
                 <input
                   type="checkbox"
                   id="service6"
                   name="services"
+                  value="Gumi defektmentesítés, defektmentesítő folyadékkal"
+                  checked={formData.services.includes("Gumi defektmentesítés, defektmentesítő folyadékkal")}
+                  onChange={handleChange}
+                />
+                <label htmlFor="service6">{t("Gumi defektmentesítés, defektmentesítő folyadékkal")}</label>
+              </div>
+              <div className="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="service7"
+                  name="services"
+                  value="Alkatrész csere, egyéb javítás óradíj"
+                  checked={formData.services.includes("Alkatrész csere, egyéb javítás óradíj")}
+                  onChange={handleChange}
+                />
+                <label htmlFor="service7">{t("Alkatrész csere, egyéb javítás óradíj")}</label>
+              </div>
+              <div className="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="service8"
+                  name="services"
                   value="Egyéb"
                   className="other-checkbox"
                   checked={formData.services.includes("Egyéb")}
                   onChange={handleChange}
                 />
-                <label htmlFor="service6">{t("Egyéb")}</label>
+                <label htmlFor="service8">{t("Egyéb")}</label>
               </div>
               {showOtherServiceInput && (
                 <div className="form-group other-service-group">
@@ -499,7 +533,6 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
                     name="otherService"
                     value={formData.otherService}
                     onChange={handleChange}
-                    required={formData.services.includes("Egyéb")}
                   />
                 </div>
               )}

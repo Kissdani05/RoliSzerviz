@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS bookings (
   differentBilling BOOLEAN NOT NULL,
   billingPostalCode TEXT,
   billingAddress TEXT,
+  billingCity TEXT,
   services TEXT NOT NULL, -- JSON stringified array
   message TEXT,
   modificationSent BOOLEAN NOT NULL,

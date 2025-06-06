@@ -17,6 +17,7 @@ export interface Booking {
   differentBilling: boolean;
   billingPostalCode?: string;
   billingAddress?: string;
+  billingCity?: string;
   services: string[];
   message?: string;
   modificationSent: boolean;
@@ -46,6 +47,7 @@ function toDb(booking: Booking | Partial<Booking>) {
     differentbilling: booking.differentBilling,
     billingpostalcode: booking.billingPostalCode ?? null,
     billingaddress: booking.billingAddress ?? null,
+    billingcity: booking.billingCity ?? null,
     services: booking.services ? JSON.stringify(booking.services) : undefined,
     message: booking.message ?? null,
     modificationsent: booking.modificationSent,
@@ -70,6 +72,7 @@ function fromDb(row: Record<string, unknown>): Booking {
     differentBilling: !!row.differentbilling,
     billingPostalCode: row.billingpostalcode ? String(row.billingpostalcode) : undefined,
     billingAddress: row.billingaddress ? String(row.billingaddress) : undefined,
+    billingCity: row.billingcity ? String(row.billingcity) : undefined,
     services: typeof row.services === "string" ? JSON.parse(row.services as string) : (row.services as string[]),
     message: row.message ? String(row.message) : undefined,
     modificationSent: !!row.modificationsent,

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import React, { useState } from "react";
 import PriceModal from "../components/PriceModal";
 import BookingModal from "../components/BookingModal";
 import { useTranslation } from "../contexts/TranslationContext";
@@ -12,6 +12,9 @@ export default function Home() {
   const { t } = useTranslation();
   const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+
+  // State for testimonial expansion (one per testimonial)
+  const [testimonialExpanded, setTestimonialExpanded] = useState([false, false, false]);
 
   const openPriceModal = () => setIsPriceModalOpen(true);
   const closePriceModal = () => setIsPriceModalOpen(false);
@@ -63,6 +66,9 @@ export default function Home() {
               <p className="hero-subtitle">
                 {t("Elektromos roller és kerékpár szerviz Debrecenben")}
               </p>
+              <p className="hero-subtitle2">
+                {t("Háztól házig szerviz az alapdíjban!")}
+              </p>
               <p className="hero-description">
                 {t(
                   "Gyors és professzionális megoldás minden típusú elektromos járműhöz, kényelmes háztól házig szállítással."
@@ -97,35 +103,70 @@ export default function Home() {
         <div className="container">
           <h2 className="section-title">{t("Ügyfeleink véleménye")}</h2>
           <div className="testimonials-grid">
-            <div className="testimonial-card">
-              <div className="testimonial-content">
-                <p>{t("testimonial1")}</p>
-              </div>
-              <div className="testimonial-author">
-                <div className="author-name">{t("author1")}</div>
-                <div className="author-date">{t("date1")}</div>
-              </div>
-            </div>
-
-            <div className="testimonial-card">
-              <div className="testimonial-content">
-                <p>{t("testimonial2")}</p>
-              </div>
-              <div className="testimonial-author">
-                <div className="author-name">{t("author2")}</div>
-                <div className="author-date">{t("date2")}</div>
-              </div>
-            </div>
-
-            <div className="testimonial-card">
-              <div className="testimonial-content">
-                <p>{t("testimonial3")}</p>
-              </div>
-              <div className="testimonial-author">
-                <div className="author-name">{t("author3")}</div>
-                <div className="author-date">{t("date3")}</div>
-              </div>
-            </div>
+            {[1, 2, 3].map((i, idx) => {
+              const text = t(`testimonial${i}`);
+              const author = t(`author${i}`);
+              const date = t(`date${i}`);
+              let preview = '';
+              if (i === 2) {
+                // 2. vélemény: első sortörésig vagy max 80 karakterig
+                const idxNew = text.indexOf('\n');
+                preview = idxNew !== -1 ? text.slice(0, idxNew + 1) : text.slice(0, 80);
+              } else if (i === 3) {
+                // 3. vélemény: első mondat vagy felkiáltójel
+                const exclamIdx = text.indexOf('!');
+                if (exclamIdx !== -1) {
+                  preview = text.slice(0, exclamIdx + 1);
+                } else {
+                  const match = text.match(/[.!?]/);
+                  if (match && match.index !== undefined) {
+                    preview = text.slice(0, match.index + 1);
+                  } else {
+                    preview = text;
+                  }
+                }
+              } else {
+                // 1. vélemény: első mondat
+                const match = text.match(/[.!?]/);
+                if (match && match.index !== undefined) {
+                  preview = text.slice(0, match.index + 1);
+                } else {
+                  preview = text;
+                }
+              }
+              preview = preview.trim();
+              const needsMore = text.trim() !== preview.trim();
+              const expanded = testimonialExpanded[idx];
+              return (
+                <div className="testimonial-card" key={i}>
+                  <div className="testimonial-content">
+                    <p style={{ whiteSpace: 'pre-line' }}>
+                      {expanded || !needsMore ? text : preview}
+                      {needsMore && !expanded && (
+                        <span
+                          style={{ color: '#111', cursor: 'pointer', fontWeight: 'bold', marginLeft: 8 }}
+                          onClick={() => setTestimonialExpanded(exp => exp.map((v, j) => j === idx ? true : v))}
+                        >
+                          {t('több')}
+                        </span>
+                      )}
+                      {needsMore && expanded && (
+                        <span
+                          style={{ color: '#111', cursor: 'pointer', fontWeight: 'bold', marginLeft: 8 }}
+                          onClick={() => setTestimonialExpanded(exp => exp.map((v, j) => j === idx ? false : v))}
+                        >
+                          {t('kevesebb')}
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                  <div className="testimonial-author">
+                    <div className="author-name">{author}</div>
+                    <div className="author-date">{date}</div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

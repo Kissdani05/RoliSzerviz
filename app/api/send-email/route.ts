@@ -23,6 +23,7 @@ export async function POST(request: Request) {
       differentBilling,
       billingPostalCode,
       billingAddress,
+      billingCity,
       services,
       date,
       time,
@@ -43,6 +44,7 @@ export async function POST(request: Request) {
       differentBilling,
       billingPostalCode,
       billingAddress,
+      billingCity,
       services,
       message,
       status: "pending",
@@ -64,8 +66,8 @@ export async function POST(request: Request) {
       <p><strong>Név:</strong> ${name}</p>
       <p><strong>Email:</strong> ${email}</p>
       <p><strong>Telefonszám:</strong> ${phone}</p>
-      <p><strong>Város:</strong> ${city}</p>
-      <p><strong>Irányítószám:</strong> ${postalCode}</p>
+      <p><strong>Cím:</strong> ${city}, ${postalCode}, ${shippingAddress}</p>
+      ${differentBilling && (billingCity || billingPostalCode || billingAddress) ? `<p><strong>Számlázási cím:</strong> ${billingCity ? billingCity : ''}${billingCity && (billingPostalCode || billingAddress) ? ', ' : ''}${billingPostalCode ? billingPostalCode : ''}${billingPostalCode && billingAddress ? ', ' : ''}${billingAddress ? billingAddress : ''}</p>` : ''}
       <p><strong>Szolgáltatások:</strong></p>
       <ul>${services
         .map((service: string) => `<li>${service}</li>`)

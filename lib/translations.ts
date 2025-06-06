@@ -6,8 +6,7 @@ export const translations: Record<Locale, TranslationObject> = {
   hu: {
     // Header
     "ROLI SZERVIZ": "ROLI SZERVIZ",
-    oldalcim:
-      "Roli Szervíz - Elektromos roller és kerékpár szerviz Debrecenben",
+    oldalcim: "RoliSzerviz - Elektromos roller és kerékpár szerviz Debrecenben",
     meta_leiras:
       "Professzionális elektromos roller és kerékpár szerviz Debrecenben. Gyors, megbízható javítás háztól házig szállítással.",
     Webshop: "Webshop",
@@ -17,21 +16,23 @@ export const translations: Record<Locale, TranslationObject> = {
     "A ROLI SZERVIZNÉL!": "A ROLI SZERVIZNÉL!",
     "Elektromos roller és kerékpár szerviz Debrecenben":
       "Elektromos roller és kerékpár szerviz Debrecenben",
+      "Háztól házig szerviz az alapdíjban!":"Háztól házig szerviz az alapdíjban!",
     "Gyors és professzionális megoldás minden típusú elektromos járműhöz, kényelmes háztól házig szállítással.":
       "Gyors és professzionális megoldás minden típusú elektromos járműhöz, kényelmes háztól házig szállítással.",
     Árlista: "Árlista",
     Időpontfoglalás: "Időpontfoglalás",
     // Testimonials
+    // Ügyfeleink véleménye (HU)
     "Ügyfeleink véleménye": "Ügyfeleink véleménye",
-    testimonial1: "Adom ezt a helyet nagyon komoly a kiszolgalas",
-    author1: "Vasas Márk",
-    date1: "2024. október",
-    testimonial2: "Lekotlott a BMW-m és még azt is megcsinálta",
-    author2: "Suták Dávid",
-    date2: "2024. november",
-    testimonial3: "Ellopta a nevemet de adom a helyet, jók a jagerek",
-    author3: "Kökövics Róland",
-    date3: "2024. december",
+    testimonial1: "Gyors precíz és érték arányban is tökéletes.",
+    author1: "Zoltán",
+    date1: "2025. március",
+    testimonial2: "Végtelenül kedves és korrekt cég. A rollerem kopogó hangot adott, amire egy másik szerviz 10e-s javítást ajánlott fel. Viszont a RoliSzerviz házhoz jött, és 5 perc alatt kiderítette, hogy egy kábel csapódik a váznak. És ezért nem is kért pénzt, csak a kiszállási díj felét kellett fizessem. Minden debreceni és környéki elektromos roller tulajdonosnak nagybetűvel AJÁNLOM őket!",
+    author2: "József",
+    date2: "2025. április",
+    testimonial3: "Mindenkinek ajànlom, rugalmasak, segítőkèszek, jó a kommunikàció! Vasàrnap kèpes volt elhozni nekem a rollert,hogy hètfőn azzal menjek dolgozni!",
+    author3: "Ferenc",
+    date3: "2024. október",
     // Video section
     "Szerelj velunk otthon!": "Szerelj velünk otthon!",
     // Ad Container
@@ -57,6 +58,8 @@ export const translations: Record<Locale, TranslationObject> = {
     "kerekenként (8″ – 29″-os kerékig)": "kerekenként (8″ – 29″-os kerékig)",
     "Alkatrész csere, egyéb javítás óradíj":
       "Alkatrész csere, egyéb javítás óradíj",
+    Alapdíj: "Alapdíj",
+    "Tartalmazza a háztól házig szerviz kiszállást Debrecen területén.": "Tartalmazza a háztól házig szerviz kiszállást Debrecen területén.",
     // Booking Modal
     Név: "Név",
     "Email cím": "Email cím",
@@ -96,13 +99,15 @@ export const translations: Record<Locale, TranslationObject> = {
     "Forint": "Forint",
     "Ár": "Ár",
     "Árak": "Árak",
-    "-tól": "-tól",
+    "tól": "tól",
     "-ig": "-ig",
+    "több": "több",
+    "kevesebb": "kevesebb",
   },
   en: {
     // Header
     "ROLI SZERVIZ": "ROLLER SERVICE",
-    oldalcim: "Roller Service - Electric scooter and bike repair in Debrecen",
+    oldalcim: "RoliSzerviz - Electric scooter and bike repair in Debrecen",
     meta_leiras:
       "Professional electric scooter and bike service in Debrecen. Fast, reliable repairs with door-to-door delivery.",
     Webshop: "Webshop",
@@ -118,15 +123,15 @@ export const translations: Record<Locale, TranslationObject> = {
     Időpontfoglalás: "Book Appointment",
     // Testimonials
     "Ügyfeleink véleménye": "Customer Reviews",
-    testimonial1: "I really like this place, the service is very professional",
-    author1: "Mark Vasas",
-    date1: "October 2024",
-    testimonial2: "My BMW broke down and he even fixed that",
-    author2: "David Sutak",
-    date2: "November 2024",
-    testimonial3: "He stole my name but I like the place, good guys",
-    author3: "Roland Kokovics",
-    date3: "December 2024",
+    testimonial1: "Fast, precise and perfect value for money.",
+    author1: "Zoltán",
+    date1: "March 2025",
+    testimonial2: "Extremely kind and fair company. My scooter made a knocking sound, for which another service offered a 10k HUF repair. But RoliSzerviz came to my house and in 5 minutes found that a cable was hitting the frame. And they didn't even charge for this, I only had to pay half the call-out fee. I HIGHLY RECOMMEND them to every electric scooter owner in and around Debrecen!",
+    author2: "József",
+    date2: "April 2025",
+    testimonial3: "I recommend them to everyone, they are flexible, helpful, and communication is great! On Sunday they managed to bring me the scooter so I could go to work with it on Monday!",
+    author3: "Ferenc",
+    date3: "October 2024",
     // Video section
     "Szerelj velunk otthon!": "Repair with us at home!",
     // Ad Container
@@ -152,6 +157,8 @@ export const translations: Record<Locale, TranslationObject> = {
     "kerekenként (8″ – 29″-os kerékig)": "per wheel (for 8″ – 29″ wheels)",
     "Alkatrész csere, egyéb javítás óradíj":
       "Part replacement, other repair hourly rate",
+    Alapdíj: "Base fee",
+    "Tartalmazza a háztól házig szerviz kiszállást Debrecen területén.": "Includes door-to-door service within Debrecen.",
     // Booking Modal
     Név: "Name",
     "Email cím": "Email Address",
@@ -189,13 +196,15 @@ export const translations: Record<Locale, TranslationObject> = {
     "Forint": "Forint",
     "Ár": "Price",
     "Árak": "Prices",
-    "-tól": "from",
+    "tól": "from",
     "-ig": "-to",
+    "több": "more",
+    "kevesebb": "less",
   },
   de: {
     // Header
     "ROLI SZERVIZ": "ROLLER SERVICE",
-    oldalcim: "Roller Service - Elektroroller und Fahrradreparatur in Debrecen",
+    oldalcim: "RoliSzerviz - Elektroroller und Fahrradreparatur in Debrecen",
     meta_leiras:
       "Professioneller Elektroroller- und Fahrradservice in Debrecen. Schnelle, zuverlässige Reparaturen mit Haustürlieferung.",
     Webshop: "Webshop",
@@ -204,9 +213,9 @@ export const translations: Record<Locale, TranslationObject> = {
     ÜDVÖZLÜNK: "WILLKOMMEN",
     "A ROLI SZERVIZNÉL!": "BEIM ROLLER SERVICE!",
     "Elektromos roller és kerékpár szerviz Debrecenben":
-      "Elektroroller und Fahrradservice in Debrecen",
+      "Elektroroller és kerékpár szerviz Debrecenben",
     "Gyors és professzionális megoldás minden típusú elektromos járműhöz, kényelmes háztól házig szállítással.":
-      "Schnelle und professionelle Lösungen für alle Arten von Elektrofahrzeugen mit bequemer Haustürlieferung.",
+      "Schnelle és professzionális megoldás minden típusú elektromos járműhöz, kényelmes háztól házig szállítással.",
     Árlista: "Preisliste",
     Időpontfoglalás: "Termin buchen",
     // Testimonials
@@ -214,7 +223,7 @@ export const translations: Record<Locale, TranslationObject> = {
     testimonial1: "Ich mag diesen Ort sehr, der Service ist sehr professionell",
     author1: "Mark Vasas",
     date1: "Oktober 2024",
-    testimonial2: "Mein BMW ist ausgefallen und er hat sogar das repariert",
+    testimonial2: "Ich mag diesen Ort sehr, der Service ist sehr professionell. Mein BMW ist ausgefallen és ő még azt is megjavította. RoliSzerviz házhoz jött és 5 perc alatt kiderítette a problémát. Csak a kiszállási díj felét kellett fizessem. Minden debreceni és környéki elektromos roller tulajdonosnak ajánlom őket!",
     author2: "David Sutak",
     date2: "November 2024",
     testimonial3:
@@ -246,6 +255,8 @@ export const translations: Record<Locale, TranslationObject> = {
     "kerekenként (8″ – 29″-os kerékig)": "pro Rad (für 8″ – 29″ Räder)",
     "Alkatrész csere, egyéb javítás óradíj":
       "Ersatzteilwechsel, sonstige Reparatur Stundensatz",
+    Alapdíj: "Grundgebühr",
+    "Tartalmazza a háztól házig szerviz kiszállást Debrecen területén.": "Beinhaltet Haustürservice innerhalb von Debrecen.",
     // Booking Modal
     Név: "Name",
     "Email cím": "E-Mail-Adresse",
@@ -283,8 +294,10 @@ export const translations: Record<Locale, TranslationObject> = {
     "Forint": "Forint",
     "Ár": "Preis",
     "Árak": "Preise",
-    "-tól": "ab",
+    "tól": "ab",
     "-ig": "-bis",
+    "több": "mehr",
+    "kevesebb": "weniger",
   },
 };
 

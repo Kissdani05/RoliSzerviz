@@ -249,15 +249,24 @@ body {
   margin-bottom: 1rem;
   line-height: 1.2;
   font-weight: 700;
+  color: var(--primary-color);
 }
 
 .hero-title span {
   color: var(--primary-color);
+  font-size: 3rem;
+  font-weight: 600;
 }
 
 .hero-subtitle {
   font-size: 1.5rem;
   color: var(--primary-color);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+.hero-subtitle2{
+  font-size: 1.5rem;
+  color: white;
   margin-bottom: 1rem;
   font-weight: 600;
 }
@@ -497,6 +506,21 @@ body {
   font-weight: 700;
   font-size: 1.2rem;
   color: var(--dark-color);
+}
+
+.price-item-base {
+  background-color: var(--primary-color);
+  color: var(--light-color);
+  font-weight: 700;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.price-item-base h3,
+.price-item-base p,
+.price-item-base .price {
+  color: var(--light-color) !important;
 }
 
 /* Form Styles */

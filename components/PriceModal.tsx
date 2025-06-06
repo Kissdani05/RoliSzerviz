@@ -53,15 +53,20 @@ const PriceModal: React.FC<PriceModalProps> = ({ isOpen, onClose }) => {
         </span>
         <h2>{t("Árlista")}</h2>
         <div className="price-table">
+          <div className="price-item price-item-base">
+            <h3>{t("Alapdíj")}</h3>
+            <p>{t("Tartalmazza a háztól házig szerviz kiszállást Debrecen területén.")}</p>
+            <span className="price" style={{color: 'white'}}>3.000 {t("Ft")}</span>
+          </div>
           <div className="price-item">
             <h3>{t("Gumiszerelés, defektfajítás")}</h3>
             <p>{t("(anyagdíjat nem tartalmaz)")}</p>
-            <span className="price">6.000 {t("Ft")}–{t("-tól")}</span>
+            <span className="price">6.000 {t("Ft")}–{t("tól")}</span>
           </div>
           <div className="price-item">
             <h3>{t("Fék beállítás, szerelés, légtelenítés")}</h3>
             <p>{t("(anyagdíjat nem tartalmaz)")}</p>
-            <span className="price">4.000 {t("Ft")}–{t("-tól")}</span>
+            <span className="price">4.000 {t("Ft")}–{t("tól")}</span>
           </div>
           <div className="price-item">
             <h3>{t("Karbantartás")}</h3>
@@ -70,27 +75,22 @@ const PriceModal: React.FC<PriceModalProps> = ({ isOpen, onClose }) => {
                 "(átvizsgálás, csavarok meghúzása, zsírozás, fék beállítás bovdenek ellenőrzése , stb, anyagdíjat nem tartalmaz)"
               )}
             </p>
-            <span className="price">6.000 {t("Ft")}–{t("-tól")}</span>
+            <span className="price">6.000 {t("Ft")}–{t("tól")}</span>
           </div>
           <div className="price-item">
             <h3>{t("Elektromos hibafeltárás, javítás")}</h3>
             <p>{t("(anyagdíjat nem tartalmaz)")}</p>
-            <span className="price">5.000 {t("Ft")}-{t("-tól")}</span>
-          </div>
-          <div className="price-item">
-            <h3>{t("Csuklószerkezet javítás")}</h3>
-            <p>{t("(anyagdíjat nem tartalmaz)")}</p>
-            <span className="price">6.000 {t("Ft")}-{t("-tól")}</span>
+            <span className="price">5.000 {t("Ft")}-{t("tól")}</span>
           </div>
           <div className="price-item">
             <h3>{t("Csapágycsere")}</h3>
             <p>{t("kerekenként, (anyagdíjat nem tartalmaz)")}</p>
-            <span className="price">6.000 {t("Ft")}-{t("-tól")}</span>
+            <span className="price">6.000 {t("Ft")}-{t("tól")}</span>
           </div>
           <div className="price-item">
             <h3>{t("Gumi defektmentesítés, defektmentesítő folyadékkal")}</h3>
             <p>{t("kerekenként (8″ – 29″-os kerékig)")}</p>
-            <span className="price">3.000 {t("Ft")}–6.000 {t("Ft")}{t("-ig")}</span>
+            <span className="price">3.000 {t("Ft")} – 6.000 {t("Ft")}{t("-ig")}</span>
           </div>
           <div className="price-item">
             <h3>{t("Alkatrész csere, egyéb javítás óradíj")}</h3>
