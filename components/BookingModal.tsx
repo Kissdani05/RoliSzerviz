@@ -346,7 +346,6 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
               name="city"
               value={formData.city}
               onChange={handleChange}
-              placeholder={t("Város")}
               className="form-control"
               required
             />
