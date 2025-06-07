@@ -114,7 +114,7 @@ export const translations: Record<Locale, TranslationObject> = {
     Szerviz: "Service",
     // Hero section
     ÜDVÖZLÜNK: "WELCOME",
-    "A ROLI SZERVIZNÉL!": "AT ROLISZERVIZ!",
+    "A ROLI SZERVIZNÉL!": "AT ROLISERVICE!",
     "Elektromos roller és kerékpár szerviz Debrecenben":
       "Electric scooter and bicycle service in Debrecen",
     "Háztól házig szerviz az alapdíjban!": "Door-to-door service included in the base fee!",
@@ -204,7 +204,7 @@ export const translations: Record<Locale, TranslationObject> = {
     Szerviz: "Service",
     // Hero section
     ÜDVÖZLÜNK: "WILLKOMMEN",
-    "A ROLISZERVIZNÉL!": "BEI ROLISZERVIZ!",
+    "A ROLISZERVIZNÉL!": "BEI ROLISERVICE!",
     "Elektromos roller és kerékpár szerviz Debrecenben":
       "Elektroroller- und Fahrradservice in Debrecen",
     "Háztól házig szerviz az alapdíjban!": "Haustürservice in der Grundgebühr enthalten!",
