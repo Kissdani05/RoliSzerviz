@@ -5,7 +5,7 @@ export type TranslationObject = { [key: string]: string };
 export const translations: Record<Locale, TranslationObject> = {
   hu: {
     // Header
-    "ROLI SZERVIZ": "ROLI SZERVIZ",
+    "ROLI SZERVIZ": "ROLISZERVIZ",
     oldalcim: "RoliSzerviz - Elektromos roller és kerékpár szerviz Debrecenben",
     meta_leiras:
       "Professzionális elektromos roller és kerékpár szerviz Debrecenben. Gyors, megbízható javítás háztól házig szállítással.",
@@ -13,7 +13,7 @@ export const translations: Record<Locale, TranslationObject> = {
     Szerviz: "Szerviz",
     // Hero section
     ÜDVÖZLÜNK: "ÜDVÖZLÜNK",
-    "A ROLI SZERVIZNÉL!": "A ROLI SZERVIZNÉL!",
+    "A ROLI SZERVIZNÉL!": "A ROLISZERVIZNÉL!",
     "Elektromos roller és kerékpár szerviz Debrecenben":
       "Elektromos roller és kerékpár szerviz Debrecenben",
       "Háztól házig szerviz az alapdíjban!":"Háztól házig szerviz az alapdíjban!",
@@ -106,7 +106,7 @@ export const translations: Record<Locale, TranslationObject> = {
   },
   en: {
     // Header
-    "ROLI SZERVIZ": "ROLI SERVICE",
+    "ROLI SZERVIZ": "ROLISZERVIZ",
     oldalcim: "RoliSzerviz - Electric scooter and bicycle service in Debrecen",
     meta_leiras:
       "Professional electric scooter and bicycle service in Debrecen. Fast, reliable repair with door-to-door delivery.",
@@ -114,7 +114,7 @@ export const translations: Record<Locale, TranslationObject> = {
     Szerviz: "Service",
     // Hero section
     ÜDVÖZLÜNK: "WELCOME",
-    "A ROLI SZERVIZNÉL!": "AT ROLI SERVICE!",
+    "A ROLI SZERVIZNÉL!": "AT ROLISZERVIZ!",
     "Elektromos roller és kerékpár szerviz Debrecenben":
       "Electric scooter and bicycle service in Debrecen",
     "Háztól házig szerviz az alapdíjban!": "Door-to-door service included in the base fee!",
@@ -196,7 +196,7 @@ export const translations: Record<Locale, TranslationObject> = {
   },
   de: {
     // Header
-    "ROLI SZERVIZ": "ROLLER SERVICE",
+    "ROLI SZERVIZ": "ROLISZERVIZ",
     oldalcim: "RoliSzerviz - Elektroroller und Fahrradservice in Debrecen",
     meta_leiras:
       "Professioneller Elektroroller- und Fahrradservice in Debrecen. Schnelle, zuverlässige Reparatur mit Haustürlieferung.",
@@ -204,7 +204,7 @@ export const translations: Record<Locale, TranslationObject> = {
     Szerviz: "Service",
     // Hero section
     ÜDVÖZLÜNK: "WILLKOMMEN",
-    "A ROLI SZERVIZNÉL!": "BEI ROLI SERVICE!",
+    "A ROLISZERVIZNÉL!": "BEI ROLISZERVIZ!",
     "Elektromos roller és kerékpár szerviz Debrecenben":
       "Elektroroller- und Fahrradservice in Debrecen",
     "Háztól házig szerviz az alapdíjban!": "Haustürservice in der Grundgebühr enthalten!",
