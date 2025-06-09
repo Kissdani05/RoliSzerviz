@@ -24,6 +24,9 @@ export default function Home() {
 
   return (
     <>
+      <head>
+        <title>ROLISZERVIZ</title>
+      </head>
       <header className="header">
         <div className="container">
           <div className="logo">{t("ROLI SZERVIZ")}</div>
