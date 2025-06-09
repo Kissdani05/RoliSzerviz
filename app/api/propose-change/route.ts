@@ -80,7 +80,7 @@ export async function POST(request: NextRequest) {
           <a href="${baseUrl}/api/client-response?id=${id}&response=accept" style="background: #4CAF50; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px; margin-right: 10px;">✅ Elfogadom</a>
           <a href="${baseUrl}/api/client-response?id=${id}&response=reject" style="background: #f44336; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px;">❌ Elutasítom</a>
       </div>
-      <p style="color: white;">Üdvözlettel,<br>Roli Szervíz</p>
+      <p style="color: white;">Üdvözlettel,<br>RoliSzerviz</p>
     `);
     await transporter.sendMail({
       from: process.env.BOOKING_EMAIL_USER,

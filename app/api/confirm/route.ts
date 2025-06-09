@@ -55,7 +55,7 @@ export async function GET(request: NextRequest) {
         const startDateTime = `${updatedBooking.originalDate}T${from.trim()}:00+02:00`;
         const endDateTime = `${updatedBooking.originalDate}T${to.trim()}:00+02:00`;
         await addBookingToCalendar({
-          summary: `Roli Szerviz foglalás: ${updatedBooking.name}`,
+          summary: `RoliSzerviz foglalás: ${updatedBooking.name}`,
           description: `Szolgáltatások: ${updatedBooking.services.join(', ')}\nÜzenet: ${updatedBooking.message ?? ''}`,
           startDateTime,
           endDateTime,
@@ -82,7 +82,7 @@ export async function GET(request: NextRequest) {
             : ""
         }
         <p style="color:#fff;">Köszönjük foglalását!</p>
-        <p style="color:#fff;">Üdvözlettel,<br>Roli Szervíz</p>`
+        <p style="color:#fff;">Üdvözlettel,<br>RoliSzerviz</p>`
       );
       await transporter.sendMail({
         from: process.env.BOOKING_EMAIL_USER,
@@ -108,7 +108,7 @@ export async function GET(request: NextRequest) {
         <p style="color:#fff;">Kedves ${updatedBooking.name}!</p>
         <p style="color:#fff;">Sajnáljuk, a(z) ${updatedBooking.originalDate} ${updatedBooking.originalTime} időpontot nem tudjuk elfogadni.</p>
         <p style="color:#fff;">Kérjük, látogasson vissza oldalunkra és foglaljon másik időpontot.</p>
-        <p style="color:#fff;">Üdvözlettel,<br>Roli Szervíz</p>`
+        <p style="color:#fff;">Üdvözlettel,<br>RoliSzerviz</p>`
       );
       await transporter.sendMail({
         from: process.env.BOOKING_EMAIL_USER,
