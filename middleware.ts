@@ -19,6 +19,13 @@ export function middleware(request: NextRequest) {
     "/ajanlat",
     "/galeria",
     "/gallery",
+    "/kapcsolat-contact",
+    "/arlista-pricelist",
+    "/electric-scooter-servicing",
+    "/kerekpar-szerviz-debrecenben",
+    "/kontakt-contact",
+    "/kerekpar-szerviz-debrecen",
+    "/" // root URL
     // Add more as needed
   ];
   const { pathname } = request.nextUrl;
@@ -45,7 +52,13 @@ export const config = {
     "/ajanlat",
     "/galeria",
     "/gallery",
+    "/kapcsolat-contact",
+    "/arlista-pricelist",
+    "/electric-scooter-servicing",
+    "/kerekpar-szerviz-debrecenben",
+    "/kontakt-contact",
+    "/kerekpar-szerviz-debrecen",
+    "/" // root URL
     // Add more as needed
-    "/:path*"
   ],
 };
