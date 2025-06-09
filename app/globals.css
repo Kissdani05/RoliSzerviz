@@ -759,8 +759,9 @@ body {
   .contact-icons {
     order: 2;
     width: 100%;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
   }
 
@@ -785,6 +786,11 @@ body {
   .language-selector-container {
     order: 3;
     margin-top: 0;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 0.5rem 0 0.5rem 0 !important;
+    width: auto;
+    display: flex !important;
   }
 
   .hero {
