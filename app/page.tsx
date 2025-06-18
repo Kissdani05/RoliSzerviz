@@ -51,9 +51,6 @@ export default function Home() {
                 <a href="https://www.facebook.com/Roliszerviz.huDebrecen?locale=hu_HU" aria-label="Facebook">
                   <Facebook size={20} />
                 </a>
-                <a href="https://m.me/Roliszerviz.huDebrecen/" aria-label="Messenger" target="_blank" rel="noopener noreferrer">
-                  <Image src="/logok/messenger.png" alt="Messenger" width={20} height={20} style={{ display: 'inline', verticalAlign: 'middle' }} />
-                </a>
                 <LanguageSelector />
               </div>
             </div>

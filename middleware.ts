@@ -24,8 +24,7 @@ export function middleware(request: NextRequest) {
     "/electric-scooter-servicing",
     "/kerekpar-szerviz-debrecenben",
     "/kontakt-contact",
-    "/kerekpar-szerviz-debrecen",
-    "/" // root URL
+    "/kerekpar-szerviz-debrecen"
     // Add more as needed
   ];
   const { pathname } = request.nextUrl;
@@ -57,8 +56,7 @@ export const config = {
     "/electric-scooter-servicing",
     "/kerekpar-szerviz-debrecenben",
     "/kontakt-contact",
-    "/kerekpar-szerviz-debrecen",
-    "/" // root URL
+    "/kerekpar-szerviz-debrecen"
     // Add more as needed
   ],
 };
