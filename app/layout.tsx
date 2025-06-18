@@ -15,9 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ROLISZERVIZ",
-  description:
-    "Professzionális elektromos roller és kerékpár szerviz Debrecenben. Gyors, megbízható javítás háztól házig szállítással.",
+  title: "RoliSzerviz – Elektromos roller szerviz Debrecen | Roller szerviz, elektromos roller javítás",
+  description: "Professzionális elektromos roller szerviz Debrecenben. Gyors, megbízható javítás háztól házig szállítással.",
   keywords: [
     "roller szervíz debrecen",
     "elektromos roller szerviz debrecen",
@@ -33,8 +32,8 @@ export const metadata: Metadata = {
     "roller szerviz",
     "debrecen roller",
     "electric scooter repair near me",
-    "debrecen roller szerviz",
-  ],
+    "debrecen roller szerviz"
+  ]
 };
 
 export default function RootLayout({

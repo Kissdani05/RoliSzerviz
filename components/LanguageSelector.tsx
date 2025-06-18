@@ -11,9 +11,9 @@ const LanguageSelector: React.FC = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const flags: Record<Locale, string> = {
-    hu: "/logok/magyar.png",
-    en: "/logok/angol.png",
-    de: "/logok/nemet.png",
+    hu: "/logok/magyar.webp",
+    en: "/logok/angol.webp",
+    de: "/logok/nemet.webp",
   };
 
   const toggleDropdown = (e: React.MouseEvent) => {

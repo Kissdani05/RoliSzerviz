@@ -45,7 +45,7 @@ export default function Home() {
                   <Instagram size={20} />
                 </a>
                 <a href="https://www.tiktok.com/@roliszerviz" aria-label="TikTok">
-                  <Image src="/logok/Tiktok Icon.png" alt="TikTok" width={20} height={20} style={{ display: 'inline', verticalAlign: 'middle' }} />
+                  <Image src="/logok/Tiktok Icon.webp" alt="TikTok" width={20} height={20} style={{ display: 'inline', verticalAlign: 'middle' }} />
                 </a>
                 <a href="https://www.facebook.com/Roliszerviz.huDebrecen?locale=hu_HU" aria-label="Facebook">
                   <Facebook size={20} />
@@ -100,6 +100,27 @@ export default function Home() {
               />
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="seo-description" style={{ background: '#181818', color: '#fff', padding: '2.5rem 0', margin: '0', borderRadius: '0.5rem', boxShadow: '0 4px 24px rgba(0,0,0,0.08)', maxWidth: '100vw' }}>
+        <div className="container" style={{ maxWidth: 900, margin: '0 auto', padding: '0 1.5rem' }}>
+          <h2 style={{ color: 'var(--primary-color)', fontSize: '2rem', marginBottom: '1.5rem', textAlign: 'center', fontWeight: 700 }}>Miért válassza a RoliSzervizt Debrecenben?</h2>
+          <p style={{ fontSize: '1.15rem', marginBottom: '1.2rem', lineHeight: 1.7 }}>
+            A <strong>RoliSzerviz</strong> Debrecen egyik legmegbízhatóbb <strong>elektromos roller szerviz</strong> szolgáltatója, ahol gyors, precíz és ügyfélközpontú javítást kínálunk minden típusú elektromos rollerhez. Szervizünk fő profilja a <strong>roller szerviz Debrecen</strong> területén, ahol a háztól házig szállítás kényelmét is biztosítjuk ügyfeleinknek. Nálunk nem kell sorban állni vagy időt vesztegetni, hiszen a javítandó rollert otthonából szállítjuk el, majd a javítás után vissza is visszük Önnek.
+          </p>
+          <h3 style={{ color: 'var(--primary-color)', fontSize: '1.3rem', margin: '1.5rem 0 0.7rem 0' }}>Szolgáltatásaink</h3>
+          <p style={{ fontSize: '1.08rem', marginBottom: '1.2rem', lineHeight: 1.7 }}>
+            Vállaljuk elektromos rollerek teljes körű karbantartását, gumiszerelését, fék javítását, elektromos hibák feltárását és javítását, valamint alkatrészcserét. Minden munkánkra garanciát vállalunk, és kizárólag minőségi alkatrészekkel dolgozunk. A <strong>roller szerviz</strong> Debrecenben nálunk gyors, átlátható és korrekt árazású.
+          </p>
+          <h3 style={{ color: 'var(--primary-color)', fontSize: '1.3rem', margin: '1.5rem 0 0.7rem 0' }}>Miért előnyös a háztól házig szerviz?</h3>
+          <p style={{ fontSize: '1.08rem', marginBottom: '1.2rem', lineHeight: 1.7 }}>
+            A háztól házig szerviz azt jelenti, hogy Önnek semmit sem kell tennie: csak leadja a megrendelést, mi pedig elhozzuk a rollert, elvégezzük a szükséges javításokat, majd visszaszállítjuk. Ez a szolgáltatás Debrecenben és környékén is elérhető, így időt és energiát spórolhat meg.
+          </p>
+          <h3 style={{ color: 'var(--primary-color)', fontSize: '1.3rem', margin: '1.5rem 0 0.7rem 0' }}>Kapcsolat és időpontfoglalás</h3>
+          <p style={{ fontSize: '1.08rem', marginBottom: 0, lineHeight: 1.7 }}>
+            Ha <strong>elektromos roller szervizt Debrecenben</strong> keres, válassza a RoliSzervizt! Foglaljon időpontot online, vagy vegye fel velünk a kapcsolatot telefonon. Szervizünk célja, hogy minden ügyfél elégedetten és biztonságosan használhassa elektromos rollerét Debrecenben.
+          </p>
         </div>
       </section>
 
