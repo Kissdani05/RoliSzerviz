@@ -26,8 +26,7 @@ export default function Home() {
     <>
       <head>
         <title>ROLISZERVIZ</title>
-        <meta name="description" content="Professzionális elektromos roller és kerékpár szerviz Debrecenben. Gyors, megbízható javítás háztól házig szállítással. Roller szervíz Debrecen, elektromos roller szerviz Debrecen, roller bolt Debrecen, electric scooter repair near me, Debrecen roller szerviz." />
-        <meta name="keywords" content="roller szervíz debrecen, elektromos roller szerviz debrecen, debrecen roller szervíz, roller szerviz debrecen, elektromos roller debrecen, roller debrecen, elektromos roller szervíz, roller szervíz, roller bolt debrecen, debrecen elektromos roller, elektromos roller szervíz debrecen, roller szerviz, debrecen roller, electric scooter repair near me, debrecen roller szerviz" />
+        {/* Meta tags are now handled in layout.tsx for SEO and deduplication */}
       </head>
       <header className="header">
         <div className="container">
