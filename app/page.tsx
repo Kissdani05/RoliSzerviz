@@ -92,7 +92,7 @@ export default function Home() {
             </div>
             <div className="hero-image">
               <Image
-                src="/roller.png"
+                src="/roller.webp"
                 alt="Elektromos roller és kerékpár"
                 width={500}
                 height={300}
