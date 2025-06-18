@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://roliszerviz.hu/sitemap.xml
+
+# Tiltott mappák (ha van ilyen, pl. admin, api, privát)
+# Disallow: /admin/
+# Disallow: /private/
+
+# Lassítás a túl gyakori crawl ellen (opcionális)
+# Crawl-delay: 2
