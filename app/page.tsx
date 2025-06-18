@@ -62,10 +62,9 @@ export default function Home() {
           <div className="hero-content">
             <div className="hero-text">
               <h1 className="hero-title">
-                {t("Elektromos roller szerviz Debrecenben")}
-                <span>
-                  <br /> {t("A ROLI SZERVIZNÉL!")}
-                </span>
+                
+                  {t("ROLI SZERVIZ")}
+                
               </h1>
               <p className="hero-subtitle">
                 {t("Elektromos roller és kerékpár szerviz Debrecenben")}
@@ -107,7 +106,7 @@ export default function Home() {
         <div className="container" style={{ maxWidth: 900, margin: '0 auto', padding: '0 1.5rem' }}>
           <h2 style={{ color: 'var(--primary-color)', fontSize: '2rem', marginBottom: '1.5rem', textAlign: 'center', fontWeight: 700 }}>Miért válassza a RoliSzervizt Debrecenben?</h2>
           <p style={{ fontSize: '1.15rem', marginBottom: '1.2rem', lineHeight: 1.7 }}>
-            A <strong>RoliSzerviz</strong> Debrecen egyik legmegbízhatóbb <strong>elektromos roller szerviz</strong> szolgáltatója, ahol gyors, precíz és ügyfélközpontú javítást kínálunk minden típusú elektromos rollerhez. Szervizünk fő profilja a <strong>roller szerviz Debrecen</strong> területén, ahol a háztól házig szállítás kényelmét is biztosítjuk ügyfeleinknek. Nálunk nem kell sorban állni vagy időt vesztegetni, hiszen a javítandó rollert otthonából szállítjuk el, majd a javítás után vissza is visszük Önnek.
+            A <strong>RoliSzerviz</strong> Debrecen egyik legmegbízhatóbb <strong>elektromos roller szerviz</strong> szolgáltatója, ahol gyors, precíz és ügyfélközpontú javítást kínálunk minden típusú elektromos rollerhez. Szervizünk fő profilja a <strong>roller szerviz Debrecen</strong> területén, ahol a háztól házig szállítás kényelmét is biztosítjuk ügyfeleinknek. Nálunk nem kell sorban állni vagy időt vesztegetni, hiszen a javítandó rollert otthonából szállítjuk el, majd a javítás után vissza is visszük Önnek. Szakértő csapatunk minden problémára gyors megoldást talál, legyen szó defektről, fékhibáról vagy elektromos meghibásodásról. Ügyfeleink elégedettsége és a biztonságos közlekedés számunkra a legfontosabb.
           </p>
           <h3 style={{ color: 'var(--primary-color)', fontSize: '1.3rem', margin: '1.5rem 0 0.7rem 0' }}>Szolgáltatásaink</h3>
           <p style={{ fontSize: '1.08rem', marginBottom: '1.2rem', lineHeight: 1.7 }}>
