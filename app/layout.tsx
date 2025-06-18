@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "RoliSzerviz – Elektromos roller szerviz Debrecen | Roller szerviz, elektromos roller javítás, gyors háztól házig szerviz, minőségi roller javítás",
-  description: "A RoliSzerviz Debrecenben professzionális elektromos roller szervizt kínál: gyors, megbízható javítás, háztól házig szállítás, gumiszerelés, fék javítás, elektromos hibafeltárás, alkatrészek cseréje, korrekt árak és ügyfélközpontú kiszolgálás. Válassza Debrecen legjobb roller szervizét, hogy Ön is biztonságban és gondtalanul használhassa elektromos rollerét!",
+  description: "Professzionális elektromos roller szerviz Debrecenben: gyors, megbízható javítás, háztól házig szállítás, gumiszerelés, fék javítás, elektromos hibafeltárás, korrekt árak.",
   keywords: [
     "roller szervíz debrecen",
     "elektromos roller szerviz debrecen",

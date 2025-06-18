@@ -62,7 +62,7 @@ export default function Home() {
           <div className="hero-content">
             <div className="hero-text">
               <h1 className="hero-title">
-                {t("ÜDVÖZLÜNK")}{" "}
+                {t("Elektromos roller szerviz Debrecenben")}
                 <span>
                   <br /> {t("A ROLI SZERVIZNÉL!")}
                 </span>
