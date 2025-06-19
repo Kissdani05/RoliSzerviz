@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState, useRef, RefObject } from "react";
+import React, { useState, useRef } from "react";
 import PriceModal from "../components/PriceModal";
 import BookingModal from "../components/BookingModal";
 import { useTranslation } from "../contexts/TranslationContext";
