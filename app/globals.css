@@ -1174,3 +1174,59 @@ input[type="text"][pattern="[0-9]{4}"] {
     gap: 0.5rem;
   }
 }
+
+/* Floating Navigation */
+.floating-nav {
+  position: fixed;
+  top: 30%;
+  right: 0;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  background: none;
+}
+.floating-btn {
+  background: var(--primary-color);
+  color: var(--dark-color);
+  font-weight: 600;
+  padding: 0.7rem 1.2rem;
+  border-radius: 1.5rem 0 0 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+  border: none;
+  outline: none;
+  margin-right: 0;
+  text-align: left;
+  cursor: pointer;
+}
+.floating-btn:hover {
+  background: var(--primary-dark);
+  color: #fff;
+  transform: translateX(-4px) scale(1.04);
+}
+@media (max-width: 600px) {
+  .floating-nav {
+    top: unset;
+    bottom: 1.5rem;
+    right: 0.5rem;
+    gap: 0.5rem;
+  }
+  .floating-btn {
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+/* Villogás animáció árlista/időpont gombhoz */
+@keyframes flash {
+  0% { background-color: #ffe066; }
+  50% { background-color: #fffbe6; }
+  100% { background-color: inherit; }
+}
+.flash {
+  animation: flash 0.8s 2 alternate;
+  box-shadow: 0 0 0 3px #ffe066;
+}

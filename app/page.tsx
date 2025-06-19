@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useRef, RefObject } from "react";
 import PriceModal from "../components/PriceModal";
 import BookingModal from "../components/BookingModal";
 import { useTranslation } from "../contexts/TranslationContext";
@@ -16,11 +16,47 @@ export default function Home() {
   // State for testimonial expansion (one per testimonial)
   const [testimonialExpanded, setTestimonialExpanded] = useState([false, false, false]);
 
+  const priceBtnRef = useRef<HTMLButtonElement>(null);
+  const bookingBtnRef = useRef<HTMLButtonElement>(null);
+  const seoRef = useRef<HTMLElement>(null);
+  const testimonialsRef = useRef<HTMLElement>(null);
+  const youtubeRef = useRef<HTMLElement>(null);
+
   const openPriceModal = () => setIsPriceModalOpen(true);
   const closePriceModal = () => setIsPriceModalOpen(false);
 
   const openBookingModal = () => setIsBookingModalOpen(true);
   const closeBookingModal = () => setIsBookingModalOpen(false);
+
+  // Villogtatás (flash) funkció
+  const flashButtons = () => {
+    if (priceBtnRef.current) {
+      priceBtnRef.current.classList.add("flash");
+      setTimeout(() => {
+        if (priceBtnRef.current) priceBtnRef.current.classList.remove("flash");
+      }, 800);
+    }
+    if (bookingBtnRef.current) {
+      bookingBtnRef.current.classList.add("flash");
+      setTimeout(() => {
+        if (bookingBtnRef.current) bookingBtnRef.current.classList.remove("flash");
+      }, 800);
+    }
+  };
+
+  // Scroll handlerek
+  const handleNavClick = (target: "top" | "seo" | "testimonials" | "youtube") => {
+    if (target === "top") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      flashButtons();
+    } else if (target === "seo") {
+      seoRef.current?.scrollIntoView({ behavior: "smooth" });
+    } else if (target === "testimonials") {
+      testimonialsRef.current?.scrollIntoView({ behavior: "smooth" });
+    } else if (target === "youtube") {
+      youtubeRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <>
@@ -35,9 +71,6 @@ export default function Home() {
             <a href="/webshop" className="webshop-btn">
               {t("Webshop")}
             </a>
-            <a href="#seo-description" className="internal-link">Roller szerviz Debrecen</a>
-            <a href="#testimonials" className="internal-link">Ügyfél vélemények</a>
-            <a href="#booking" className="internal-link">Időpontfoglalás</a>
             <div className="contact-icons">
               <a href="tel:+36302542292" className="phone">
                 <Phone size={18} />
@@ -81,10 +114,11 @@ export default function Home() {
                 )}
               </p>
               <div className="hero-buttons">
-                <button className="btn btn-primary" onClick={openPriceModal}>
+                <button ref={priceBtnRef} className="btn btn-primary" onClick={openPriceModal}>
                   {t("Árlista")}
                 </button>
                 <button
+                  ref={bookingBtnRef}
                   className="btn btn-secondary"
                   onClick={openBookingModal}
                 >
@@ -105,7 +139,15 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="seo-description" id="seo-description" style={{ background: '#181818', color: '#fff', padding: '2.5rem 0', margin: '0', borderRadius: '0.5rem', boxShadow: '0 4px 24px rgba(0,0,0,0.08)', maxWidth: '100vw' }}>
+      {/* Floating navigation buttons */}
+      <div className="floating-nav">
+        <button type="button" className="floating-btn" onClick={() => handleNavClick("top")}>Időpont foglalás / Árlista</button>
+        <button type="button" className="floating-btn" onClick={() => handleNavClick("seo")}>Rólunk</button>
+        <button type="button" className="floating-btn" onClick={() => handleNavClick("testimonials")}>Vélemény</button>
+        <button type="button" className="floating-btn" onClick={() => handleNavClick("youtube")}>YouTube</button>
+      </div>
+
+      <section className="seo-description" id="seo-description" ref={seoRef} style={{ background: '#181818', color: '#fff', padding: '2.5rem 0', margin: '0', borderRadius: '0.5rem', boxShadow: '0 4px 24px rgba(0,0,0,0.08)', maxWidth: '100vw' }}>
         <div className="container" style={{ maxWidth: 900, margin: '0 auto', padding: '0 1.5rem' }}>
           <h2 style={{ color: 'var(--primary-color)', fontSize: '2rem', marginBottom: '1.5rem', textAlign: 'center', fontWeight: 700 }}>Miért válassza a RoliSzervizt Debrecenben?</h2>
           <p style={{ fontSize: '1.15rem', marginBottom: '1.2rem', lineHeight: 1.7 }}>
@@ -126,7 +168,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="testimonials" id="testimonials">
+      <section className="testimonials" id="testimonials" ref={testimonialsRef}>
         <div className="container">
           <h2 className="section-title">{t("Ügyfeleink véleménye")}</h2>
           <div className="testimonials-grid">
@@ -199,7 +241,7 @@ export default function Home() {
       </section>
 
       {/* Video Section */}
-      <section className="video-section">
+      <section className="video-section" id="youtube" ref={youtubeRef}>
         <div className="container">
           <div className="video-container">
             <h2 className="video-title">{t("Szerelj velunk otthon!")}</h2>
