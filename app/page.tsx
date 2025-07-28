@@ -1,12 +1,19 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import PriceModal from "../components/PriceModal";
 import BookingModal from "../components/BookingModal";
 import { useTranslation } from "../contexts/TranslationContext";
 import LanguageSelector from "../components/LanguageSelector";
 import { Phone, Instagram, Facebook } from "lucide-react"; // Import Lucide icons
+import FAQ from "../components/FAQ"; // Import the FAQ component
+import CommonIssues from "../components/CommonIssues";
+
+import ServiceCards from "../components/ServiceCards";
+import WhyUs from "../components/WhyUs";
+import Testimonials from "../components/Testimonials";
+
 
 export default function Home() {
   const { t } = useTranslation();
@@ -21,12 +28,19 @@ export default function Home() {
   const seoRef = useRef<HTMLElement>(null);
   const testimonialsRef = useRef<HTMLElement>(null);
   const youtubeRef = useRef<HTMLElement>(null);
+  const whyusRef = useRef<HTMLElement>(null);
+  const servicesRef = useRef<HTMLElement>(null);
+  const issuesRef = useRef<HTMLElement>(null);
+  const faqRef = useRef<HTMLElement>(null);
 
   const openPriceModal = () => setIsPriceModalOpen(true);
   const closePriceModal = () => setIsPriceModalOpen(false);
 
   const openBookingModal = () => setIsBookingModalOpen(true);
   const closeBookingModal = () => setIsBookingModalOpen(false);
+
+  // Aktív szekció követése
+  const [activeSection, setActiveSection] = useState<string>("top");
 
   // Villogtatás (flash) funkció
   const flashButtons = () => {
@@ -45,62 +59,368 @@ export default function Home() {
   };
 
   // Scroll handlerek
-  const handleNavClick = (target: "top" | "seo" | "testimonials" | "youtube") => {
+  const scrollSectionToCenter = (element: HTMLElement | null) => {
+    if (!element) return;
+    const rect = element.getBoundingClientRect();
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const viewportHeight = window.innerHeight;
+    // Calculate the top so the section is centered
+    const top = rect.top + scrollTop - (viewportHeight / 2) + (rect.height / 2);
+    window.scrollTo({ top, behavior: "smooth" });
+  };
+
+  const handleNavClick = (target: "top" | "seo" | "testimonials" | "youtube" | "faq" | "whyus" | "services" | "issues") => {
     if (target === "top") {
       window.scrollTo({ top: 0, behavior: "smooth" });
       flashButtons();
     } else if (target === "seo") {
-      seoRef.current?.scrollIntoView({ behavior: "smooth" });
+      scrollSectionToCenter(seoRef.current);
     } else if (target === "testimonials") {
-      testimonialsRef.current?.scrollIntoView({ behavior: "smooth" });
+      scrollSectionToCenter(testimonialsRef.current);
     } else if (target === "youtube") {
-      youtubeRef.current?.scrollIntoView({ behavior: "smooth" });
+      scrollSectionToCenter(youtubeRef.current);
+    } else if (target === "faq") {
+      scrollSectionToCenter(faqRef.current);
+    } else if (target === "whyus") {
+      scrollSectionToCenter(whyusRef.current);
+    } else if (target === "services") {
+      scrollSectionToCenter(servicesRef.current);
+    } else if (target === "issues") {
+      scrollSectionToCenter(issuesRef.current);
     }
   };
 
+  // Scroll spy: figyeli, hogy melyik szekció van a viewport közepén
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = [
+        { name: "whyus", ref: whyusRef },
+        { name: "services", ref: servicesRef },
+        { name: "testimonials", ref: testimonialsRef },
+        { name: "youtube", ref: youtubeRef },
+        { name: "issues", ref: issuesRef },
+        { name: "faq", ref: faqRef },
+      ];
+      const viewportHeight = window.innerHeight;
+      const scrollY = window.scrollY || window.pageYOffset;
+      const center = scrollY + viewportHeight / 2;
+      let found = "top";
+      for (let i = 0; i < sections.length; i++) {
+        const ref = sections[i].ref;
+        if (ref && ref.current) {
+          const rect = ref.current.getBoundingClientRect();
+          const sectionTop = rect.top + scrollY;
+          const sectionBottom = sectionTop + rect.height;
+          if (center >= sectionTop && center < sectionBottom) {
+            found = sections[i].name;
+            break;
+          }
+        }
+      }
+      // If center is above first section, highlight 'top'
+      if (found === "top") {
+        if (sections[0].ref && sections[0].ref.current) {
+          const firstSectionTop = sections[0].ref.current.getBoundingClientRect().top + scrollY;
+          if (center < firstSectionTop) {
+            setActiveSection("top");
+          } else {
+            setActiveSection(sections[0].name);
+          }
+        } else {
+          setActiveSection("top");
+        }
+      } else {
+        setActiveSection(found);
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Mobil hamburger menü állapot
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
-    <>
-      <head>
-        <title>ROLISZERVIZ</title>
-        {/* Meta tags are now handled in layout.tsx for SEO and deduplication */}
-      </head>
+    <main>
       <header className="header">
         <div className="container">
-          <div className="logo">{t("ROLI SZERVIZ")}</div>
-          <nav className="nav" id="mainNav">
-            <a href="/webshop" className="webshop-btn">
-              {t("Webshop")}
+          {/* Mobil nézet: logo balra, hamburger jobbra */}
+          <div className="mobile-header" style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            width: '100%',
+            padding: '0.7rem 0.5rem',
+            background: 'var(--secondary-color)', // egységes asztali és mobil
+            boxShadow: '0 2px 12px rgba(244,123,32,0.07)',
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            zIndex: 1200,
+            maxWidth: '100vw',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+              <div className="logo" style={{ fontWeight: 700, fontSize: '1.18rem', color: '#f47b20' }}>{t("ROLI SZERVIZ")}</div>
+              <button
+                className="hamburger-btn"
+                aria-label="Menü megnyitása"
+                onClick={() => setMenuOpen(!menuOpen)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  padding: '0.5rem',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  zIndex: 1001,
+                }}
+              >
+                <span style={{ width: 28, height: 28, display: 'inline-block' }}>
+                  {/* Hamburger ikon */}
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect y="6" width="28" height="3.2" rx="1.6" fill="#f47b20" />
+                    <rect y="13" width="28" height="3.2" rx="1.6" fill="#f47b20" />
+                    <rect y="20" width="28" height="3.2" rx="1.6" fill="#f47b20" />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </div>
+          {/* Hamburger menü tartalma mobilon */}
+          {menuOpen && (
+            <div className="mobile-menu-overlay" style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              width: '100vw',
+              height: '100vh',
+              background: 'rgba(0,0,0,0.18)',
+              zIndex: 1000,
+            }} onClick={() => setMenuOpen(false)} />
+          )}
+          <nav
+            className="mobile-menu"
+            style={{
+              position: 'fixed',
+              top: 0,
+              right: menuOpen ? 0 : '-100vw',
+              width: '80vw',
+              maxWidth: 340,
+              height: '100vh',
+              background: '#fff', // unified with desktop nav bar
+              color: '#222',
+              boxShadow: '0 0 32px rgba(244,123,32,0.07)',
+              zIndex: 1001,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              padding: '2.2rem 1.2rem 1.2rem 1.2rem',
+              transition: 'right 0.22s cubic-bezier(.7,.2,.3,1)',
+            }}
+            aria-label="Mobil menü"
+          >
+            <button
+              aria-label="Menü bezárása"
+              onClick={() => setMenuOpen(false)}
+              style={{
+                alignSelf: 'flex-end',
+                background: 'none',
+                border: 'none',
+                fontSize: '2rem',
+                color: '#f47b20',
+                cursor: 'pointer',
+                marginBottom: '1.2rem',
+              }}
+            >×</button>
+            <a href="/webshop" className="webshop-btn" style={{ fontWeight: 600, fontSize: '1.08rem', marginBottom: '1.1rem', color: '#f47b20' }}>{t("Webshop")}</a>
+            <a href="tel:+36302542292" className="phone" style={{ fontWeight: 500, fontSize: '1.08rem', display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '1.1rem', color: '#222' }}>
+              <Phone size={18} />
+              +36 30 254 2292
             </a>
-            <div className="contact-icons">
-              <a href="tel:+36302542292" className="phone">
-                <Phone size={18} />
-                +36 30 254 2292
+            <div className="mobile-social-icons" style={{ display: 'flex', gap: '0.7rem', marginBottom: '1.1rem' }}>
+              <a href="https://www.instagram.com/roliszerviz.hu/" aria-label="Instagram">
+                <Instagram size={20} />
               </a>
-              <div className="social-icons">
-                <a href="https://www.instagram.com/roliszerviz.hu/" aria-label="Instagram">
-                  <Instagram size={20} />
-                </a>
-                <a href="https://www.tiktok.com/@roliszerviz" aria-label="TikTok">
-                  <Image src="/logok/Tiktok Icon.webp" alt="TikTok" width={20} height={20} style={{ display: 'inline', verticalAlign: 'middle' }} />
-                </a>
-                <a href="https://www.facebook.com/Roliszerviz.huDebrecen?locale=hu_HU" aria-label="Facebook">
-                  <Facebook size={20} />
-                </a>
-                <LanguageSelector />
+              <a href="https://www.tiktok.com/@roliszerviz" aria-label="TikTok">
+                <Image src="/logok/Tiktok Icon.webp" alt="TikTok logó – RoliSzerviz közösségi média" width={20} height={20} style={{ display: 'inline', verticalAlign: 'middle' }} />
+              </a>
+              <a href="https://www.facebook.com/Roliszerviz.huDebrecen?locale=hu_HU" aria-label="Facebook">
+                <Facebook size={20} />
+              </a>
+            </div>
+            <div style={{ marginBottom: '1.1rem' }}><LanguageSelector /></div>
+            <div className="mobile-nav-buttons" style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem', width: '100%' }}>
+              <button type="button" className={activeSection === "top" ? "nav-btn active" : "nav-btn"} onClick={() => { handleNavClick("top"); setMenuOpen(false); }}>{t("Időpontfoglalás")}</button>
+              <button type="button" className={activeSection === "whyus" ? "nav-btn active" : "nav-btn"} onClick={() => { handleNavClick("whyus"); setMenuOpen(false); }}>{t("Miért mi?")}</button>
+              <button type="button" className={activeSection === "services" ? "nav-btn active" : "nav-btn"} onClick={() => { handleNavClick("services"); setMenuOpen(false); }}>{t("Szolgáltatásaink")}</button>
+              <button type="button" className={activeSection === "testimonials" ? "nav-btn active" : "nav-btn"} onClick={() => { handleNavClick("testimonials"); setMenuOpen(false); }}>{t("Vélemény")}</button>
+              <button type="button" className={activeSection === "youtube" ? "nav-btn active" : "nav-btn"} onClick={() => { handleNavClick("youtube"); setMenuOpen(false); }}>{t("YouTube")}</button>
+              <button type="button" className={activeSection === "issues" ? "nav-btn active" : "nav-btn"} onClick={() => { handleNavClick("issues"); setMenuOpen(false); }}>{t("Gyakori hibák")}</button>
+              <button type="button" className={activeSection === "faq" ? "nav-btn active" : "nav-btn"} onClick={() => { handleNavClick("faq"); setMenuOpen(false); }}>{t("GYIK")}</button>
+            </div>
+            <style>{`
+              .mobile-menu {
+                font-size: 0.98rem;
+              }
+              .mobile-nav-buttons .nav-btn {
+                width: 100%;
+                margin: 0;
+                border-radius: 2rem;
+                padding: 0.38rem 0.7rem;
+                font-weight: 600;
+                font-size: 0.93rem;
+                background: #fff;
+                color: #f47b20;
+                border: none;
+                box-shadow: 0 2px 8px rgba(244,123,32,0.08);
+                cursor: pointer;
+                transition: background 0.18s, color 0.18s, box-shadow 0.18s, transform 0.18s;
+                outline: none;
+                white-space: nowrap;
+                display: block;
+                text-align: left;
+              }
+              .mobile-nav-buttons .nav-btn.active,
+              .mobile-nav-buttons .nav-btn:hover {
+                background: #f47b20;
+                color: #fff;
+                box-shadow: 0 4px 16px rgba(244,123,32,0.18);
+                transform: translateY(-2px) scale(1.04);
+              }
+            `}</style>
+          </nav>
+          {/* Desktop nézet: eredeti nav csak desktopon */}
+          <div className="desktop-header" style={{ display: 'block', width: '100%' }}>
+            {/* Eredeti desktop nav bar */}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+              <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: '2rem', width: '100%' }}>
+                <div className="logo">{t("ROLI SZERVIZ")}</div>
+                <a href="/webshop" className="webshop-btn" style={{ fontWeight: 600, fontSize: '1.08rem' }}>{t("Webshop")}</a>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
+                  <a href="tel:+36302542292" className="phone" style={{ fontWeight: 500, fontSize: '1.08rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                    <Phone size={18} />
+                    +36 30 254 2292
+                  </a>
+                  <div className="social-icons" style={{ display: 'flex', gap: '0.7rem', marginLeft: '1.2rem' }}>
+                    <a href="https://www.instagram.com/roliszerviz.hu/" aria-label="Instagram">
+                      <Instagram size={20} />
+                    </a>
+                    <a href="https://www.tiktok.com/@roliszerviz" aria-label="TikTok">
+                      <Image src="/logok/Tiktok Icon.webp" alt="TikTok logó – RoliSzerviz közösségi média" width={20} height={20} style={{ display: 'inline', verticalAlign: 'middle' }} />
+                    </a>
+                    <a href="https://www.facebook.com/Roliszerviz.huDebrecen?locale=hu_HU" aria-label="Facebook">
+                      <Facebook size={20} />
+                    </a>
+                    <LanguageSelector />
+                  </div>
+                </div>
+              </div>
+              {/* Second row: nav buttons, always centered below */}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', marginTop: '0.7rem' }}>
+                <nav className="nav" id="mainNav" style={{ width: '100%' }}>
+                  <div className="main-nav-buttons" style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: '0.7rem',
+                    padding: '0.3rem 0',
+                    width: '100%',
+                    maxWidth: '100vw',
+                    boxSizing: 'border-box',
+                  }}>
+                    <button type="button" className={activeSection === "top" ? "nav-btn active" : "nav-btn"} onClick={() => handleNavClick("top")}>{t("Időpontfoglalás")}</button>
+                    <button type="button" className={activeSection === "whyus" ? "nav-btn active" : "nav-btn"} onClick={() => handleNavClick("whyus")}>{t("Miért mi?")}</button>
+                    <button type="button" className={activeSection === "services" ? "nav-btn active" : "nav-btn"} onClick={() => handleNavClick("services")}>{t("Szolgáltatásaink")}</button>
+                    <button type="button" className={activeSection === "testimonials" ? "nav-btn active" : "nav-btn"} onClick={() => handleNavClick("testimonials")}>{t("Vélemény")}</button>
+                    <button type="button" className={activeSection === "youtube" ? "nav-btn active" : "nav-btn"} onClick={() => handleNavClick("youtube")}>{t("YouTube")}</button>
+                    <button type="button" className={activeSection === "issues" ? "nav-btn active" : "nav-btn"} onClick={() => handleNavClick("issues")}>{t("Gyakori hibák")}</button>
+                    <button type="button" className={activeSection === "faq" ? "nav-btn active" : "nav-btn"} onClick={() => handleNavClick("faq")}>{t("GYIK")}</button>
+                  </div>
+                  <style>{`
+                    .nav-btn {
+                      background: #fff;
+                      color: #f47b20;
+                      font-weight: 600;
+                      font-size: 1.04rem;
+                      border-radius: 2rem;
+                      border: none;
+                      padding: 0.55rem 1.3rem;
+                      margin: 0;
+                      box-shadow: 0 2px 8px rgba(244,123,32,0.08);
+                      cursor: pointer;
+                      transition: background 0.18s, color 0.18s, box-shadow 0.18s, transform 0.18s;
+                      outline: none;
+                      white-space: nowrap;
+                      display: inline-block;
+                    }
+                    .nav-btn.active {
+                      background: #f47b20;
+                      color: #fff;
+                      box-shadow: 0 4px 16px rgba(244,123,32,0.18);
+                      transform: translateY(-2px) scale(1.04);
+                    }
+                    .nav-btn:hover {
+                      background: #f47b20;
+                      color: #fff;
+                      box-shadow: 0 4px 16px rgba(244,123,32,0.18);
+                      transform: translateY(-2px) scale(1.04);
+                    }
+                    @media (max-width: 900px) {
+                      .main-nav-buttons {
+                        gap: 0.4rem !important;
+                      }
+                      .nav-btn {
+                        font-size: 0.98rem;
+                        padding: 0.45rem 0.9rem;
+                      }
+                    }
+                    @media (max-width: 600px) {
+                      .main-nav-buttons {
+                        flex-wrap: wrap !important;
+                        gap: 0.3rem !important;
+                      }
+                      .nav-btn {
+                        font-size: 0.93rem;
+                        padding: 0.38rem 0.7rem;
+                      }
+                    }
+                  `}</style>
+                </nav>
               </div>
             </div>
-          </nav>
+          </div>
+          <style>{`
+            @media (max-width: 900px) {
+              .desktop-header {
+                display: none !important;
+              }
+              .mobile-header {
+                display: flex !important;
+              }
+              .mobile-menu {
+                display: flex !important;
+              }
+            }
+            @media (min-width: 901px) {
+              .desktop-header {
+                display: block !important;
+              }
+              .mobile-header, .mobile-menu {
+                display: none !important;
+              }
+            }
+          `}</style>
         </div>
       </header>
 
-      <section className="hero">
+      <section className="hero" style={{ marginTop: '0px' }}>
         <div className="container">
           <div className="hero-content">
             <div className="hero-text">
               <h1 className="hero-title">
-                
-                  {t("ROLI SZERVIZ")}
-                
+                {t("ROLI SZERVIZ")}
               </h1>
               <p className="hero-subtitle">
                 {t("Elektromos roller és kerékpár szerviz Debrecenben")}
@@ -129,7 +449,7 @@ export default function Home() {
             <div className="hero-image">
               <Image
                 src="/roller.webp"
-                alt="Elektromos roller és kerékpár"
+                alt="Elektromos roller szerviz Debrecen – RoliSzerviz műhely, elektromos roller javítás Debrecenben"
                 width={500}
                 height={300}
                 priority
@@ -138,122 +458,80 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <style>{`
+        @media (max-width: 900px) {
+          .hero {
+            margin-top: 62px !important;
+          }
+        }
+      `}</style>
+
+      <section ref={whyusRef} className="section-fade"><WhyUs /></section>
+      <section ref={servicesRef} className="section-fade"><ServiceCards /></section>
 
       {/* Floating navigation buttons */}
-      <div className="floating-nav">
-        <button type="button" className="floating-btn" onClick={() => handleNavClick("top")}>Időpont foglalás / Árlista</button>
-        <button type="button" className="floating-btn" onClick={() => handleNavClick("seo")}>Rólunk</button>
-        <button type="button" className="floating-btn" onClick={() => handleNavClick("testimonials")}>Vélemény</button>
-        <button type="button" className="floating-btn" onClick={() => handleNavClick("youtube")}>YouTube</button>
+      {/* The old floating navigation buttons have been removed */}
+
+      {/* Mobil CTA sáv */}
+      <div className="mobile-cta-bar" style={{
+        position: 'fixed',
+        left: 0,
+        bottom: 0,
+        width: '100vw',
+        background: 'linear-gradient(90deg, #f47b20 80%, #ffb86c 100%)',
+        boxShadow: '0 -2px 16px rgba(0,0,0,0.13)',
+        zIndex: 100,
+        display: 'none',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '0.7rem 0.5rem',
+      }}>
+        <button
+          className="btn btn-primary"
+          style={{
+            background: '#fff',
+            color: '#f47b20',
+            fontWeight: 700,
+            fontSize: '1.1rem',
+            borderRadius: '2rem',
+            boxShadow: '0 2px 8px rgba(244,123,32,0.10)',
+            padding: '0.7rem 2.2rem',
+            border: 'none',
+            cursor: 'pointer',
+          }}
+          onClick={openBookingModal}
+        >
+          Időpontfoglalás
+        </button>
       </div>
+      <style>{`
+        @media (max-width: 800px) {
+          .mobile-cta-bar {
+            display: flex !important;
+          }
+        }
+      `}</style>
 
-      <section className="seo-description" id="seo-description" ref={seoRef} style={{ background: '#181818', color: '#fff', padding: '2.5rem 0', margin: '0', borderRadius: '0.5rem', boxShadow: '0 4px 24px rgba(0,0,0,0.08)', maxWidth: '100vw' }}>
-        <div className="container" style={{ maxWidth: 900, margin: '0 auto', padding: '0 1.5rem' }}>
-          <h2 style={{ color: 'var(--primary-color)', fontSize: '2rem', marginBottom: '1.5rem', textAlign: 'center', fontWeight: 700 }}>Miért válassza a RoliSzervizt Debrecenben?</h2>
-          <p style={{ fontSize: '1.15rem', marginBottom: '1.2rem', lineHeight: 1.7 }}>
-            A <strong>RoliSzerviz</strong> Debrecen egyik legmegbízhatóbb <strong>elektromos roller szerviz</strong> szolgáltatója, ahol gyors, precíz és ügyfélközpontú javítást kínálunk minden típusú elektromos rollerhez. Szervizünk fő profilja a <strong>roller szerviz Debrecen</strong> területén, ahol a háztól házig szállítás kényelmét is biztosítjuk ügyfeleinknek. Nálunk nem kell sorban állni vagy időt vesztegetni, hiszen a javítandó rollert otthonából szállítjuk el, majd a javítás után vissza is visszük Önnek. Szakértő csapatunk minden problémára gyors megoldást talál, legyen szó defektről, fékhibáról vagy elektromos meghibásodásról. Ügyfeleink elégedettsége és a biztonságos közlekedés számunkra a legfontosabb.
-          </p>
-          <h3 style={{ color: 'var(--primary-color)', fontSize: '1.3rem', margin: '1.5rem 0 0.7rem 0' }}>Szolgáltatásaink</h3>
-          <p style={{ fontSize: '1.08rem', marginBottom: '1.2rem', lineHeight: 1.7 }}>
-            Vállaljuk elektromos rollerek teljes körű karbantartását, gumiszerelését, fék javítását, elektromos hibák feltárását és javítását, valamint alkatrészcserét. Minden munkánkra garanciát vállalunk, és kizárólag minőségi alkatrészekkel dolgozunk. A <strong>roller szerviz</strong> Debrecenben nálunk gyors, átlátható és korrekt árazású.
-          </p>
-          <h3 style={{ color: 'var(--primary-color)', fontSize: '1.3rem', margin: '1.5rem 0 0.7rem 0' }}>Miért előnyös a háztól házig szerviz?</h3>
-          <p style={{ fontSize: '1.08rem', marginBottom: '1.2rem', lineHeight: 1.7 }}>
-            A háztól házig szerviz azt jelenti, hogy Önnek semmit sem kell tennie: csak leadja a megrendelést, mi pedig elhozzuk a rollert, elvégezzük a szükséges javításokat, majd visszaszállítjuk. Ez a szolgáltatás Debrecenben és környékén is elérhető, így időt és energiát spórolhat meg.
-          </p>
-          <h3 style={{ color: 'var(--primary-color)', fontSize: '1.3rem', margin: '1.5rem 0 0.7rem 0' }}>Kapcsolat és időpontfoglalás</h3>
-          <p style={{ fontSize: '1.08rem', marginBottom: 0, lineHeight: 1.7 }}>
-            Ha <strong>elektromos roller szervizt Debrecenben</strong> keres, válassza a RoliSzervizt! Foglaljon időpontot online, vagy vegye fel velünk a kapcsolatot telefonon. Szervizünk célja, hogy minden ügyfél elégedetten és biztonságosan használhassa elektromos rollerét Debrecenben.
-          </p>
-        </div>
-      </section>
-
-      <section className="testimonials" id="testimonials" ref={testimonialsRef}>
-        <div className="container">
-          <h2 className="section-title">{t("Ügyfeleink véleménye")}</h2>
-          <div className="testimonials-grid">
-            {[1, 2, 3].map((i, idx) => {
-              const text = t(`testimonial${i}`);
-              const author = t(`author${i}`);
-              const date = t(`date${i}`);
-              let preview = '';
-              if (i === 2) {
-                // 2. vélemény: első sortörésig vagy max 80 karakterig
-                const idxNew = text.indexOf('\n');
-                preview = idxNew !== -1 ? text.slice(0, idxNew + 1) : text.slice(0, 80);
-              } else if (i === 3) {
-                // 3. vélemény: első mondat vagy felkiáltójel
-                const exclamIdx = text.indexOf('!');
-                if (exclamIdx !== -1) {
-                  preview = text.slice(0, exclamIdx + 1);
-                } else {
-                  const match = text.match(/[.!?]/);
-                  if (match && match.index !== undefined) {
-                    preview = text.slice(0, match.index + 1);
-                  } else {
-                    preview = text;
-                  }
-                }
-              } else {
-                // 1. vélemény: első mondat
-                const match = text.match(/[.!?]/);
-                if (match && match.index !== undefined) {
-                  preview = text.slice(0, match.index + 1);
-                } else {
-                  preview = text;
-                }
-              }
-              preview = preview.trim();
-              const needsMore = text.trim() !== preview.trim();
-              const expanded = testimonialExpanded[idx];
-              return (
-                <div className="testimonial-card" key={i}>
-                  <div className="testimonial-content">
-                    <p style={{ whiteSpace: 'pre-line' }}>
-                      {expanded || !needsMore ? text : preview}
-                      {needsMore && !expanded && (
-                        <span
-                          style={{ color: '#111', cursor: 'pointer', fontWeight: 'bold', marginLeft: 8 }}
-                          onClick={() => setTestimonialExpanded(exp => exp.map((v, j) => j === idx ? true : v))}
-                        >
-                          {t('több')}
-                        </span>
-                      )}
-                      {needsMore && expanded && (
-                        <span
-                          style={{ color: '#111', cursor: 'pointer', fontWeight: 'bold', marginLeft: 8 }}
-                          onClick={() => setTestimonialExpanded(exp => exp.map((v, j) => j === idx ? false : v))}
-                        >
-                          {t('kevesebb')}
-                        </span>
-                      )}
-                    </p>
-                  </div>
-                  <div className="testimonial-author">
-                    <div className="author-name">{author}</div>
-                    <div className="author-date">{date}</div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+      <section id="testimonials" ref={testimonialsRef}>
+        <div className="section-fade"><Testimonials /></div>
       </section>
 
       {/* Video Section */}
       <section className="video-section" id="youtube" ref={youtubeRef}>
-        <div className="container">
-          <div className="video-container">
-            <h2 className="video-title">{t("Szerelj velunk otthon!")}</h2>
-            <div className="video-wrapper">
-              {/* Replace VIDEO_ID with your actual YouTube video ID */}
-              <iframe
-                src="https://www.youtube.com/embed/VIDEO_ID"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                loading="lazy"
-              ></iframe>
+        <div className="section-fade">
+          <div className="container">
+            <div className="video-container">
+              <h2 className="video-title">{t("Szerelj velunk otthon!")}</h2>
+              <div className="video-wrapper">
+                {/* Replace VIDEO_ID with your actual YouTube video ID */}
+                <iframe
+                  src="https://www.youtube.com/embed/VIDEO_ID"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  loading="lazy"
+                ></iframe>
+              </div>
             </div>
           </div>
         </div>
@@ -290,6 +568,16 @@ export default function Home() {
       <div id="booking">
         <BookingModal isOpen={isBookingModalOpen} onClose={closeBookingModal} />
       </div>
-    </>
+
+      <section ref={issuesRef} className="faq-section" id="issues" style={{ background: '#181818', color: '#fff', padding: '2.5rem 0 0 0', margin: '0', borderRadius: '0.5rem 0.5rem 0 0', boxShadow: '0 4px 24px rgba(0,0,0,0.08)', maxWidth: '100vw' }}>
+        <div className="section-fade"><CommonIssues /></div>
+      </section>
+      <section ref={faqRef} className="faq-section" id="faq" style={{ background: '#181818', color: '#fff', padding: '2.5rem 0 2.5rem 0', margin: '0', borderRadius: '0 0 0.5rem 0.5rem', boxShadow: '0 4px 24px rgba(0,0,0,0.08)', maxWidth: '100vw', marginTop: '0' }}>
+        <div className="section-fade container" style={{ maxWidth: 900, margin: '0 auto', padding: '0 1.5rem' }}>
+          <h2 style={{ color: 'var(--primary-color)', fontSize: '2rem', marginBottom: '1.5rem', textAlign: 'center', fontWeight: 700 }}>Gyakori kérdések – Elektromos roller szerviz GYIK</h2>
+          <FAQ />
+        </div>
+      </section>
+    </main>
   );
 }

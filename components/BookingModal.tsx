@@ -299,11 +299,62 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
       style={{ display: "flex" }}
       onClick={handleBackdropClick}
     >
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ position: 'relative' }}>
+        {/* Phone number top left */}
+        <div style={{
+          position: 'absolute',
+          top: 18,
+          left: 18,
+          fontWeight: 500,
+          fontSize: '1.08rem',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.7rem',
+          color: '#f47b20',
+          zIndex: 2,
+        }}>
+          <a
+            href="tel:+36302542292"
+            className="phone"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              color: '#f47b20',
+              textDecoration: 'none',
+            }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginRight: 4 }}>
+              <path d="M22 16.92V21a2 2 0 0 1-2.18 2A19.86 19.86 0 0 1 3 5.18 2 2 0 0 1 5 3h4.09a2 2 0 0 1 2 1.72c.13 1.13.37 2.23.72 3.28a2 2 0 0 1-.45 2.11l-1.27 1.27a16 16 0 0 0 6.29 6.29l1.27-1.27a2 2 0 0 1 2.11-.45c1.05.35 2.15.59 3.28.72a2 2 0 0 1 1.72 2z" stroke="#f47b20" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            +36 30 254 2292
+          </a>
+          <a
+            href="https://m.me/Roliszerviz.huDebrecen/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Messenger üzenet küldése"
+            style={{ display: 'flex', alignItems: 'center', color: '#0084FF', textDecoration: 'none', marginLeft: 2 }}
+          >
+            {/* Messenger SVG icon - chat bubble slightly left, blue lightning bolt centered */}
+            <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="16" cy="16" r="16" fill="#0084FF"/>
+              <g>
+                <g transform="translate(-0.5,-1.5)">
+                  <path d="M23 12c-1.5-1.5-3.5-2.5-7-2.5-5 0-8.5 3.7-8.5 8.2 0 2.5 1 4.5 2.7 6l-0.6 2.2c-0.1 0.4 0.3 0.8 0.7 0.7l2.3-0.7c1.2 0.3 2.4 0.5 3.7 0.5 5 0 8.5-3.7 8.5-8.2 0-2.1-0.8-4-2.3-5.2z" fill="#fff"/>
+                  {/* Blue lightning bolt moved slightly down and left in bubble */}
+                  <g transform="translate(-1.2,1.2)">
+                    <path d="M13.5 19.5l2.2-3.7c0.2-0.3 0.6-0.4 0.9-0.2l2.1 1.3c0.2 0.1 0.5 0.1 0.7-0.1l2.7-2.2c0.3-0.2 0.7 0.1 0.6 0.5l-2.2 3.7c-0.2 0.3-0.6 0.4-0.9 0.2l-2.1-1.3c-0.2-0.1-0.5-0.1-0.7 0.1l-2.7 2.2c-0.3 0.2-0.7-0.1-0.6-0.5z" fill="#39B1FF"/>
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </a>
+        </div>
         <span className="close" onClick={onClose}>
           &times;
         </span>
-        <h2>{t("Időpontfoglalás")}</h2>
+        <h2 style={{ marginTop: 32 }}>{t("Időpontfoglalás")}</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="name">{t("Név")}<span style={{color: 'var(--primary-color)', marginLeft: 4}}>*</span></label>

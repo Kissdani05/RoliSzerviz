@@ -33,7 +33,7 @@ export default function WebshopPage() {
                   <Instagram size={20} />
                 </a>
                 <a href="https://www.tiktok.com/@roliszerviz" aria-label="TikTok">
-                  <Image src="/logok/Tiktok Icon.png" alt="TikTok" width={20} height={20} style={{ display: 'inline', verticalAlign: 'middle' }} />
+                  <Image src="/logok/Tiktok Icon.png" alt="TikTok logó – RoliSzerviz webshop közösségi média" width={20} height={20} style={{ display: 'inline', verticalAlign: 'middle' }} />
                 </a>
                 <a href="https://www.facebook.com/Roliszerviz.huDebrecen?locale=hu_HU" aria-label="Facebook">
                   <Facebook size={20} />

@@ -36,6 +36,20 @@ body {
   overflow-x: hidden;
 }
 
+/* Fade-in animation for sections */
+.section-fade {
+  opacity: 0;
+  transform: translateY(24px);
+  animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .container {
   width: 100%;
   max-width: 1200px;
@@ -46,7 +60,7 @@ body {
 /* Header Styles */
 .header {
   background-color: var(--secondary-color);
-  padding: 1rem 0;
+  padding: 1.7rem 0 2.2rem 0;
   position: fixed;
   width: 100%;
   top: 0;
@@ -294,7 +308,7 @@ body {
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: var(--transition);
+  transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
   border: none;
   display: inline-flex;
   align-items: center;
@@ -310,8 +324,9 @@ body {
 
 .btn-primary:hover {
   background-color: var(--primary-dark);
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(244, 123, 32, 0.4);
+  color: #fff;
+  box-shadow: 0 6px 24px rgba(244, 123, 32, 0.4);
+  transform: translateY(-2px) scale(1.04);
 }
 
 .btn-secondary {
@@ -321,8 +336,9 @@ body {
 }
 
 .btn-secondary:hover {
-  background-color: rgba(244, 123, 32, 0.1);
-  transform: translateY(-3px);
+  background-color: rgba(244, 123, 32, 0.12);
+  color: var(--primary-color);
+  transform: translateY(-2px) scale(1.04);
 }
 
 .hero-image {

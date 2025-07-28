@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "RoliSzerviz – Elektromos roller szerviz Debrecen | Roller szerviz, elektromos roller javítás, gyors háztól házig szerviz, minőségi roller javítás",
-  description: "Professzionális elektromos roller szerviz Debrecenben: gyors, megbízható javítás, háztól házig szállítás, gumiszerelés, fék javítás, elektromos hibafeltárás, korrekt árak.",
+  title: "Elektromos roller szerviz Debrecen – RoliSzerviz | Roller javítás, e-roller szerviz, háztól-házig szállítás",
+  description: "Elektromos roller és e-bike szerviz Debrecenben, háztól-házig szállítással. Gyors javítás, garanciával, időpontfoglalás online.",
   keywords: [
     "roller szervíz debrecen",
     "elektromos roller szerviz debrecen",
@@ -32,7 +32,10 @@ export const metadata: Metadata = {
     "roller szerviz",
     "debrecen roller",
     "electric scooter repair near me",
-    "debrecen roller szerviz"
+    "debrecen roller szerviz",
+    "kerékpár szerviz debrecen",
+    "xiaomi roller szerviz debrecen",
+    "ninebot roller szerviz debrecen"
   ]
 };
 
@@ -42,7 +45,43 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="hu">
+      <head>
+        <link rel="canonical" href="https://roliszerviz.hu/" />
+        <link rel="alternate" hrefLang="hu" href="https://roliszerviz.hu/" />
+        <link rel="alternate" hrefLang="en" href="https://roliszerviz.hu/electric-scooter-servicing/" />
+        <meta name="robots" content="index, follow" />
+        <meta name="description" content="Elektromos roller szerviz Debrecenben, háztól-házig szállítással. Gyors javítás, időpontfoglalás online." />
+        <meta property="og:title" content="Elektromos roller szerviz Debrecen – RoliSzerviz" />
+        <meta property="og:description" content="Gyors, elektromos roller szerviz Debrecenben, háztól-házig szállítással. Időpontfoglalás online!" />
+        <meta property="og:image" content="https://roliszerviz.hu/roller.webp" />
+        <meta property="og:url" content="https://roliszerviz.hu/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="RoliSzerviz" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Elektromos roller szerviz Debrecen – RoliSzerviz" />
+        <meta name="twitter:description" content="Gyors, garanciális elektromos roller szerviz Debrecenben, háztól-házig szállítással. Időpontfoglalás online!" />
+        <meta name="twitter:image" content="https://roliszerviz.hu/roller.webp" />
+        <script type="application/ld+json" suppressHydrationWarning>{`
+          {
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": "RoliSzerviz",
+            "image": "https://roliszerviz.hu/roller.webp",
+            "@id": "https://roliszerviz.hu/",
+            "url": "https://roliszerviz.hu/",
+            "telephone": "+36-30-254-2292",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Debrecen",
+              "addressCountry": "HU"
+            },
+            "serviceArea": "Debrecen és környéke",
+            "description": "Elektromos roller és kerékpár szerviz Debrecenben, háztól házig szolgáltatással.",
+            "openingHours": "Mo-Sa 09:00-18:00"
+          }
+        `}</script>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
