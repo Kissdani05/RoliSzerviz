@@ -103,6 +103,11 @@ export const translations: Record<Locale, TranslationObject> = {
     "-ig": "-ig",
     "több": "több",
     "kevesebb": "kevesebb",
+    "+36 30 254 2292": "+36 30 254 2292",
+    "Instagram": "Instagram",
+    "TikTok": "TikTok",
+    "Facebook": "Facebook",
+    "TikTok logó – RoliSzerviz webshop közösségi média": "TikTok logó – RoliSzerviz webshop közösségi média",
   },
   en: {
     // Header
@@ -193,6 +198,11 @@ export const translations: Record<Locale, TranslationObject> = {
     "-ig": "-to",
     "több": "more",
     "kevesebb": "less",
+    "+36 30 254 2292": "+36 30 254 2292",
+    "Instagram": "Instagram",
+    "TikTok": "TikTok",
+    "Facebook": "Facebook",
+    "TikTok logó – RoliSzerviz webshop közösségi média": "TikTok logo – RoliSzerviz webshop social media",
   },
   de: {
     // Header
@@ -217,10 +227,10 @@ export const translations: Record<Locale, TranslationObject> = {
     testimonial1: "Schnell, präzise und perfektes Preis-Leistungs-Verhältnis.",
     author1: "Zoltán",
     date1: "Március 2025",
-    testimonial2: "Äußerst freundliches und faires Unternehmen. Mein Roller machte ein Klopfgeräusch, wofür ein anderer Service eine Reparatur für 10.000 HUF angeboten hat. Aber RoliSzerviz kam zu mir nach Hause und fand in 5 Minuten heraus, dass ein Kabel am Rahmen schlug. Und sie haben dafür nicht einmal etwas berechnet, ich musste nur die Hälfte der Anfahrtskosten zahlen. Ich EMPFEHLE sie jedem E-Roller-Besitzer in und um Debrecen!",
+    testimonial2: "Äußerst freundliches és faires Unternehmen. Mein Roller machte ein Klopfgeräusch, wofür ein anderer Service eine Reparatur für 10.000 HUF angeboten hat. Aber RoliSzerviz kam zu mir nach Hause und fand in 5 Minuten heraus, dass ein Kabel am Rahmen schlug. Und sie haben dafür nicht einmal etwas berechnet, ich musste nur die Hälfte der Anfahrtskosten zahlen. Ich EMPFEHLE sie jedem E-Roller-Besitzer in és um Debrecen!",
     author2: "József",
     date2: "Április 2025",
-    testimonial3: "Ich empfehle sie jedem, sie sind flexibel, hilfsbereit und die Kommunikation ist großartig! Am Sonntag haben sie es geschafft, mir den Roller zu bringen, damit ich am Montag damit zur Arbeit fahren konnte!",
+    testimonial3: "Ich empfehle sie jedem, sie sind flexibel, hilfsbereit és die Kommunikation ist großartig! Am Sonntag haben sie es geschafft, mir den Roller zu bringen, damit ich am Montag damit zur Arbeit fahren konnte!",
     author3: "Ferenc",
     date3: "Október 2024",
     // Video section
