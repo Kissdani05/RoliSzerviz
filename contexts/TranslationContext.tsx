@@ -16,7 +16,7 @@ interface TranslationContextType {
   changeLocale: (newLocale: Locale) => void;
 }
 
-const TranslationContext = createContext<TranslationContextType | undefined>(
+export const TranslationContext = createContext<TranslationContextType | undefined>(
   undefined
 );
 

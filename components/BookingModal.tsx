@@ -2,6 +2,7 @@
 "use client"; // Add this for useState and useEffect
 
 import React, { useState, useEffect } from "react";
+import BookingToast from "./BookingToast";
 import { useTranslation } from "../contexts/TranslationContext";
 
 interface BookingModalProps {
@@ -37,6 +38,15 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
   const [showBillingAddressInput, setShowBillingAddressInput] = useState(false);
   const [availableFromHours, setAvailableFromHours] = useState<number[]>([]);
   const [availableToHours, setAvailableToHours] = useState<number[]>([]);
+
+  // Toast state
+  const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
+
+  // Helper to show toast
+  const showToast = (message: string, type: "success" | "error" = "success") => {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 5000);
+  };
 
   const updateToHours = React.useCallback((selectedFrom: number) => {
     const toHours: number[] = [];
@@ -180,42 +190,40 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
     const toHour = parseInt(bookingTo);
 
     if (isNaN(fromHour) || isNaN(toHour) || toHour <= fromHour) {
-      alert(
-        "Kérjük, válasszon legalább 1 órás időtartamot (pl. 10:00 - 11:00)!"
-      );
+      showToast("Kérjük, válasszon legalább 1 órás időtartamot (pl. 10:00 - 11:00)!", "error");
       return;
     }
 
     if (services.length === 0) {
-      alert("Kérjük, válasszon legalább egy szolgáltatást!");
+      showToast("Kérjük, válasszon legalább egy szolgáltatást!", "error");
       return;
     }
 
     if (services.includes("Egyéb") && !otherService) {
-      alert("Kérjük, írja le, milyen szolgáltatásra van szüksége!");
+      showToast("Kérjük, írja le, milyen szolgáltatásra van szüksége!", "error");
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      alert("Kérjük, érvényes email címet adjon meg!");
+      showToast("Kérjük, érvényes email címet adjon meg!", "error");
       return;
     }
 
     const phoneRegex = /^(\+36|06)[0-9]{1,2}[0-9]{3,4}[0-9]{3,4}$/;
     if (!phoneRegex.test(phone)) {
-      alert("Kérjük, érvényes magyar telefonszámot adjon meg!");
+      showToast("Kérjük, érvényes magyar telefonszámot adjon meg!", "error");
       return;
     }
 
     const postalCodeRegex = /^[0-9]{4}$/;
     if (!postalCodeRegex.test(postalCode)) {
-      alert("Kérjük, érvényes irányítószámot adjon meg!");
+      showToast("Kérjük, érvényes irányítószámot adjon meg!", "error");
       return;
     }
 
     if (differentBilling && !postalCodeRegex.test(billingPostalCode)) {
-      alert("Kérjük, érvényes számlázási irányítószámot adjon meg!");
+      showToast("Kérjük, érvényes számlázási irányítószámot adjon meg!", "error");
       return;
     }
 
@@ -252,7 +260,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
       const data = await response.json();
 
       if (response.ok) {
-        alert(data.message || "Köszönjük időpontfoglalását!");
+        showToast(data.message || "Köszönjük időpontfoglalását!", "success");
         onClose();
         setFormData({
           name: "",
@@ -275,11 +283,11 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
         setShowOtherServiceInput(false);
         setShowBillingAddressInput(false);
       } else {
-        alert(data.error || "Hiba történt az időpontfoglalás során.");
+        showToast(data.error || "Hiba történt az időpontfoglalás során.", "error");
       }
     } catch (error) {
       console.error("Hiba:", error);
-      alert("Hiba történt az időpontfoglalás során.");
+      showToast("Hiba történt az időpontfoglalás során.", "error");
     }
   };
 
@@ -294,12 +302,20 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div
-      className={`modal ${showContent ? "show" : ""}`}
-      style={{ display: "flex" }}
-      onClick={handleBackdropClick}
-    >
-      <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ position: 'relative' }}>
+    <>
+      {toast && (
+        <BookingToast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
+        />
+      )}
+      <div
+        className={`modal ${showContent ? "show" : ""}`}
+        style={{ display: "flex" }}
+        onClick={handleBackdropClick}
+      >
+        <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ position: 'relative' }}>
         {/* Phone number top left */}
         <div style={{
           position: 'absolute',
@@ -667,6 +683,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
         </form>
       </div>
     </div>
+    </>
   );
 };
 
