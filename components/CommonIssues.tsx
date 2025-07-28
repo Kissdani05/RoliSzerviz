@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { AlertTriangle, BatteryCharging, Zap, Disc, Lock, Wrench } from "lucide-react";
 import { useTranslation } from "../contexts/TranslationContext";
 
