@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Head from "next/head";
 import React, { useState, useRef, useEffect } from "react";
 import PriceModal from "../components/PriceModal";
 import BookingModal from "../components/BookingModal";
@@ -139,44 +140,23 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <main>
+    <>
+      <Head>
+        <link rel="canonical" href="https://roliszerviz.hu/" />
+      </Head>
+      <main>
       <header className="header">
         <div className="container">
           {/* Mobil nézet: logo balra, hamburger jobbra */}
-          <div className="mobile-header" style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            width: '100%',
-            padding: 'min(3vw, 0.7rem) min(2vw, 0.5rem)',
-            background: 'var(--secondary-color)', // egységes asztali és mobil
-            boxShadow: '0 2px 12px rgba(244,123,32,0.07)',
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            zIndex: 1200,
-            maxWidth: '100vw',
-            minHeight: 'min(62px, 16vw)',
-            height: 'min(62px, 16vw)',
-          }}>
+          <div className="mobile-header">
             {/* Logo and hamburger menu in one line, both vertically centered and responsive */}
-            <div className="logo" style={{ fontWeight: 700, fontSize: 'min(1.18rem, 5vw)', color: '#f47b20', textAlign: 'center', flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 0 }}>{t("ROLI SZERVIZ")}</div>
+            <div className="logo mobile-logo">{t("ROLI SZERVIZ")}</div>
             <button
               className="hamburger-btn"
               aria-label="Menü megnyitása"
               onClick={() => setMenuOpen(!menuOpen)}
-              style={{
-                background: 'none',
-                border: 'none',
-                padding: 'min(0.5rem, 2vw)',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                zIndex: 1001,
-              }}
             >
-              <span style={{ width: 'min(28px, 7vw)', height: 'min(28px, 7vw)', display: 'inline-block' }}>
+              <span className="hamburger-icon">
                 {/* Hamburger ikon */}
                 <svg width="100%" height="100%" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <rect y="6" width="28" height="3.2" rx="1.6" fill="#f47b20" />
@@ -188,58 +168,153 @@ export default function Home() {
           </div>
           {/* Hamburger menü tartalma mobilon */}
           {menuOpen && (
-            <div className="mobile-menu-overlay" style={{
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              width: '100vw',
-              height: '100vh',
-              background: 'rgba(0,0,0,0.18)',
-              zIndex: 1000,
-            }} onClick={() => setMenuOpen(false)} />
+            <div className="mobile-menu-overlay" onClick={() => setMenuOpen(false)} />
           )}
           <nav
-            className="mobile-menu"
-            style={{
-              position: 'fixed',
-              top: 0,
-              right: menuOpen ? 0 : '-100vw',
-              width: 'min(80vw, 340px)',
-              height: '100vh',
-              background: 'var(--secondary-color)', // dark gray background
-              color: '#fff',
-              boxShadow: '0 0 32px rgba(244,123,32,0.07)',
-              zIndex: 2000,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center', // center all menu items
-              padding: 'max(20px, min(2.2rem, 7vw)) max(20px, min(1.2rem, 4vw)) max(20px, min(1.2rem, 4vw)) max(20px, min(1.2rem, 4vw))',
-              transition: 'right 0.22s cubic-bezier(.7,.2,.3,1)',
-            }}
+            className={`mobile-menu${menuOpen ? ' open' : ''}`}
             aria-label="Mobil menü"
           >
             {/* X button removed as requested */}
             {/* Phone and Webshop directly below the X button */}
-            <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '0.7rem' }}>
-              <a href="tel:+36302542292" className="phone" style={{ fontWeight: 500, fontSize: '1.08rem', display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.5rem', color: '#f47b20' }}>
+            <div className="mobile-menu-top">
+              <a href="tel:+36302542292" className="phone mobile-phone">
                 <Phone size={18} />
                 +36 30 254 2292
               </a>
-              <a href="/webshop" className="webshop-btn" style={{ fontWeight: 600, fontSize: '1.08rem', marginBottom: '0.5rem', color: '#f47b20' }}>{t("Webshop")}</a>
+              <a href="/webshop" className="webshop-btn mobile-webshop">{t("Webshop")}</a>
             </div>
             {/* Social icons below phone and webshop */}
-            <div className="mobile-social-icons" style={{ display: 'flex', gap: '0.7rem', marginBottom: '1.1rem' }}>
-              <a href="https://www.instagram.com/roliszerviz.hu/" aria-label="Instagram" style={{ background: '#fff', borderRadius: '50%', width: 'min(40px, 10vw)', height: 'min(40px, 10vw)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div className="mobile-social-icons">
+              <a href="https://www.instagram.com/roliszerviz.hu/" aria-label="Instagram" className="social-icon">
                 <Instagram size={24} color="#181818" style={{ width: 'min(24px, 6vw)', height: 'min(24px, 6vw)' }} />
               </a>
-              <a href="https://www.tiktok.com/@roliszerviz" aria-label="TikTok" style={{ background: '#fff', borderRadius: '50%', width: 'min(40px, 10vw)', height: 'min(40px, 10vw)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Image src="/logok/Tiktok Icon.webp" alt="TikTok logó – RoliSzerviz közösségi média" width={26} height={26} style={{ display: 'inline', verticalAlign: 'top', filter: 'brightness(0)', width: 'min(26px, 7vw)', height: 'min(26px, 7vw)' }} />
+              <a href="https://www.tiktok.com/@roliszerviz" aria-label="TikTok" className="social-icon">
+                <Image src="/logok/Tiktok Icon.webp" alt="TikTok logó – RoliSzerviz közösségi média" width={26} height={26} className="tiktok-img" />
               </a>
-              <a href="https://www.facebook.com/Roliszerviz.huDebrecen?locale=hu_HU" aria-label="Facebook" style={{ background: '#fff', borderRadius: '50%', width: 'min(40px, 10vw)', height: 'min(40px, 10vw)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <a href="https://www.facebook.com/Roliszerviz.huDebrecen?locale=hu_HU" aria-label="Facebook" className="social-icon">
                 <Facebook size={24} color="#181818" style={{ width: 'min(24px, 6vw)', height: 'min(24px, 6vw)' }} />
               </a>
             </div>
-            <div style={{ marginBottom: '1.1rem' }}><LanguageSelector /></div>
+            <div className="mobile-lang"><LanguageSelector /></div>
+      {/* NavBar CSS classes for mobile and desktop */}
+      <style>{`
+        .mobile-header {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+          padding: min(3vw, 0.7rem) min(2vw, 0.5rem);
+          background: var(--secondary-color);
+          box-shadow: 0 2px 12px rgba(244,123,32,0.07);
+          position: fixed;
+          top: 0;
+          left: 0;
+          z-index: 1200;
+          max-width: 100vw;
+          min-height: min(62px, 16vw);
+          height: min(62px, 16vw);
+        }
+        .mobile-logo {
+          font-weight: 700;
+          font-size: min(1.18rem, 5vw);
+          color: #f47b20;
+          text-align: center;
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 0;
+        }
+        .hamburger-btn {
+          background: none;
+          border: none;
+          padding: min(0.5rem, 2vw);
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          z-index: 1001;
+        }
+        .hamburger-icon {
+          width: min(28px, 7vw);
+          height: min(28px, 7vw);
+          display: inline-block;
+        }
+        .mobile-menu-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          background: rgba(0,0,0,0.18);
+          z-index: 1000;
+        }
+        .mobile-menu {
+          position: fixed;
+          top: 0;
+          right: -100vw;
+          width: min(80vw, 340px);
+          height: 100vh;
+          background: var(--secondary-color);
+          color: #fff;
+          box-shadow: 0 0 32px rgba(244,123,32,0.07);
+          z-index: 2000;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: max(20px, min(2.2rem, 7vw)) max(20px, min(1.2rem, 4vw)) max(20px, min(1.2rem, 4vw)) max(20px, min(1.2rem, 4vw));
+          transition: right 0.22s cubic-bezier(.7,.2,.3,1);
+        }
+        .mobile-menu.open {
+          right: 0;
+        }
+        .mobile-menu-top {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-bottom: 0.7rem;
+        }
+        .mobile-phone {
+          font-weight: 500;
+          font-size: 1.08rem;
+          display: flex;
+          align-items: center;
+          gap: 0.4rem;
+          margin-bottom: 0.5rem;
+          color: #f47b20;
+        }
+        .mobile-webshop {
+          font-weight: 600;
+          font-size: 1.08rem;
+          margin-bottom: 0.5rem;
+          color: #f47b20;
+        }
+        .mobile-social-icons {
+          display: flex;
+          gap: 0.7rem;
+          margin-bottom: 1.1rem;
+        }
+        .social-icon {
+          background: #fff;
+          border-radius: 50%;
+          width: min(40px, 10vw);
+          height: min(40px, 10vw);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .tiktok-img {
+          display: inline;
+          vertical-align: top;
+          filter: brightness(0);
+          width: min(26px, 7vw);
+          height: min(26px, 7vw);
+        }
+        .mobile-lang {
+          margin-bottom: 1.1rem;
+        }
+      `}</style>
             <div className="mobile-nav-buttons" style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem', width: '100%', alignItems: 'center' }}>
               <button type="button" className={activeSection === "top" ? "nav-btn active" : "nav-btn"} onClick={() => { handleNavClick("top"); setMenuOpen(false); }}>{t("Időpontfoglalás")}</button>
               <button type="button" className={activeSection === "whyus" ? "nav-btn active" : "nav-btn"} onClick={() => { handleNavClick("whyus"); setMenuOpen(false); }}>{t("Miért mi?")}</button>
@@ -587,6 +662,7 @@ export default function Home() {
           <FAQ />
         </div>
       </section>
-    </main>
+      </main>
+    </>
   );
 }
