@@ -20,8 +20,6 @@ export default function Home() {
   const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
-  // State for testimonial expansion (one per testimonial)
-  const [testimonialExpanded, setTestimonialExpanded] = useState([false, false, false]);
 
   const priceBtnRef = useRef<HTMLButtonElement>(null);
   const bookingBtnRef = useRef<HTMLButtonElement>(null);
