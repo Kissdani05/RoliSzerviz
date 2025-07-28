@@ -37,7 +37,19 @@ const Testimonials: React.FC = () => (
                   onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-6px) scale(1.04)'; e.currentTarget.style.boxShadow = '0 8px 32px rgba(244,123,32,0.13)'; }}
                   onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 2px 16px rgba(0,0,0,0.13)'; }}>
             <div style={{ position: 'absolute', top: 18, left: 18 }}><Quote color="#f47b20" size={22} /></div>
-            <img src={item.avatar} alt={`Profilkép: ${item.name}, ${item.city} – Vélemény RoliSzerviz Debrecen`} width={54} height={54} style={{ borderRadius: '50%', marginBottom: 14, border: '2.5px solid #f47b20', background: '#fff' }} loading="lazy" decoding="async" />
+            <div style={{
+              width: 54,
+              height: 54,
+              borderRadius: '50%',
+              marginBottom: 14,
+              border: '2.5px solid #f47b20',
+              background: '#fff',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+              <Star color="#f47b20" size={32} fill="#f47b20" />
+            </div>
             <div style={{ fontWeight: 700, fontSize: '1.08rem', marginBottom: 6, color: '#fff' }}>{item.name} <span style={{ color: '#ffb86c', fontWeight: 400, fontSize: '0.98rem' }}>– {item.city}</span></div>
             <div style={{ fontSize: '1rem', color: '#e0e0e0', marginBottom: 10, minHeight: 60 }}>{item.text}</div>
             <div style={{ display: 'flex', gap: 2, marginTop: 4 }}>

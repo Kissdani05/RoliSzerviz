@@ -530,6 +530,10 @@ export default function Home() {
             margin-top: 62px !important;
           }
         }
+        html, body {
+          overflow-x: hidden !important;
+          max-width: 100vw !important;
+        }
       `}</style>
 
       <section ref={whyusRef} className="section-fade"><WhyUs /></section>
@@ -539,8 +543,6 @@ export default function Home() {
           .section-fade {
             display: flex !important;
             flex-direction: column !important;
-            margin-left: 20px !important;
-            margin-right: 20px !important;
           }
           .service-cards, .whyus-cards, .testimonials-cards {
             flex-direction: column !important;

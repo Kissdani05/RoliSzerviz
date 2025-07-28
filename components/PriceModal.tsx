@@ -102,5 +102,14 @@ const PriceModal: React.FC<PriceModalProps> = ({ isOpen, onClose }) => {
     </div>
   );
 };
-
+<style jsx>{`
+  @media (max-width: 767px) {
+    .modal-content, .price-table, .price-item, .price, h3, p {
+      word-break: break-word !important;
+      overflow-wrap: anywhere !important;
+      white-space: normal !important;
+      max-width: 100vw !important;
+    }
+  }
+`}</style>
 export default PriceModal;

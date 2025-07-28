@@ -22,31 +22,7 @@ export default function WebshopPage() {
       </Head>
       <header className="header">
         <div className="container">
-          <div className="logo">{t("ROLI SZERVIZ")}</div>
-          <nav className="nav" id="mainNav">
-            <Link href="/" className="webshop-btn">
-              {t("Szerviz")}
-            </Link>
-            <div className="contact-icons">
-              <a href="tel:+36302542292" className="phone">
-                <Phone size={18} />
-                {t("+36 30 254 2292")}
-              </a>
-              <div className="social-icons">
-                <a href="https://www.instagram.com/roliszerviz.hu/" aria-label={t("Instagram")}> 
-                  <Instagram size={20} />
-                </a>
-                <a href="https://www.tiktok.com/@roliszerviz" aria-label={t("TikTok")}> 
-                  <Image src="/logok/Tiktok Icon.png" alt={t("TikTok logó – RoliSzerviz webshop közösségi média")}
-                    width={20} height={20} style={{ display: 'inline', verticalAlign: 'middle' }} />
-                </a>
-                <a href="https://www.facebook.com/Roliszerviz.huDebrecen?locale=hu_HU" aria-label={t("Facebook")}> 
-                  <Facebook size={20} />
-                </a>
-                <LanguageSelector />
-              </div>
-            </div>
-          </nav>
+          <div className="logo" style={{ textAlign: 'center', width: '100%' }}>{t("ROLI SZERVIZ")}</div>
         </div>
       </header>
 
