@@ -23,10 +23,6 @@ const faqData = [
 		questionKey: "faq_q_5",
 		answerKey: "faq_a_5",
 	},
-	{
-		questionKey: "faq_q_6",
-		answerKey: "faq_a_6",
-	},
 ];
 
 const FAQ: React.FC = () => {

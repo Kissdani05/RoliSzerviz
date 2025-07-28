@@ -15,8 +15,6 @@ export const translations: Record<Locale, TranslationObject> = {
     faq_a_4: "Időpontot online a weboldalon keresztül, vagy telefonon is foglalhat. A foglalás után kollégánk felveszi Önnel a kapcsolatot a részletek egyeztetése érdekében.",
     faq_q_5: "Mennyibe kerül a háztól-házig szerviz Debrecenben?",
     faq_a_5: "A háztól-házig szerviz alapdíja Debrecen területén 3.000 Ft, amely tartalmazza a roller szállítását oda-vissza. A pontos árakért tekintse meg árlistánkat!",
-    faq_q_6: "Javítanak elektromos kerékpárt is, vagy csak rollert?",
-    faq_a_6: "Igen, szervizünk elektromos kerékpárok javítását is vállalja Debrecenben. Kérjen ajánlatot vagy időpontot elérhetőségeinken!",
     testimonial_section_title: "Ügyfeleink véleménye",
     booking_button: "Időpontfoglalás",
     // Header
@@ -200,8 +198,6 @@ export const translations: Record<Locale, TranslationObject> = {
     faq_a_4: "You can book an appointment online through the website or by phone. After booking, our colleague will contact you to confirm the details.",
     faq_q_5: "How much does door-to-door service cost in Debrecen?",
     faq_a_5: "The base fee for door-to-door service in Debrecen is 3,000 HUF, which includes round-trip transport of the scooter. For exact prices, see our price list!",
-    faq_q_6: "Do you repair electric bicycles or only scooters?",
-    faq_a_6: "Yes, our service also repairs electric bicycles in Debrecen. Request a quote or appointment via our contact details!",
     testimonial_section_title: "Customer Reviews",
     booking_button: "Book Appointment",
     // Testimonials section
@@ -375,8 +371,6 @@ export const translations: Record<Locale, TranslationObject> = {
     faq_a_4: "Sie können einen Termin online über die Website oder telefonisch buchen. Nach der Buchung wird sich unser Kollege mit Ihnen in Verbindung setzen, um die Details zu bestätigen.",
     faq_q_5: "Wie viel kostet der Haustürservice in Debrecen?",
     faq_a_5: "Die Grundgebühr für den Haustürservice in Debrecen beträgt 3.000 HUF und beinhaltet den Transport des Rollers hin und zurück. Für genaue Preise siehe unsere Preisliste!",
-    faq_q_6: "Reparieren Sie auch Elektrofahrräder oder nur Roller?",
-    faq_a_6: "Ja, unser Service repariert auch Elektrofahrräder in Debrecen. Fordern Sie ein Angebot oder einen Termin über unsere Kontaktdaten an!",
     testimonial_section_title: "Kundenbewertungen",
     booking_button: "Termin buchen",
     // Testimonials section
