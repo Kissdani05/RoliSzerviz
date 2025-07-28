@@ -1,16 +1,8 @@
-"use client"; // Required for useTranslation and LanguageSelector
+"use client"; // Required for useTranslation
 
 import Link from "next/link";
 import Head from "next/head";
-// import Image from "next/image"; // No longer needed directly here for product placeholder
 import { useTranslation } from "../../contexts/TranslationContext"; // Adjusted path
-import LanguageSelector from "../../components/LanguageSelector"; // Adjusted path
-import {
-  Phone,
-  Instagram,
-  Facebook,
-} from "lucide-react"; // Added PackageSearch
-import Image from "next/image";
 
 export default function WebshopPage() {
   const { t } = useTranslation();
