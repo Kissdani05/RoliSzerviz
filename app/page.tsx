@@ -147,10 +147,11 @@ export default function Home() {
           {/* Mobil nézet: logo balra, hamburger jobbra */}
           <div className="mobile-header" style={{
             display: 'flex',
-            flexDirection: 'column',
+            flexDirection: 'row',
             alignItems: 'center',
+            justifyContent: 'space-between',
             width: '100%',
-            padding: '0.7rem 0.5rem',
+            padding: 'min(3vw, 0.7rem) min(2vw, 0.5rem)',
             background: 'var(--secondary-color)', // egységes asztali és mobil
             boxShadow: '0 2px 12px rgba(244,123,32,0.07)',
             position: 'fixed',
@@ -158,33 +159,34 @@ export default function Home() {
             left: 0,
             zIndex: 1200,
             maxWidth: '100vw',
+            minHeight: 'min(62px, 16vw)',
+            height: 'min(62px, 16vw)',
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
-              <div className="logo" style={{ fontWeight: 700, fontSize: '1.18rem', color: '#f47b20' }}>{t("ROLI SZERVIZ")}</div>
-              <button
-                className="hamburger-btn"
-                aria-label="Menü megnyitása"
-                onClick={() => setMenuOpen(!menuOpen)}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  padding: '0.5rem',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  zIndex: 1001,
-                }}
-              >
-                <span style={{ width: 28, height: 28, display: 'inline-block' }}>
-                  {/* Hamburger ikon */}
-                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect y="6" width="28" height="3.2" rx="1.6" fill="#f47b20" />
-                    <rect y="13" width="28" height="3.2" rx="1.6" fill="#f47b20" />
-                    <rect y="20" width="28" height="3.2" rx="1.6" fill="#f47b20" />
-                  </svg>
-                </span>
-              </button>
-            </div>
+            {/* Logo and hamburger menu in one line, both vertically centered and responsive */}
+            <div className="logo" style={{ fontWeight: 700, fontSize: 'min(1.18rem, 5vw)', color: '#f47b20', textAlign: 'center', flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 0 }}>{t("ROLI SZERVIZ")}</div>
+            <button
+              className="hamburger-btn"
+              aria-label="Menü megnyitása"
+              onClick={() => setMenuOpen(!menuOpen)}
+              style={{
+                background: 'none',
+                border: 'none',
+                padding: 'min(0.5rem, 2vw)',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                zIndex: 1001,
+              }}
+            >
+              <span style={{ width: 'min(28px, 7vw)', height: 'min(28px, 7vw)', display: 'inline-block' }}>
+                {/* Hamburger ikon */}
+                <svg width="100%" height="100%" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect y="6" width="28" height="3.2" rx="1.6" fill="#f47b20" />
+                  <rect y="13" width="28" height="3.2" rx="1.6" fill="#f47b20" />
+                  <rect y="20" width="28" height="3.2" rx="1.6" fill="#f47b20" />
+                </svg>
+              </span>
+            </button>
           </div>
           {/* Hamburger menü tartalma mobilon */}
           {menuOpen && (
@@ -204,52 +206,43 @@ export default function Home() {
               position: 'fixed',
               top: 0,
               right: menuOpen ? 0 : '-100vw',
-              width: '80vw',
-              maxWidth: 340,
+              width: 'min(80vw, 340px)',
               height: '100vh',
-              background: '#fff', // unified with desktop nav bar
-              color: '#222',
+              background: 'var(--secondary-color)', // dark gray background
+              color: '#fff',
               boxShadow: '0 0 32px rgba(244,123,32,0.07)',
-              zIndex: 1001,
+              zIndex: 2000,
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'flex-start',
-              padding: '2.2rem 1.2rem 1.2rem 1.2rem',
+              alignItems: 'center', // center all menu items
+              padding: 'max(20px, min(2.2rem, 7vw)) max(20px, min(1.2rem, 4vw)) max(20px, min(1.2rem, 4vw)) max(20px, min(1.2rem, 4vw))',
               transition: 'right 0.22s cubic-bezier(.7,.2,.3,1)',
             }}
             aria-label="Mobil menü"
           >
-            <button
-              aria-label="Menü bezárása"
-              onClick={() => setMenuOpen(false)}
-              style={{
-                alignSelf: 'flex-end',
-                background: 'none',
-                border: 'none',
-                fontSize: '2rem',
-                color: '#f47b20',
-                cursor: 'pointer',
-                marginBottom: '1.2rem',
-              }}
-            >×</button>
-            <a href="/webshop" className="webshop-btn" style={{ fontWeight: 600, fontSize: '1.08rem', marginBottom: '1.1rem', color: '#f47b20' }}>{t("Webshop")}</a>
-            <a href="tel:+36302542292" className="phone" style={{ fontWeight: 500, fontSize: '1.08rem', display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '1.1rem', color: '#222' }}>
-              <Phone size={18} />
-              +36 30 254 2292
-            </a>
+            {/* X button removed as requested */}
+            {/* Phone and Webshop directly below the X button */}
+            <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '0.7rem' }}>
+              <a href="tel:+36302542292" className="phone" style={{ fontWeight: 500, fontSize: '1.08rem', display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.5rem', color: '#f47b20' }}>
+                <Phone size={18} />
+                +36 30 254 2292
+              </a>
+              <a href="/webshop" className="webshop-btn" style={{ fontWeight: 600, fontSize: '1.08rem', marginBottom: '0.5rem', color: '#f47b20' }}>{t("Webshop")}</a>
+            </div>
+            {/* Social icons below phone and webshop */}
             <div className="mobile-social-icons" style={{ display: 'flex', gap: '0.7rem', marginBottom: '1.1rem' }}>
-              <a href="https://www.instagram.com/roliszerviz.hu/" aria-label="Instagram">
-                <Instagram size={20} />
+              <a href="https://www.instagram.com/roliszerviz.hu/" aria-label="Instagram" style={{ background: '#fff', borderRadius: '50%', width: 'min(40px, 10vw)', height: 'min(40px, 10vw)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Instagram size={24} color="#181818" style={{ width: 'min(24px, 6vw)', height: 'min(24px, 6vw)' }} />
               </a>
-              <a href="https://www.tiktok.com/@roliszerviz" aria-label="TikTok">
-                <Image src="/logok/Tiktok Icon.webp" alt="TikTok logó – RoliSzerviz közösségi média" width={20} height={20} style={{ display: 'inline', verticalAlign: 'middle' }} />
+              <a href="https://www.tiktok.com/@roliszerviz" aria-label="TikTok" style={{ background: '#fff', borderRadius: '50%', width: 'min(40px, 10vw)', height: 'min(40px, 10vw)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Image src="/logok/Tiktok Icon.webp" alt="TikTok logó – RoliSzerviz közösségi média" width={26} height={26} style={{ display: 'inline', verticalAlign: 'top', filter: 'brightness(0)', width: 'min(26px, 7vw)', height: 'min(26px, 7vw)' }} />
               </a>
-              <a href="https://www.facebook.com/Roliszerviz.huDebrecen?locale=hu_HU" aria-label="Facebook">
-                <Facebook size={20} />
+              <a href="https://www.facebook.com/Roliszerviz.huDebrecen?locale=hu_HU" aria-label="Facebook" style={{ background: '#fff', borderRadius: '50%', width: 'min(40px, 10vw)', height: 'min(40px, 10vw)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Facebook size={24} color="#181818" style={{ width: 'min(24px, 6vw)', height: 'min(24px, 6vw)' }} />
               </a>
             </div>
             <div style={{ marginBottom: '1.1rem' }}><LanguageSelector /></div>
-            <div className="mobile-nav-buttons" style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem', width: '100%' }}>
+            <div className="mobile-nav-buttons" style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem', width: '100%', alignItems: 'center' }}>
               <button type="button" className={activeSection === "top" ? "nav-btn active" : "nav-btn"} onClick={() => { handleNavClick("top"); setMenuOpen(false); }}>{t("Időpontfoglalás")}</button>
               <button type="button" className={activeSection === "whyus" ? "nav-btn active" : "nav-btn"} onClick={() => { handleNavClick("whyus"); setMenuOpen(false); }}>{t("Miért mi?")}</button>
               <button type="button" className={activeSection === "services" ? "nav-btn active" : "nav-btn"} onClick={() => { handleNavClick("services"); setMenuOpen(false); }}>{t("Szolgáltatásaink")}</button>
@@ -306,7 +299,7 @@ export default function Home() {
                       <Instagram size={20} />
                     </a>
                     <a href="https://www.tiktok.com/@roliszerviz" aria-label="TikTok">
-                      <Image src="/logok/Tiktok Icon.webp" alt="TikTok logó – RoliSzerviz közösségi média" width={20} height={20} style={{ display: 'inline', verticalAlign: 'middle' }} />
+                      <Image src="/logok/Tiktok Icon.webp" alt="TikTok logó – RoliSzerviz közösségi média" width={24} height={24} style={{ display: 'inline', verticalAlign: 'middle' }} />
                     </a>
                     <a href="https://www.facebook.com/Roliszerviz.huDebrecen?locale=hu_HU" aria-label="Facebook">
                       <Facebook size={20} />
@@ -468,6 +461,24 @@ export default function Home() {
 
       <section ref={whyusRef} className="section-fade"><WhyUs /></section>
       <section ref={servicesRef} className="section-fade"><ServiceCards /></section>
+      <style>{`
+        @media (max-width: 700px) {
+          .section-fade {
+            display: flex !important;
+            flex-direction: column !important;
+            margin-left: 20px !important;
+            margin-right: 20px !important;
+          }
+          .service-cards, .whyus-cards, .testimonials-cards {
+            flex-direction: column !important;
+            gap: 1.1rem !important;
+          }
+          .whyus-cards, .testimonials-cards {
+            margin-left: 20px !important;
+            margin-right: 20px !important;
+          }
+        }
+      `}</style>
 
       {/* Floating navigation buttons */}
       {/* The old floating navigation buttons have been removed */}
