@@ -683,7 +683,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
               ></textarea>
             </div>
             <button type="submit" className="btn btn-primary">
-              {t("Időpont lefoglalása")}
+              {t("booking_button")}
             </button>
           </form>
         </div>

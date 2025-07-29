@@ -25,13 +25,14 @@ const faqData = [
 	},
 ];
 
-const FAQ: React.FC = () => {
-	const [openIndex, setOpenIndex] = useState<number | null>(null);
-	const { t } = useTranslation();
 
-	const toggle = (idx: number) => {
-		setOpenIndex(openIndex === idx ? null : idx);
-	};
+const FAQ: React.FC<{ openPriceModal?: () => void }> = ({ openPriceModal }) => {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const { t } = useTranslation();
+
+  const toggle = (idx: number) => {
+	setOpenIndex(openIndex === idx ? null : idx);
+  };
 
 	return (
 		<div
@@ -111,7 +112,29 @@ const FAQ: React.FC = () => {
 						}}
 					>
 						{openIndex === idx && (
-							<div style={{ paddingTop: 2 }}>{t(item.answerKey)}</div>
+			<div style={{ paddingTop: 2 }}>
+			  {t(item.answerKey)}
+			  {idx === 4 && openPriceModal && (
+				<button
+				  style={{
+					marginTop: 12,
+					marginLeft: 16,
+					background: '#f47b20',
+					color: '#fff',
+					border: 'none',
+					borderRadius: '2rem',
+					padding: '0.5rem 1.4rem',
+					fontWeight: 600,
+					fontSize: '1.01rem',
+					cursor: 'pointer',
+					boxShadow: '0 2px 8px rgba(244,123,32,0.10)',
+				  }}
+				  onClick={openPriceModal}
+				>
+				  {t('Árlista')}
+				</button>
+			  )}
+			</div>
 						)}
 					</div>
 				</div>

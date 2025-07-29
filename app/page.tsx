@@ -45,16 +45,29 @@ export default function Home() {
 
   // Villogtatás (flash) funkció
   const flashButtons = () => {
+    // Double flash for both buttons
     if (priceBtnRef.current) {
       priceBtnRef.current.classList.add("flash");
       setTimeout(() => {
         if (priceBtnRef.current) priceBtnRef.current.classList.remove("flash");
+        setTimeout(() => {
+          if (priceBtnRef.current) priceBtnRef.current.classList.add("flash");
+          setTimeout(() => {
+            if (priceBtnRef.current) priceBtnRef.current.classList.remove("flash");
+          }, 800);
+        }, 120);
       }, 800);
     }
     if (bookingBtnRef.current) {
       bookingBtnRef.current.classList.add("flash");
       setTimeout(() => {
         if (bookingBtnRef.current) bookingBtnRef.current.classList.remove("flash");
+        setTimeout(() => {
+          if (bookingBtnRef.current) bookingBtnRef.current.classList.add("flash");
+          setTimeout(() => {
+            if (bookingBtnRef.current) bookingBtnRef.current.classList.remove("flash");
+          }, 800);
+        }, 120);
       }, 800);
     }
   };
@@ -364,7 +377,7 @@ export default function Home() {
         }
       `}</style>
             <div className="mobile-nav-buttons" style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem', width: '100%', alignItems: 'center' }}>
-              <button type="button" className={activeSection === "top" ? "nav-btn active" : "nav-btn"} onClick={() => { handleNavClick("top"); setMenuOpen(false); }}>{t("booking_button")}</button>
+              <button type="button" className={activeSection === "top" ? "nav-btn active" : "nav-btn"} onClick={() => { handleNavClick("top"); setMenuOpen(false); }}>{t("nav_booking")}</button>
               <button type="button" className={activeSection === "services" ? "nav-btn active" : "nav-btn"} onClick={() => { handleNavClick("services"); setMenuOpen(false); }}>{t("Szolgáltatásaink")}</button>
               <button type="button" className={activeSection === "whyus" ? "nav-btn active" : "nav-btn"} onClick={() => { handleNavClick("whyus"); setMenuOpen(false); }}>{t("Miért mi?")}</button>
               <button type="button" className={activeSection === "testimonials" ? "nav-btn active" : "nav-btn"} onClick={() => { handleNavClick("testimonials"); setMenuOpen(false); }}>{t("Vélemény")}</button>
@@ -463,7 +476,7 @@ export default function Home() {
                     maxWidth: '100vw',
                     boxSizing: 'border-box',
                   }}>
-                    <button type="button" className={activeSection === "top" ? "nav-btn active" : "nav-btn"} onClick={() => handleNavClick("top")}>{t("booking_button")}</button>
+                    <button type="button" className={activeSection === "top" ? "nav-btn active" : "nav-btn"} onClick={() => handleNavClick("top")}>{t("nav_booking")}</button>
                     <button type="button" className={activeSection === "services" ? "nav-btn active" : "nav-btn"} onClick={() => handleNavClick("services")}>{t("Szolgáltatásaink")}</button>
                     <button type="button" className={activeSection === "whyus" ? "nav-btn active" : "nav-btn"} onClick={() => handleNavClick("whyus")}>{t("Miért mi?")}</button>
                     <button type="button" className={activeSection === "testimonials" ? "nav-btn active" : "nav-btn"} onClick={() => handleNavClick("testimonials")}>{t("Vélemény")}</button>
@@ -735,7 +748,7 @@ export default function Home() {
       <section ref={faqRef} className="faq-section" id="faq" style={{ background: '#181818', color: '#fff', padding: '2.5rem 0 2.5rem 0', margin: '0', borderRadius: '0 0 0.5rem 0.5rem', boxShadow: '0 4px 24px rgba(0,0,0,0.08)', maxWidth: '100vw', marginTop: '0' }}>
         <div className="section-fade container" style={{ maxWidth: 900, margin: '0 auto', padding: '0 1.5rem' }}>
           <h2 style={{ color: 'var(--primary-color)', fontSize: '2rem', marginBottom: '1.5rem', textAlign: 'center', fontWeight: 700 }}>{t('faq_section_title')}</h2>
-          <FAQ />
+          <FAQ openPriceModal={openPriceModal} />
         </div>
       </section>
       <ContactSection ref={contactSectionRef} />
