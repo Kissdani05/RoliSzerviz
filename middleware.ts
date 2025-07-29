@@ -2,6 +2,12 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
+  // Force Hungarian for all browsers
+  const acceptLang = request.headers.get('accept-language') || '';
+  // If the path is not already root and the preferred language is not Hungarian, redirect to root
+  if (!request.nextUrl.pathname.startsWith('/hu') && !request.nextUrl.pathname.startsWith('/_next') && !acceptLang.toLowerCase().startsWith('hu')) {
+    return NextResponse.redirect(new URL('/', request.url));
+  }
   // List of old WordPress subpages to redirect
   const oldPages = [
     "/kapcsolat",
