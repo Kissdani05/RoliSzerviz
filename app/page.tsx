@@ -198,7 +198,7 @@ export default function Home() {
           {/* Mobil nézet: logo balra, hamburger jobbra */}
           <div className="mobile-header">
             {/* Logo and hamburger menu in one line, both vertically centered and responsive */}
-            <div className="logo mobile-logo">{t("ROLI SZERVIZ")}</div>
+            <div className="logo mobile-logo" style={{ cursor: 'pointer' }} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>{t("ROLI SZERVIZ")}</div>
             <button
               className="hamburger-btn"
               aria-label="Menü megnyitása"
@@ -427,7 +427,7 @@ export default function Home() {
             {/* Eredeti desktop nav bar */}
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
               <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: '2rem', width: '100%' }}>
-                <div className="logo">{t("ROLI SZERVIZ")}</div>
+                <div className="logo" style={{ cursor: 'pointer' }} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>{t("ROLI SZERVIZ")}</div>
                 <a href="/webshop" className="webshop-btn" style={{ fontWeight: 600, fontSize: '1.08rem' }}>{t("Webshop")}</a>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
                   <a href="tel:+36302542292" className="phone" style={{ fontWeight: 500, fontSize: '1.08rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
