@@ -24,7 +24,11 @@ export function middleware(request: NextRequest) {
     "/electric-scooter-servicing",
     "/kerekpar-szerviz-debrecenben",
     "/kontakt-contact",
-    "/kerekpar-szerviz-debrecen"
+    "/kerekpar-szerviz-debrecen",
+    "/kerekpar-szerviz-debrecen/",
+    "/kapcsolat-contact/",
+    "/electric-scooter-servicing/",
+    "/arlista-pricelist/"
     // Add more as needed
   ];
   const { pathname } = request.nextUrl;
