@@ -83,12 +83,11 @@ export default function Home() {
     window.scrollTo({ top, behavior: "smooth" });
   };
 
-  // Helper: scroll section title to top on mobile
-  const scrollSectionTitleToTop = (sectionRef: React.RefObject<HTMLElement | null>) => {
+  // Helper: scroll section title to top (headerHeight px offset)
+  const scrollSectionTitleToTop = (sectionRef: React.RefObject<HTMLElement | null>, headerHeight: number = 70) => {
     if (!sectionRef.current) return;
     const h2 = sectionRef.current.querySelector('h2');
     if (h2) {
-      const headerHeight = 70; // px, adjust if your mobile header is different
       const rect = h2.getBoundingClientRect();
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       const top = rect.top + scrollTop - headerHeight - 8; // 8px extra spacing
@@ -101,6 +100,8 @@ export default function Home() {
 
   const handleNavClick = (target: "top" | "seo" | "testimonials" | "youtube" | "faq" | "whyus" | "services" | "issues") => {
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 900;
+    // Desktop nav bar height (px): adjust if needed
+    const desktopHeaderHeight = 120;
     if (target === "top") {
       window.scrollTo({ top: 0, behavior: "smooth" });
       flashButtons();
@@ -108,43 +109,43 @@ export default function Home() {
       if (isMobile) {
         scrollSectionTitleToTop(seoRef);
       } else {
-        scrollSectionToCenter(seoRef.current);
+        scrollSectionTitleToTop(seoRef, desktopHeaderHeight);
       }
     } else if (target === "testimonials") {
       if (isMobile) {
         scrollSectionTitleToTop(testimonialsRef);
       } else {
-        scrollSectionToCenter(testimonialsRef.current);
+        scrollSectionTitleToTop(testimonialsRef, desktopHeaderHeight);
       }
     } else if (target === "youtube") {
       if (isMobile) {
         scrollSectionTitleToTop(youtubeRef);
       } else {
-        scrollSectionToCenter(youtubeRef.current);
+        scrollSectionTitleToTop(youtubeRef, desktopHeaderHeight);
       }
     } else if (target === "faq") {
       if (isMobile) {
         scrollSectionTitleToTop(faqRef);
       } else {
-        scrollSectionToCenter(faqRef.current);
+        scrollSectionTitleToTop(faqRef, desktopHeaderHeight);
       }
     } else if (target === "whyus") {
       if (isMobile) {
         scrollSectionTitleToTop(whyusRef);
       } else {
-        scrollSectionToCenter(whyusRef.current);
+        scrollSectionTitleToTop(whyusRef, desktopHeaderHeight);
       }
     } else if (target === "services") {
       if (isMobile) {
         scrollSectionTitleToTop(servicesRef);
       } else {
-        scrollSectionToCenter(servicesRef.current);
+        scrollSectionTitleToTop(servicesRef, desktopHeaderHeight);
       }
     } else if (target === "issues") {
       if (isMobile) {
         scrollSectionTitleToTop(issuesRef);
       } else {
-        scrollSectionToCenter(issuesRef.current);
+        scrollSectionTitleToTop(issuesRef, desktopHeaderHeight);
       }
     }
   };
