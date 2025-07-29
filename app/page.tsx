@@ -442,8 +442,8 @@ export default function Home() {
                     boxSizing: 'border-box',
                   }}>
                     <button type="button" className={activeSection === "top" ? "nav-btn active" : "nav-btn"} onClick={() => handleNavClick("top")}>{t("booking_button")}</button>
-                    <button type="button" className={activeSection === "whyus" ? "nav-btn active" : "nav-btn"} onClick={() => handleNavClick("whyus")}>{t("Miért mi?")}</button>
                     <button type="button" className={activeSection === "services" ? "nav-btn active" : "nav-btn"} onClick={() => handleNavClick("services")}>{t("Szolgáltatásaink")}</button>
+                    <button type="button" className={activeSection === "whyus" ? "nav-btn active" : "nav-btn"} onClick={() => handleNavClick("whyus")}>{t("Miért mi?")}</button>
                     <button type="button" className={activeSection === "testimonials" ? "nav-btn active" : "nav-btn"} onClick={() => handleNavClick("testimonials")}>{t("Vélemény")}</button>
                     <button type="button" className={activeSection === "youtube" ? "nav-btn active" : "nav-btn"} onClick={() => handleNavClick("youtube")}>{t("YouTube")}</button>
                     <button type="button" className={activeSection === "issues" ? "nav-btn active" : "nav-btn"} onClick={() => handleNavClick("issues")}>{t("Gyakori hibák")}</button>
