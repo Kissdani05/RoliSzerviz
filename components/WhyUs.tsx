@@ -35,7 +35,6 @@ const reasons = [
   },
 ];
 
-
 const WhyUs: React.FC = () => {
   const { t } = useTranslation();
   return (
@@ -140,12 +139,12 @@ const WhyUs: React.FC = () => {
             </div>
           ))}
         </div>
-        {/* Mobile: stack rows */}
+        {/* Mobile: stack rows below 600px */}
         <style>{`
-          @media (max-width: 800px) {
+          @media (max-width: 600px) {
             .whyus-grid {
-              grid-template-columns: 1fr;
-              gap: 1.3rem;
+              grid-template-columns: 1fr !important;
+              gap: 1.1rem !important;
             }
           }
         `}</style>

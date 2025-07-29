@@ -68,24 +68,41 @@ export default function Home() {
     window.scrollTo({ top, behavior: "smooth" });
   };
 
+  // Helper: scroll section title to top on mobile
+  const scrollSectionTitleToTop = (sectionRef: React.RefObject<HTMLElement | null>) => {
+    if (!sectionRef.current) return;
+    const h2 = sectionRef.current.querySelector('h2');
+    if (h2) {
+      const headerHeight = 70; // px, adjust if your mobile header is different
+      const rect = h2.getBoundingClientRect();
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const top = rect.top + scrollTop - headerHeight - 8; // 8px extra spacing
+      window.scrollTo({ top, behavior: 'smooth' });
+    } else {
+      // fallback: scroll section to top
+      sectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   const handleNavClick = (target: "top" | "seo" | "testimonials" | "youtube" | "faq" | "whyus" | "services" | "issues") => {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 900;
     if (target === "top") {
       window.scrollTo({ top: 0, behavior: "smooth" });
       flashButtons();
     } else if (target === "seo") {
-      scrollSectionToCenter(seoRef.current);
+      isMobile ? scrollSectionTitleToTop(seoRef) : scrollSectionToCenter(seoRef.current);
     } else if (target === "testimonials") {
-      scrollSectionToCenter(testimonialsRef.current);
+      isMobile ? scrollSectionTitleToTop(testimonialsRef) : scrollSectionToCenter(testimonialsRef.current);
     } else if (target === "youtube") {
-      scrollSectionToCenter(youtubeRef.current);
+      isMobile ? scrollSectionTitleToTop(youtubeRef) : scrollSectionToCenter(youtubeRef.current);
     } else if (target === "faq") {
-      scrollSectionToCenter(faqRef.current);
+      isMobile ? scrollSectionTitleToTop(faqRef) : scrollSectionToCenter(faqRef.current);
     } else if (target === "whyus") {
-      scrollSectionToCenter(whyusRef.current);
+      isMobile ? scrollSectionTitleToTop(whyusRef) : scrollSectionToCenter(whyusRef.current);
     } else if (target === "services") {
-      scrollSectionToCenter(servicesRef.current);
+      isMobile ? scrollSectionTitleToTop(servicesRef) : scrollSectionToCenter(servicesRef.current);
     } else if (target === "issues") {
-      scrollSectionToCenter(issuesRef.current);
+      isMobile ? scrollSectionTitleToTop(issuesRef) : scrollSectionToCenter(issuesRef.current);
     }
   };
 
