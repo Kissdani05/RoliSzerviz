@@ -287,7 +287,7 @@ body {
 
 .hero-description {
   font-size: 1.1rem;
-  color: var(--gray-color);
+  color: #e2e2e2;
   margin-bottom: 2rem;
   max-width: 600px;
   margin-left: auto;
