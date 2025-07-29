@@ -72,16 +72,7 @@ export default function Home() {
     }
   };
 
-  // Scroll handlerek
-  const scrollSectionToCenter = (element: HTMLElement | null) => {
-    if (!element) return;
-    const rect = element.getBoundingClientRect();
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const viewportHeight = window.innerHeight;
-    // Calculate the top so the section is centered
-    const top = rect.top + scrollTop - (viewportHeight / 2) + (rect.height / 2);
-    window.scrollTo({ top, behavior: "smooth" });
-  };
+  // (scrollSectionToCenter removed, was unused)
 
   // Helper: scroll section title to top (headerHeight px offset)
   const scrollSectionTitleToTop = (sectionRef: React.RefObject<HTMLElement | null>, headerHeight: number = 70) => {
