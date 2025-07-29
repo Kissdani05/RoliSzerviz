@@ -35,16 +35,16 @@ const ContactSection = React.forwardRef<HTMLElement>((props, ref) => {
             <span style={{ color: '#f47b20', fontWeight: 700 }}>{t('Helyszín')}:</span> Debrecen, Csáthy u. 44. Magyarország
           </div>
           <div style={{ width: '100%', maxWidth: 480, margin: '0 auto', borderRadius: 12, overflow: 'hidden', boxShadow: '0 2px 12px rgba(0,0,0,0.10)' }}>
-            <iframe
-              title="RoliSzerviz helyszín - Google Térkép"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2726.073964857624!2d21.62999507696413!3d47.52739387118109!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4747b7b1e2e2e2e3%3A0x7e2e2e2e2e2e2e2e!2sDebrecen%2C%20Cs%C3%A1thy%20u.%2044%2C%204030!5e0!3m2!1shu!2shu!4v1722250000000!5m2!1shu!2shu"
-              width="100%"
-              height="260"
-              style={{ border: 0 }}
-              allowFullScreen={true}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
+           <iframe
+  title="RoliSzerviz helyszín - Google Térkép"
+  src="https://www.google.com/maps?q=roliszerviz.hu&output=embed"
+  width="100%"
+  height="260"
+  style={{ border: 0 }}
+  allowFullScreen={true}
+  loading="lazy"
+  referrerPolicy="no-referrer-when-downgrade"
+/>
           </div>
         </div>
       </div>
