@@ -5,20 +5,23 @@ import { useTranslation } from "../contexts/TranslationContext";
 const testimonials = [
   {
     nameKey: "testimonial_name_1",
-    cityKey: "testimonial_city_1",
     textKey: "testimonial_text_1",
+    sourceKey: "testimonial_source_1",
+    sourceUrl: "https://g.co/kgs/b968Y1t",
     rating: 5,
   },
   {
     nameKey: "testimonial_name_2",
-    cityKey: "testimonial_city_2",
     textKey: "testimonial_text_2",
+    sourceKey: "testimonial_source_2",
+    sourceUrl: "https://www.facebook.com/sfonarayan/posts/pfbid0qT9KhePB5YitMhsr7iC15gqphRpX845BbDY5UhFSA331kCsceBeX5A3FFKoKa8ntl",
     rating: 5,
   },
   {
     nameKey: "testimonial_name_3",
-    cityKey: "testimonial_city_3",
     textKey: "testimonial_text_3",
+    sourceKey: "testimonial_source_3",
+    sourceUrl: "https://g.co/kgs/Z9bBH4g",
     rating: 5,
   },
 ];
@@ -33,14 +36,14 @@ const Testimonials: React.FC = () => {
         </h2>
         <div className="testimonials-grid" style={{ display: 'flex', flexWrap: 'wrap', gap: '2.2rem', justifyContent: 'center' }}>
           {testimonials.map((item, idx) => (
-            <div key={idx} className="testimonial-card" role="article" aria-label={`Vélemény: ${t(item.nameKey)}, ${t(item.cityKey)}`} style={{ background: '#23262e', borderRadius: '1.2rem', boxShadow: '0 2px 16px rgba(0,0,0,0.13)', padding: '2rem 1.5rem', minWidth: 260, maxWidth: 340, flex: '1 1 300px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', position: 'relative', transition: 'transform 0.18s, box-shadow 0.18s', cursor: 'pointer' }}
+            <div key={idx} className="testimonial-card" role="article" aria-label={`${t('testimonial_section_title')}: ${t(item.nameKey)}, ${t(item.sourceKey)}`} style={{ background: '#23262e', borderRadius: '1.2rem', boxShadow: '0 2px 16px rgba(0,0,0,0.13)', padding: '2rem 1.5rem', minWidth: 260, maxWidth: 340, flex: '1 1 300px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', position: 'relative', transition: 'transform 0.18s, box-shadow 0.18s', cursor: 'pointer' }}
               onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-6px) scale(1.04)'; e.currentTarget.style.boxShadow = '0 8px 32px rgba(244,123,32,0.13)'; }}
               onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 2px 16px rgba(0,0,0,0.13)'; }}>
               <div style={{ position: 'absolute', top: 18, left: 18 }}><Quote color="#f47b20" size={22} /></div>
               <div style={{ width: 54, height: 54, borderRadius: '50%', marginBottom: 14, border: '2.5px solid #f47b20', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Star color="#f47b20" size={32} fill="#f47b20" />
               </div>
-              <div style={{ fontWeight: 700, fontSize: '1.08rem', marginBottom: 6, color: '#fff' }}>{t(item.nameKey)} <span style={{ color: '#ffb86c', fontWeight: 400, fontSize: '0.98rem' }}>– {t(item.cityKey)}</span></div>
+              <div style={{ fontWeight: 700, fontSize: '1.08rem', marginBottom: 6, color: '#fff' }}>{t(item.nameKey)} <span style={{ color: '#ffb86c', fontWeight: 400, fontSize: '0.98rem' }}>– <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" style={{ color: '#39B1FF', textDecoration: 'underline', fontWeight: 500 }}>{t(item.sourceKey)}</a></span></div>
               {/* Example usage for translated 'Időpontfoglalás' if needed: <span>{t('booking_button')}</span> */}
               <div style={{ fontSize: '1rem', color: '#e0e0e0', marginBottom: 10, minHeight: 60 }}>{t(item.textKey)}</div>
               <div style={{ display: 'flex', gap: 2, marginTop: 4 }}>

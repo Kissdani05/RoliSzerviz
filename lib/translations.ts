@@ -4,6 +4,16 @@ export type TranslationObject = { [key: string]: string };
 
 export const translations: Record<Locale, TranslationObject> = {
   hu: {
+    // --- New testimonials (HU) ---
+    testimonial_name_1: "Tóth Kati",
+    testimonial_text_1: "Gyors szolgáltatás (az elviteltől a defektjavítás, defektálló feltöltés, kormányoszlop beállítás elvégzését követően a visszaszállításig pár óra telt el), profi, kedves és segítőkész kiszolgálás.",
+    testimonial_source_1: "Google Review",
+    testimonial_name_2: "Pap József",
+    testimonial_text_2: "Végtelenül kedves és korrekt cég. A rollerem kopogó hangot adott, amire egy másik szerviz 10e-s javítást ajánlott fel. Viszont a Roliszerviz házhoz jött, és 5 perc alatt kiderítette, hogy egy kábel csapódik a váznak. És ezért nem is kért pénzt, csak a kiszállási díj felét kellett fizessem. Minden debreceni és környéki elektromos roller tulajdonosnak nagybetűvel AJÁNLOM őket!",
+    testimonial_source_2: "Facebook Review",
+    testimonial_name_3: "Tölli Ágoston Zoltán",
+    testimonial_text_3: "Gyors precíz és érték arányban is tökéletes.",
+    testimonial_source_3: "Google Review",
     faq_section_title: "Gyakori kérdések – Elektromos roller szerviz GYIK",
     faq_q_1: "Milyen típusú elektromos rollereket javít a RoliSzerviz Debrecenben?",
     faq_a_1: "A RoliSzerviz Debrecenben minden népszerű márkájú elektromos rollert javít, beleértve a Xiaomi, Segway-Ninebot, Kugoo, Kaabo, Joyor, és egyéb típusokat is. Forduljon hozzánk bármilyen rollerrel, szakszerű segítséget nyújtunk!",
@@ -20,15 +30,7 @@ export const translations: Record<Locale, TranslationObject> = {
     // Header
     // Testimonials section
     // "Ügyfeleink véleménye" removed (duplicate)
-    testimonial_name_1: "Kovács Gábor",
-    testimonial_city_1: "Debrecen",
-    testimonial_text_1: "Gyors, profi szerviz! A rollerem defektjét 1 nap alatt megjavították, háztól-házig szállítással. Csak ajánlani tudom!",
-    testimonial_name_2: "Szabó Anna",
-    testimonial_city_2: "Hajdúszoboszló",
-    testimonial_text_2: "Nagyon segítőkészek voltak, minden kérdésemre választ kaptam. A szervizelés után a rollerem újra tökéletesen működik!",
-    testimonial_name_3: "Tóth Péter",
-    testimonial_city_3: "Debrecen",
-    testimonial_text_3: "Kényelmes, gyors, megbízható! A szervizautó házhoz jött, és a javítás is szuper volt. Köszönöm!",
+    
     "Szolgáltatásaink részletesen": "Szolgáltatásaink részletesen",
     service_title_1: "Gumicsere, defektjavítás",
     service_desc_1: "Gyors gumicsere, tömlőcsere, defektjavítás Debrecenben, háztól-házig szervizszolgáltatással. Minden típusú elektromos rollerhez!",
@@ -187,6 +189,16 @@ export const translations: Record<Locale, TranslationObject> = {
     "TikTok logó – RoliSzerviz webshop közösségi média": "TikTok logó – RoliSzerviz webshop közösségi média",
   },
   en: {
+    // --- New testimonials (EN) ---
+    testimonial_name_1: "Kati Tóth",
+    testimonial_text_1: "Fast service (from pickup, puncture repair, anti-puncture filling, and handlebar adjustment to return delivery, only a few hours passed), professional, kind and helpful staff.",
+    testimonial_source_1: "Google Review",
+    testimonial_name_2: "József Pap",
+    testimonial_text_2: "Extremely kind and fair company. My scooter made a knocking sound, for which another service offered a 10,000 HUF repair. But Roliszerviz came to my house and in 5 minutes found that a cable was hitting the frame. And they didn't even charge for this, I only had to pay half the call-out fee. I HIGHLY RECOMMEND them to every electric scooter owner in and around Debrecen!",
+    testimonial_source_2: "Facebook Review",
+    testimonial_name_3: "Ágoston Zoltán Tölli",
+    testimonial_text_3: "Fast, precise, and perfect value for money.",
+    testimonial_source_3: "Google Review",
     faq_section_title: "Frequently Asked Questions – Electric Scooter Service FAQ",
     faq_q_1: "What types of electric scooters does RoliSzerviz repair in Debrecen?",
     faq_a_1: "RoliSzerviz repairs all popular brands of electric scooters in Debrecen, including Xiaomi, Segway-Ninebot, Kugoo, Kaabo, Joyor, and more. Contact us with any scooter for professional help!",
@@ -202,15 +214,7 @@ export const translations: Record<Locale, TranslationObject> = {
     booking_button: "Book Appointment",
     // Testimonials section
     // "Ügyfeleink véleménye" removed (duplicate)
-    testimonial_name_1: "Gábor Kovács",
-    testimonial_city_1: "Debrecen",
-    testimonial_text_1: "Fast, professional service! My scooter's flat tire was fixed in 1 day with door-to-door delivery. Highly recommended!",
-    testimonial_name_2: "Anna Szabó",
-    testimonial_city_2: "Hajdúszoboszló",
-    testimonial_text_2: "Very helpful, answered all my questions. After the service, my scooter works perfectly again!",
-    testimonial_name_3: "Péter Tóth",
-    testimonial_city_3: "Debrecen",
-    testimonial_text_3: "Convenient, fast, reliable! The service car came to my house and the repair was great. Thank you!",
+    
     "Szolgáltatásaink részletesen": "Our Services in Detail",
     service_title_1: "Tire change, puncture repair",
     service_desc_1: "Fast tire change, tube replacement, puncture repair in Debrecen, with door-to-door service. For all types of electric scooters!",
@@ -360,6 +364,16 @@ export const translations: Record<Locale, TranslationObject> = {
     "TikTok logó – RoliSzerviz webshop közösségi média": "TikTok logo – RoliSzerviz webshop social media",
   },
   de: {
+    // --- Neue Bewertungen (DE) ---
+    testimonial_name_1: "Kati Tóth",
+    testimonial_text_1: "Schneller Service (von der Abholung, Reifenpannenreparatur, pannensichere Befüllung, Lenksäuleneinstellung bis zur Rücklieferung vergingen nur wenige Stunden), professionell, freundlich und hilfsbereites Personal.",
+    testimonial_source_1: "Google Review",
+    testimonial_name_2: "József Pap",
+    testimonial_text_2: "Unendlich freundliches und korrektes Unternehmen. Mein Roller machte ein klopfendes Geräusch, wofür eine andere Werkstatt eine Reparatur für 10.000 HUF angeboten hat. Aber Roliszerviz kam zu mir nach Hause und fand in 5 Minuten heraus, dass ein Kabel am Rahmen anschlägt. Und dafür haben sie nicht einmal Geld verlangt, ich musste nur die Hälfte der Anfahrtskosten zahlen. Ich EMPFEHLE sie jedem E-Roller-Besitzer in und um Debrecen!",
+    testimonial_source_2: "Facebook Review",
+    testimonial_name_3: "Ágoston Zoltán Tölli",
+    testimonial_text_3: "Schnell, präzise und auch preislich perfekt.",
+    testimonial_source_3: "Google Review",
     faq_section_title: "Häufige Fragen – Elektroroller Service FAQ",
     faq_q_1: "Welche Arten von Elektrorollern repariert RoliSzerviz in Debrecen?",
     faq_a_1: "RoliSzerviz repariert alle gängigen Marken von Elektrorollern in Debrecen, darunter Xiaomi, Segway-Ninebot, Kugoo, Kaabo, Joyor und mehr. Kontaktieren Sie uns mit jedem Roller für professionelle Hilfe!",
@@ -375,15 +389,7 @@ export const translations: Record<Locale, TranslationObject> = {
     booking_button: "Termin buchen",
     // Testimonials section
     // "Ügyfeleink véleménye" removed (duplicate)
-    testimonial_name_1: "Gábor Kovács",
-    testimonial_city_1: "Debrecen",
-    testimonial_text_1: "Schneller, professioneller Service! Mein Roller wurde in 1 Tag mit Haustürlieferung repariert. Sehr empfehlenswert!",
-    testimonial_name_2: "Anna Szabó",
-    testimonial_city_2: "Hajdúszoboszló",
-    testimonial_text_2: "Sehr hilfsbereit, alle Fragen wurden beantwortet. Nach der Reparatur funktioniert mein Roller wieder perfekt!",
-    testimonial_name_3: "Péter Tóth",
-    testimonial_city_3: "Debrecen",
-    testimonial_text_3: "Bequem, schnell, zuverlässig! Das Serviceauto kam zu mir nach Hause und die Reparatur war super. Danke!",
+    
     "Szolgáltatásaink részletesen": "Unsere Dienstleistungen im Detail",
     service_title_1: "Reifenwechsel, Pannenreparatur",
     service_desc_1: "Schneller Reifenwechsel, Schlauchwechsel, Pannenreparatur in Debrecen, mit Haustürservice. Für alle E-Roller-Typen!",
