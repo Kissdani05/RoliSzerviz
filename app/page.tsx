@@ -581,8 +581,8 @@ export default function Home() {
         }
       `}</style>
 
-      <section ref={whyusRef} className="section-fade"><WhyUs /></section>
       <section ref={servicesRef} className="section-fade"><ServiceCards /></section>
+      <section ref={whyusRef} className="section-fade"><WhyUs /></section>
       <style>{`
         @media (max-width: 700px) {
           .section-fade {
