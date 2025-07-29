@@ -316,373 +316,378 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
         onClick={handleBackdropClick}
       >
         <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ position: 'relative' }}>
-        {/* Phone number top left */}
-        <div style={{
-          position: 'absolute',
-          top: 18,
-          left: 18,
-          fontWeight: 500,
-          fontSize: '1.08rem',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.7rem',
-          color: '#f47b20',
-          zIndex: 2,
-        }}>
-          <a
-            href="tel:+36302542292"
-            className="phone"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.4rem',
-              color: '#f47b20',
-              textDecoration: 'none',
-            }}
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginRight: 4 }}>
-              <path d="M22 16.92V21a2 2 0 0 1-2.18 2A19.86 19.86 0 0 1 3 5.18 2 2 0 0 1 5 3h4.09a2 2 0 0 1 2 1.72c.13 1.13.37 2.23.72 3.28a2 2 0 0 1-.45 2.11l-1.27 1.27a16 16 0 0 0 6.29 6.29l1.27-1.27a2 2 0 0 1 2.11-.45c1.05.35 2.15.59 3.28.72a2 2 0 0 1 1.72 2z" stroke="#f47b20" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            +36 30 254 2292
-          </a>
-          <a
-            href="https://m.me/Roliszerviz.huDebrecen/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Messenger üzenet küldése"
-            style={{ display: 'flex', alignItems: 'center', color: '#0084FF', textDecoration: 'none', marginLeft: 2 }}
-          >
-            {/* Messenger SVG icon - chat bubble slightly left, blue lightning bolt centered */}
-            <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="16" cy="16" r="16" fill="#0084FF"/>
-              <g>
-                <g transform="translate(-0.5,-1.5)">
-                  <path d="M23 12c-1.5-1.5-3.5-2.5-7-2.5-5 0-8.5 3.7-8.5 8.2 0 2.5 1 4.5 2.7 6l-0.6 2.2c-0.1 0.4 0.3 0.8 0.7 0.7l2.3-0.7c1.2 0.3 2.4 0.5 3.7 0.5 5 0 8.5-3.7 8.5-8.2 0-2.1-0.8-4-2.3-5.2z" fill="#fff"/>
-                  {/* Blue lightning bolt moved slightly down and left in bubble */}
-                  <g transform="translate(-1.2,1.2)">
-                    <path d="M13.5 19.5l2.2-3.7c0.2-0.3 0.6-0.4 0.9-0.2l2.1 1.3c0.2 0.1 0.5 0.1 0.7-0.1l2.7-2.2c0.3-0.2 0.7 0.1 0.6 0.5l-2.2 3.7c-0.2 0.3-0.6 0.4-0.9 0.2l-2.1-1.3c-0.2-0.1-0.5-0.1-0.7 0.1l-2.7 2.2c-0.3 0.2-0.7-0.1-0.6-0.5z" fill="#39B1FF"/>
+          {/* Phone and Messenger links - responsive fix for mobile */}
+          <div className="modal-contact-row">
+            <a
+              href="tel:+36302542292"
+              className="phone"
+              style={{
+                display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#f47b20', textDecoration: 'none', fontWeight: 500, fontSize: '1.08rem',
+              }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginRight: 4 }}>
+                <path d="M22 16.92V21a2 2 0 0 1-2.18 2A19.86 19.86 0 0 1 3 5.18 2 2 0 0 1 5 3h4.09a2 2 0 0 1 2 1.72c.13 1.13.37 2.23.72 3.28a2 2 0 0 1-.45 2.11l-1.27 1.27a16 16 0 0 0 6.29 6.29l1.27-1.27a2 2 0 0 1 2.11-.45c1.05.35 2.15.59 3.28.72a2 2 0 0 1 1.72 2z" stroke="#f47b20" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              +36 30 254 2292
+            </a>
+            <a
+              href="https://m.me/Roliszerviz.huDebrecen/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Messenger üzenet küldése"
+              style={{ display: 'flex', alignItems: 'center', color: '#0084FF', textDecoration: 'none', marginLeft: 8 }}
+            >
+              <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="16" cy="16" r="16" fill="#0084FF"/>
+                <g>
+                  <g transform="translate(-0.5,-1.5)">
+                    <path d="M23 12c-1.5-1.5-3.5-2.5-7-2.5-5 0-8.5 3.7-8.5 8.2 0 2.5 1 4.5 2.7 6l-0.6 2.2c-0.1 0.4 0.3 0.8 0.7 0.7l2.3-0.7c1.2 0.3 2.4 0.5 3.7 0.5 5 0 8.5-3.7 8.5-8.2 0-2.1-0.8-4-2.3-5.2z" fill="#fff"/>
+                    <g transform="translate(-1.2,1.2)">
+                      <path d="M13.5 19.5l2.2-3.7c0.2-0.3 0.6-0.4 0.9-0.2l2.1 1.3c0.2 0.1 0.5 0.1 0.7-0.1l2.7-2.2c0.3-0.2 0.7 0.1 0.6 0.5l-2.2 3.7c-0.2 0.3-0.6 0.4-0.9 0.2l-2.1-1.3c-0.2-0.1-0.5-0.1-0.7 0.1l-2.7 2.2c-0.3 0.2-0.7-0.1-0.6-0.5z" fill="#39B1FF"/>
+                    </g>
                   </g>
                 </g>
-              </g>
-            </svg>
-          </a>
-        </div>
-        <span className="close" onClick={onClose}>
-          &times;
-        </span>
-        <h2 style={{ marginTop: 32 }}>{t("Időpontfoglalás")}</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="name">{t("Név")}<span style={{color: 'var(--primary-color)', marginLeft: 4}}>*</span></label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
+              </svg>
+            </a>
           </div>
-          
-          <div className="form-group">
-            <label htmlFor="email">{t("Email cím")}<span style={{color: 'var(--primary-color)', marginLeft: 4}}>*</span></label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="phone">{t("Telefonszám")}<span style={{color: 'var(--primary-color)', marginLeft: 4}}>*</span></label>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="city">{t("Város")}<span style={{color: 'var(--primary-color)', marginLeft: 4}}>*</span></label>
-            <input
-              type="text"
-              name="city"
-              value={formData.city}
-              onChange={handleChange}
-              className="form-control"
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="postalCode">{t("Irányítószám")}<span style={{color: 'var(--primary-color)', marginLeft: 4}}>*</span></label>
-            <input
-              type="text"
-              id="postalCode"
-              name="postalCode"
-              value={formData.postalCode}
-              onChange={handleChange}
-              pattern="[0-9]{4}"
-              maxLength={4}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="shippingAddress">{t("Szállítási cím")}<span style={{color: 'var(--primary-color)', marginLeft: 4}}>*</span></label>
-            <input
-              type="text"
-              id="shippingAddress"
-              name="shippingAddress"
-              value={formData.shippingAddress}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <div className="checkbox-item">
+          <style>{`
+            .modal-contact-row {
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              gap: 1.2rem;
+              margin-bottom: 0.7rem;
+              margin-top: 0.2rem;
+            }
+            @media (max-width: 600px) {
+              .modal-contact-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.3rem;
+                margin-bottom: 0.5rem;
+              }
+              .modal-contact-row a {
+                font-size: 1.01rem !important;
+                margin-left: 0 !important;
+              }
+            }
+          `}</style>
+          <span className="close" onClick={onClose}>
+            &times;
+          </span>
+          <h2 style={{ marginTop: 32 }}>{t("Időpontfoglalás")}</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="name">{t("Név")}<span style={{color: 'var(--primary-color)', marginLeft: 4}}>*</span></label>
               <input
-                type="checkbox"
-                id="differentBilling"
-                name="differentBilling"
-                checked={formData.differentBilling}
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
                 onChange={handleChange}
+                required
               />
-              <label htmlFor="differentBilling">
-                {t("Számlázási cím eltér a szállítási címtől")}
-              </label>
             </div>
-          </div>
-          {showBillingAddressInput && (
-            <div className="billing-address-group">
-              <div className="form-group">
-                <label htmlFor="billingPostalCode">
-                  {t("Számlázási irányítószám")}
+            
+            <div className="form-group">
+              <label htmlFor="email">{t("Email cím")}<span style={{color: 'var(--primary-color)', marginLeft: 4}}>*</span></label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="phone">{t("Telefonszám")}<span style={{color: 'var(--primary-color)', marginLeft: 4}}>*</span></label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="city">{t("Város")}<span style={{color: 'var(--primary-color)', marginLeft: 4}}>*</span></label>
+              <input
+                type="text"
+                name="city"
+                value={formData.city}
+                onChange={handleChange}
+                className="form-control"
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="postalCode">{t("Irányítószám")}<span style={{color: 'var(--primary-color)', marginLeft: 4}}>*</span></label>
+              <input
+                type="text"
+                id="postalCode"
+                name="postalCode"
+                value={formData.postalCode}
+                onChange={handleChange}
+                pattern="[0-9]{4}"
+                maxLength={4}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="shippingAddress">{t("Szállítási cím")}<span style={{color: 'var(--primary-color)', marginLeft: 4}}>*</span></label>
+              <input
+                type="text"
+                id="shippingAddress"
+                name="shippingAddress"
+                value={formData.shippingAddress}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <div className="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="differentBilling"
+                  name="differentBilling"
+                  checked={formData.differentBilling}
+                  onChange={handleChange}
+                />
+                <label htmlFor="differentBilling">
+                  {t("Számlázási cím eltér a szállítási címtől")}
                 </label>
-                <input
-                  type="text"
-                  id="billingPostalCode"
-                  name="billingPostalCode"
-                  value={formData.billingPostalCode}
-                  onChange={handleChange}
-                  pattern="[0-9]{4}"
-                  maxLength={4}
-                  required={formData.differentBilling}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="billingAddress">{t("Számlázási cím")}</label>
-                <input
-                  type="text"
-                  id="billingAddress"
-                  name="billingAddress"
-                  value={formData.billingAddress}
-                  onChange={handleChange}
-                  required={formData.differentBilling}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="billingCity">{t("Város")}</label>
-                <input
-                  type="text"
-                  id="billingCity"
-                  name="billingCity"
-                  value={formData.billingCity}
-                  onChange={handleChange}
-                  required={formData.differentBilling}
-                />
               </div>
             </div>
-          )}
-          <div className="form-group">
-            <label>{t("Szolgáltatások")}</label>
-            <div className="services-checkbox-group">
-              <div className="checkbox-item">
-                <input
-                  type="checkbox"
-                  id="service1"
-                  name="services"
-                  value="Gumiszerelés, defektfajítás"
-                  checked={formData.services.includes("Gumiszerelés, defektfajítás")}
-                  onChange={handleChange}
-                />
-                <label htmlFor="service1">{t("Gumiszerelés, defektfajítás")}</label>
-              </div>
-              <div className="checkbox-item">
-                <input
-                  type="checkbox"
-                  id="service2"
-                  name="services"
-                  value="Fék beállítás, szerelés, légtelenítés"
-                  checked={formData.services.includes("Fék beállítás, szerelés, légtelenítés")}
-                  onChange={handleChange}
-                />
-                <label htmlFor="service2">{t("Fék beállítás, szerelés, légtelenítés")}</label>
-              </div>
-              <div className="checkbox-item">
-                <input
-                  type="checkbox"
-                  id="service3"
-                  name="services"
-                  value="Karbantartás"
-                  checked={formData.services.includes("Karbantartás")}
-                  onChange={handleChange}
-                />
-                <label htmlFor="service3">{t("Karbantartás")}</label>
-              </div>
-              <div className="checkbox-item">
-                <input
-                  type="checkbox"
-                  id="service4"
-                  name="services"
-                  value="Elektromos hibafeltárás, javítás"
-                  checked={formData.services.includes("Elektromos hibafeltárás, javítás")}
-                  onChange={handleChange}
-                />
-                <label htmlFor="service4">{t("Elektromos hibafeltárás, javítás")}</label>
-              </div>
-              <div className="checkbox-item">
-                <input
-                  type="checkbox"
-                  id="service5"
-                  name="services"
-                  value="Csapágycsere"
-                  checked={formData.services.includes("Csapágycsere")}
-                  onChange={handleChange}
-                />
-                <label htmlFor="service5">{t("Csapágycsere")}</label>
-              </div>
-              <div className="checkbox-item">
-                <input
-                  type="checkbox"
-                  id="service6"
-                  name="services"
-                  value="Gumi defektmentesítés, defektmentesítő folyadékkal"
-                  checked={formData.services.includes("Gumi defektmentesítés, defektmentesítő folyadékkal")}
-                  onChange={handleChange}
-                />
-                <label htmlFor="service6">{t("Gumi defektmentesítés, defektmentesítő folyadékkal")}</label>
-              </div>
-              <div className="checkbox-item">
-                <input
-                  type="checkbox"
-                  id="service7"
-                  name="services"
-                  value="Alkatrész csere, egyéb javítás óradíj"
-                  checked={formData.services.includes("Alkatrész csere, egyéb javítás óradíj")}
-                  onChange={handleChange}
-                />
-                <label htmlFor="service7">{t("Alkatrész csere, egyéb javítás óradíj")}</label>
-              </div>
-              <div className="checkbox-item">
-                <input
-                  type="checkbox"
-                  id="service8"
-                  name="services"
-                  value="Egyéb"
-                  className="other-checkbox"
-                  checked={formData.services.includes("Egyéb")}
-                  onChange={handleChange}
-                />
-                <label htmlFor="service8">{t("Egyéb")}</label>
-              </div>
-              {showOtherServiceInput && (
-                <div className="form-group other-service-group">
-                  <label htmlFor="otherService">
-                    {t("Kérjük, írja le, milyen szolgáltatásra van szüksége")}
+            {showBillingAddressInput && (
+              <div className="billing-address-group">
+                <div className="form-group">
+                  <label htmlFor="billingPostalCode">
+                    {t("Számlázási irányítószám")}
                   </label>
                   <input
                     type="text"
-                    id="otherService"
-                    name="otherService"
-                    value={formData.otherService}
+                    id="billingPostalCode"
+                    name="billingPostalCode"
+                    value={formData.billingPostalCode}
                     onChange={handleChange}
+                    pattern="[0-9]{4}"
+                    maxLength={4}
+                    required={formData.differentBilling}
                   />
                 </div>
-              )}
+                <div className="form-group">
+                  <label htmlFor="billingAddress">{t("Számlázási cím")}</label>
+                  <input
+                    type="text"
+                    id="billingAddress"
+                    name="billingAddress"
+                    value={formData.billingAddress}
+                    onChange={handleChange}
+                    required={formData.differentBilling}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="billingCity">{t("Város")}</label>
+                  <input
+                    type="text"
+                    id="billingCity"
+                    name="billingCity"
+                    value={formData.billingCity}
+                    onChange={handleChange}
+                    required={formData.differentBilling}
+                  />
+                </div>
+              </div>
+            )}
+            <div className="form-group">
+              <label>{t("Szolgáltatások")}</label>
+              <div className="services-checkbox-group">
+                <div className="checkbox-item">
+                  <input
+                    type="checkbox"
+                    id="service1"
+                    name="services"
+                    value="Gumiszerelés, defektfajítás"
+                    checked={formData.services.includes("Gumiszerelés, defektfajítás")}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="service1">{t("Gumiszerelés, defektfajítás")}</label>
+                </div>
+                <div className="checkbox-item">
+                  <input
+                    type="checkbox"
+                    id="service2"
+                    name="services"
+                    value="Fék beállítás, szerelés, légtelenítés"
+                    checked={formData.services.includes("Fék beállítás, szerelés, légtelenítés")}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="service2">{t("Fék beállítás, szerelés, légtelenítés")}</label>
+                </div>
+                <div className="checkbox-item">
+                  <input
+                    type="checkbox"
+                    id="service3"
+                    name="services"
+                    value="Karbantartás"
+                    checked={formData.services.includes("Karbantartás")}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="service3">{t("Karbantartás")}</label>
+                </div>
+                <div className="checkbox-item">
+                  <input
+                    type="checkbox"
+                    id="service4"
+                    name="services"
+                    value="Elektromos hibafeltárás, javítás"
+                    checked={formData.services.includes("Elektromos hibafeltárás, javítás")}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="service4">{t("Elektromos hibafeltárás, javítás")}</label>
+                </div>
+                <div className="checkbox-item">
+                  <input
+                    type="checkbox"
+                    id="service5"
+                    name="services"
+                    value="Csapágycsere"
+                    checked={formData.services.includes("Csapágycsere")}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="service5">{t("Csapágycsere")}</label>
+                </div>
+                <div className="checkbox-item">
+                  <input
+                    type="checkbox"
+                    id="service6"
+                    name="services"
+                    value="Gumi defektmentesítés, defektmentesítő folyadékkal"
+                    checked={formData.services.includes("Gumi defektmentesítés, defektmentesítő folyadékkal")}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="service6">{t("Gumi defektmentesítés, defektmentesítő folyadékkal")}</label>
+                </div>
+                <div className="checkbox-item">
+                  <input
+                    type="checkbox"
+                    id="service7"
+                    name="services"
+                    value="Alkatrész csere, egyéb javítás óradíj"
+                    checked={formData.services.includes("Alkatrész csere, egyéb javítás óradíj")}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="service7">{t("Alkatrész csere, egyéb javítás óradíj")}</label>
+                </div>
+                <div className="checkbox-item">
+                  <input
+                    type="checkbox"
+                    id="service8"
+                    name="services"
+                    value="Egyéb"
+                    className="other-checkbox"
+                    checked={formData.services.includes("Egyéb")}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="service8">{t("Egyéb")}</label>
+                </div>
+                {showOtherServiceInput && (
+                  <div className="form-group other-service-group">
+                    <label htmlFor="otherService">
+                      {t("Kérjük, írja le, milyen szolgáltatásra van szüksége")}
+                    </label>
+                    <input
+                      type="text"
+                      id="otherService"
+                      name="otherService"
+                      value={formData.otherService}
+                      onChange={handleChange}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-          <div className="form-group">
-            <label htmlFor="bookingDate">{t("Válassz napot")}</label>
-            <input
-              type="date"
-              id="bookingDate"
-              name="bookingDate"
-              value={formData.bookingDate}
-              onChange={handleChange}
-              required
-              min={(() => {
-                const now = new Date();
-                const year = now.getFullYear();
-                const month = (now.getMonth() + 1).toString().padStart(2, '0');
-                const day = now.getDate().toString().padStart(2, '0');
-                return `${year}-${month}-${day}`;
-              })()}
-              style={{ color: formData.bookingDate && new Date(formData.bookingDate) < new Date(new Date().toISOString().split('T')[0]) ? '#aaa' : undefined, background: formData.bookingDate && new Date(formData.bookingDate) < new Date(new Date().toISOString().split('T')[0]) ? '#eee' : undefined }}
-            />
-          </div>
-
-          <div className="form-group">
-            <label>{t("Időpont: -tól -ig")}</label>
-            <div style={{ display: "flex", gap: "1rem" }}>
-              <select
-                id="bookingFrom"
-                name="bookingFrom"
-                value={formData.bookingFrom}
+            <div className="form-group">
+              <label htmlFor="bookingDate">{t("Válassz napot")}</label>
+              <input
+                type="date"
+                id="bookingDate"
+                name="bookingDate"
+                value={formData.bookingDate}
                 onChange={handleChange}
                 required
-              >
-                {availableFromHours.map((hour) => {
-                  const isPast = formData.bookingDate === new Date().toISOString().split("T")[0] && hour <= new Date().getHours();
-                  return (
-                    <option
-                      key={hour}
-                      value={hour}
-                      disabled={isPast}
-                      style={isPast ? { color: '#aaa', background: '#eee' } : {}}
-                    >
+                min={(() => {
+                  const now = new Date();
+                  const year = now.getFullYear();
+                  const month = (now.getMonth() + 1).toString().padStart(2, '0');
+                  const day = now.getDate().toString().padStart(2, '0');
+                  return `${year}-${month}-${day}`;
+                })()}
+                style={{ color: formData.bookingDate && new Date(formData.bookingDate) < new Date(new Date().toISOString().split('T')[0]) ? '#aaa' : undefined, background: formData.bookingDate && new Date(formData.bookingDate) < new Date(new Date().toISOString().split('T')[0]) ? '#eee' : undefined }}
+              />
+            </div>
+
+            <div className="form-group">
+              <label>{t("Időpont: -tól -ig")}</label>
+              <div style={{ display: "flex", gap: "1rem" }}>
+                <select
+                  id="bookingFrom"
+                  name="bookingFrom"
+                  value={formData.bookingFrom}
+                  onChange={handleChange}
+                  required
+                >
+                  {availableFromHours.map((hour) => {
+                    const isPast = formData.bookingDate === new Date().toISOString().split("T")[0] && hour <= new Date().getHours();
+                    return (
+                      <option
+                        key={hour}
+                        value={hour}
+                        disabled={isPast}
+                        style={isPast ? { color: '#aaa', background: '#eee' } : {}}
+                      >
+                        {hour}:00
+                      </option>
+                    );
+                  })}
+                </select>
+                <select
+                  id="bookingTo"
+                  name="bookingTo"
+                  value={formData.bookingTo}
+                  onChange={handleChange}
+                  required
+                >
+                  {availableToHours.map((hour) => (
+                    <option key={hour} value={hour}>
                       {hour}:00
                     </option>
-                  );
-                })}
-              </select>
-              <select
-                id="bookingTo"
-                name="bookingTo"
-                value={formData.bookingTo}
-                onChange={handleChange}
-                required
-              >
-                {availableToHours.map((hour) => (
-                  <option key={hour} value={hour}>
-                    {hour}:00
-                  </option>
-                ))}
-              </select>
+                  ))}
+                </select>
+              </div>
+              <small>
+                {t("Csak 9:00 és 17:00 között lehet foglalni, minimum 1 óra")}
+              </small>
             </div>
-            <small>
-              {t("Csak 9:00 és 17:00 között lehet foglalni, minimum 1 óra")}
-            </small>
-          </div>
 
-          <div className="form-group">
-            <label htmlFor="message">{t("Üzenet (opcionális)")}</label>
-            <textarea
-              id="message"
-              name="message"
-              rows={3}
-              value={formData.message}
-              onChange={handleChange}
-            ></textarea>
-          </div>
-          <button type="submit" className="btn btn-primary">
-            {t("Időpont lefoglalása")}
-          </button>
-        </form>
+            <div className="form-group">
+              <label htmlFor="message">{t("Üzenet (opcionális)")}</label>
+              <textarea
+                id="message"
+                name="message"
+                rows={3}
+                value={formData.message}
+                onChange={handleChange}
+              ></textarea>
+            </div>
+            <button type="submit" className="btn btn-primary">
+              {t("Időpont lefoglalása")}
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
     </>
   );
 };
