@@ -90,19 +90,47 @@ export default function Home() {
       window.scrollTo({ top: 0, behavior: "smooth" });
       flashButtons();
     } else if (target === "seo") {
-      isMobile ? scrollSectionTitleToTop(seoRef) : scrollSectionToCenter(seoRef.current);
+      if (isMobile) {
+        scrollSectionTitleToTop(seoRef);
+      } else {
+        scrollSectionToCenter(seoRef.current);
+      }
     } else if (target === "testimonials") {
-      isMobile ? scrollSectionTitleToTop(testimonialsRef) : scrollSectionToCenter(testimonialsRef.current);
+      if (isMobile) {
+        scrollSectionTitleToTop(testimonialsRef);
+      } else {
+        scrollSectionToCenter(testimonialsRef.current);
+      }
     } else if (target === "youtube") {
-      isMobile ? scrollSectionTitleToTop(youtubeRef) : scrollSectionToCenter(youtubeRef.current);
+      if (isMobile) {
+        scrollSectionTitleToTop(youtubeRef);
+      } else {
+        scrollSectionToCenter(youtubeRef.current);
+      }
     } else if (target === "faq") {
-      isMobile ? scrollSectionTitleToTop(faqRef) : scrollSectionToCenter(faqRef.current);
+      if (isMobile) {
+        scrollSectionTitleToTop(faqRef);
+      } else {
+        scrollSectionToCenter(faqRef.current);
+      }
     } else if (target === "whyus") {
-      isMobile ? scrollSectionTitleToTop(whyusRef) : scrollSectionToCenter(whyusRef.current);
+      if (isMobile) {
+        scrollSectionTitleToTop(whyusRef);
+      } else {
+        scrollSectionToCenter(whyusRef.current);
+      }
     } else if (target === "services") {
-      isMobile ? scrollSectionTitleToTop(servicesRef) : scrollSectionToCenter(servicesRef.current);
+      if (isMobile) {
+        scrollSectionTitleToTop(servicesRef);
+      } else {
+        scrollSectionToCenter(servicesRef.current);
+      }
     } else if (target === "issues") {
-      isMobile ? scrollSectionTitleToTop(issuesRef) : scrollSectionToCenter(issuesRef.current);
+      if (isMobile) {
+        scrollSectionTitleToTop(issuesRef);
+      } else {
+        scrollSectionToCenter(issuesRef.current);
+      }
     }
   };
 
