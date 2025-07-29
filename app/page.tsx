@@ -233,14 +233,14 @@ export default function Home() {
             </div>
             {/* Social icons below phone and webshop */}
             <div className="mobile-social-icons">
+              <a href="https://www.facebook.com/Roliszerviz.huDebrecen?locale=hu_HU" aria-label="Facebook" className="social-icon">
+                <Facebook size={24} color="#181818" style={{ width: 'min(24px, 6vw)', height: 'min(24px, 6vw)' }} />
+              </a>
               <a href="https://www.instagram.com/roliszerviz.hu/" aria-label="Instagram" className="social-icon">
                 <Instagram size={24} color="#181818" style={{ width: 'min(24px, 6vw)', height: 'min(24px, 6vw)' }} />
               </a>
               <a href="https://www.tiktok.com/@roliszerviz" aria-label="TikTok" className="social-icon">
                 <Image src="/logok/Tiktok Icon.webp" alt="TikTok logó – RoliSzerviz közösségi média" width={26} height={26} className="tiktok-img" />
-              </a>
-              <a href="https://www.facebook.com/Roliszerviz.huDebrecen?locale=hu_HU" aria-label="Facebook" className="social-icon">
-                <Facebook size={24} color="#181818" style={{ width: 'min(24px, 6vw)', height: 'min(24px, 6vw)' }} />
               </a>
             </div>
             <div className="mobile-lang"><LanguageSelector /></div>
@@ -435,14 +435,14 @@ export default function Home() {
                     +36 30 254 2292
                   </a>
                   <div className="social-icons" style={{ display: 'flex', gap: '0.7rem', marginLeft: '1.2rem' }}>
+                    <a href="https://www.facebook.com/Roliszerviz.huDebrecen?locale=hu_HU" aria-label="Facebook">
+                      <Facebook size={20} />
+                    </a>
                     <a href="https://www.instagram.com/roliszerviz.hu/" aria-label="Instagram">
                       <Instagram size={20} />
                     </a>
                     <a href="https://www.tiktok.com/@roliszerviz" aria-label="TikTok">
                       <Image src="/logok/Tiktok Icon.webp" alt="TikTok logó – RoliSzerviz közösségi média" width={24} height={24} style={{ display: 'inline', verticalAlign: 'middle' }} />
-                    </a>
-                    <a href="https://www.facebook.com/Roliszerviz.huDebrecen?locale=hu_HU" aria-label="Facebook">
-                      <Facebook size={20} />
                     </a>
                     <LanguageSelector />
                   </div>
