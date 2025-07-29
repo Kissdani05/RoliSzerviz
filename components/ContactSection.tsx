@@ -6,7 +6,6 @@ const ContactSection = React.forwardRef<HTMLElement>((props, ref) => {
   return (
     <section ref={ref} className="contact-section" style={{ background: '#181818', color: '#fff', padding: '2.5rem 0 2.5rem 0', borderRadius: '1rem', boxShadow: '0 4px 24px rgba(0,0,0,0.10)', margin: '0 0 4.5rem 0', maxWidth: '100vw' }}>
       <div className="container" style={{ maxWidth: 700, margin: '0 auto', padding: '0 1.5rem', textAlign: 'center' }}>
-        <h2 style={{ color: 'var(--primary-color)', fontSize: '2rem', marginBottom: '1.2rem', fontWeight: 800, letterSpacing: '-1px' }}>{t('Kapcsolat')}</h2>
         <div style={{ marginBottom: '1.5rem', fontWeight: 700, color: '#ffb86c', fontSize: '1.08rem' }}>{t('no_walkin_notice')}</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem', alignItems: 'center', justifyContent: 'center' }}>
           <div style={{ fontSize: '1.08rem', fontWeight: 500 }}>
@@ -32,6 +31,7 @@ const ContactSection = React.forwardRef<HTMLElement>((props, ref) => {
             </a>
           </div>
           <div style={{ fontSize: '1.08rem', fontWeight: 500, marginBottom: 12 }}>
+        <h2 style={{ color: 'var(--primary-color)', fontSize: '2rem', marginBottom: '1.2rem', fontWeight: 800, letterSpacing: '-1px' }}>{t('Kapcsolat')}</h2>
             <span style={{ color: '#f47b20', fontWeight: 700 }}>{t('Helyszín')}:</span> Debrecen, Csáthy u. 44. Magyarország
           </div>
           <div style={{ width: '100%', maxWidth: 480, margin: '0 auto', borderRadius: 12, overflow: 'hidden', boxShadow: '0 2px 12px rgba(0,0,0,0.10)' }}>
