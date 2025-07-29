@@ -81,7 +81,8 @@ export default function Home() {
     if (h2) {
       const rect = h2.getBoundingClientRect();
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const top = rect.top + scrollTop - headerHeight - 8; // 8px extra spacing
+      // Scroll so the h2 is just below the nav bar (e.g. 2px extra space)
+      const top = rect.top + scrollTop - headerHeight + 2;
       window.scrollTo({ top, behavior: 'smooth' });
     } else {
       // fallback: scroll section to top
@@ -92,7 +93,7 @@ export default function Home() {
   const handleNavClick = (target: "top" | "seo" | "testimonials" | "youtube" | "faq" | "whyus" | "services" | "issues") => {
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 900;
     // Desktop nav bar height (px): adjust if needed
-    const desktopHeaderHeight = 120;
+    const desktopHeaderHeight = 250;
     if (target === "top") {
       window.scrollTo({ top: 0, behavior: "smooth" });
       flashButtons();
