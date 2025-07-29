@@ -53,50 +53,23 @@ const PriceModal: React.FC<PriceModalProps> = ({ isOpen, onClose }) => {
         </span>
         <h2>{t("Árlista")}</h2>
         <div className="price-table">
-          <div className="price-item price-item-base">
-            <h3>{t("Alapdíj")}</h3>
-            <p>{t("Tartalmazza a háztól házig szerviz kiszállást Debrecen területén.")}</p>
-            <span className="price" style={{color: 'white'}}>3.000 {t("Ft")}</span>
+          <div className="price-item" style={{background: '#ff9100'}}><b>{t("price_home_service")}</b> {t("price_home_service_value")}</div>
+          <div className="price-item"><b>{t("price_tire_repair")}</b> <span style={{background:'#ff9100',color:'#222',padding:'2px 8px',borderRadius:'6px',fontWeight:600}}>{t("price_tire_repair_value")}</span> <span style={{fontSize:'0.97em'}}>{t("price_tire_repair_note")}</span></div>
+          <div className="price-item"><b>{t("price_brake_adjust")}</b> <span style={{background:'#ff9100',color:'#222',padding:'2px 8px',borderRadius:'6px',fontWeight:600}}>{t("price_brake_adjust_value")}</span> <span style={{fontSize:'0.97em'}}>{t("price_brake_adjust_note")}</span></div>
+          <div className="price-item"><b>{t("price_full_maintenance")}</b> <span style={{background:'#ff9100',color:'#222',padding:'2px 8px',borderRadius:'6px',fontWeight:600}}>{t("price_full_maintenance_value")}</span><br/>
+            <span style={{fontSize:'0.97em'}}>{t("price_full_maintenance_note")}</span>
           </div>
-          <div className="price-item">
-            <h3>{t("Gumiszerelés, defektfajítás")}</h3>
-            <p>{t("(anyagdíjat nem tartalmaz)")}</p>
-            <span className="price">6.000 {t("Ft")}–{t("tól")}</span>
+          <div className="price-item"><b>{t("price_inspection")}</b> <span style={{background:'#ff9100',color:'#222',padding:'2px 8px',borderRadius:'6px',fontWeight:600}}>{t("price_inspection_value")}</span><br/>
+            <span style={{fontSize:'0.97em'}}>{t("price_inspection_note")}</span>
           </div>
-          <div className="price-item">
-            <h3>{t("Fék beállítás, szerelés, légtelenítés")}</h3>
-            <p>{t("(anyagdíjat nem tartalmaz)")}</p>
-            <span className="price">4.000 {t("Ft")}–{t("tól")}</span>
-          </div>
-          <div className="price-item">
-            <h3>{t("Karbantartás")}</h3>
-            <p>
-              {t(
-                "(átvizsgálás, csavarok meghúzása, zsírozás, fék beállítás bovdenek ellenőrzése , stb, anyagdíjat nem tartalmaz)"
-              )}
-            </p>
-            <span className="price">6.000 {t("Ft")}–{t("tól")}</span>
-          </div>
-          <div className="price-item">
-            <h3>{t("Elektromos hibafeltárás, javítás")}</h3>
-            <p>{t("(anyagdíjat nem tartalmaz)")}</p>
-            <span className="price">5.000 {t("Ft")}-{t("tól")}</span>
-          </div>
-          <div className="price-item">
-            <h3>{t("Csapágycsere")}</h3>
-            <p>{t("kerekenként, (anyagdíjat nem tartalmaz)")}</p>
-            <span className="price">6.000 {t("Ft")}-{t("tól")}</span>
-          </div>
-          <div className="price-item">
-            <h3>{t("Gumi defektmentesítés, defektmentesítő folyadékkal")}</h3>
-            <p>{t("kerekenként (8″ – 29″-os kerékig)")}</p>
-            <span className="price">3.000 {t("Ft")} – 6.000 {t("Ft")}{t("-ig")}</span>
-          </div>
-          <div className="price-item">
-            <h3>{t("Alkatrész csere, egyéb javítás óradíj")}</h3>
-            <p>{t("(anyagdíjat nem tartalmaz)")}</p>
-            <span className="price">6.000 {t("Ft")}</span>
-          </div>
+          <div className="price-item"><b>{t("price_electrical")}</b> <span style={{background:'#ff9100',color:'#222',padding:'2px 8px',borderRadius:'6px',fontWeight:600}}>{t("price_electrical_value")}</span> <span style={{fontSize:'0.97em'}}>{t("price_electrical_note")}</span></div>
+          <div className="price-item"><b>{t("price_folding")}</b> <span style={{background:'#ff9100',color:'#222',padding:'2px 8px',borderRadius:'6px',fontWeight:600}}>{t("price_folding_value")}</span> <span style={{fontSize:'0.97em'}}>{t("price_folding_note")}</span></div>
+          <div className="price-item"><b>{t("price_bearing")}</b> <span style={{background:'#ff9100',color:'#222',padding:'2px 8px',borderRadius:'6px',fontWeight:600}}>{t("price_bearing_value")}</span> <span style={{fontSize:'0.97em'}}>{t("price_bearing_note")}</span></div>
+          <div className="price-item"><b>{t("price_tire_sealant")}</b> <span style={{background:'#ff9100',color:'#222',padding:'2px 8px',borderRadius:'6px',fontWeight:600}}>{t("price_tire_sealant_value")}</span></div>
+          <div className="price-item"><b>{t("price_parts")}</b> <span style={{background:'#ff9100',color:'#222',padding:'2px 8px',borderRadius:'6px',fontWeight:600}}>{t("price_parts_value")}</span> <span style={{fontSize:'0.97em'}}>{t("price_parts_note")}</span></div>
+        </div>
+        <div style={{marginTop: '0.5rem', fontSize: '1.01em', color: '#111'}}>
+          {t("price_note")}
         </div>
       </div>
     </div>
