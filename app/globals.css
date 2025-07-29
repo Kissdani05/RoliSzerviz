@@ -30,7 +30,7 @@ html {
 
 body {
   font-family: "Rajdhani", sans-serif;
-  background-color: var(--secondary-color);
+  background-color: #181818;
   color: var(--light-color);
   line-height: 1.6;
   overflow-x: hidden;

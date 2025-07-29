@@ -4,6 +4,12 @@ export type TranslationObject = { [key: string]: string };
 
 export const translations: Record<Locale, TranslationObject> = {
   hu: {
+    Kapcsolatok: "Kapcsolatok",
+    Kapcsolat: "Kapcsolat",
+    no_walkin_notice: "Időpont egyeztetés nélkül nem áll módunkba ügyfeleket fogadni",
+    Email: "Email",
+    Helyszín: "Helyszín",
+    Messenger: "Messenger",
     // --- New testimonials (HU) ---
     testimonial_name_1: "Tóth Kati",
     testimonial_text_1: "Gyors szolgáltatás (az elviteltől a defektjavítás, defektálló feltöltés, kormányoszlop beállítás elvégzését követően a visszaszállításig pár óra telt el), profi, kedves és segítőkész kiszolgálás.",
@@ -189,6 +195,12 @@ export const translations: Record<Locale, TranslationObject> = {
     "TikTok logó – RoliSzerviz webshop közösségi média": "TikTok logó – RoliSzerviz webshop közösségi média",
   },
   en: {
+    Kapcsolatok: "Contact",
+    Kapcsolat: "Contact",
+    no_walkin_notice: "We cannot accept customers without a prior appointment.",
+    Email: "Email",
+    Helyszín: "Location",
+    Messenger: "Messenger",
     // --- New testimonials (EN) ---
     testimonial_name_1: "Kati Tóth",
     testimonial_text_1: "Fast service (from pickup, puncture repair, anti-puncture filling, and handlebar adjustment to return delivery, only a few hours passed), professional, kind and helpful staff.",
@@ -364,6 +376,12 @@ export const translations: Record<Locale, TranslationObject> = {
     "TikTok logó – RoliSzerviz webshop közösségi média": "TikTok logo – RoliSzerviz webshop social media",
   },
   de: {
+    Kapcsolatok: "Kontakt",
+    Kapcsolat: "Kontakt",
+    no_walkin_notice: "Ohne vorherige Terminvereinbarung können wir keine Kunden empfangen.",
+    Email: "E-Mail",
+    Helyszín: "Standort",
+    Messenger: "Messenger",
     // --- Neue Bewertungen (DE) ---
     testimonial_name_1: "Kati Tóth",
     testimonial_text_1: "Schneller Service (von der Abholung, Reifenpannenreparatur, pannensichere Befüllung, Lenksäuleneinstellung bis zur Rücklieferung vergingen nur wenige Stunden), professionell, freundlich und hilfsbereites Personal.",

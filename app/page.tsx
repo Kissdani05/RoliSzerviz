@@ -9,6 +9,7 @@ import { useTranslation } from "../contexts/TranslationContext";
 import LanguageSelector from "../components/LanguageSelector";
 import { Phone, Instagram, Facebook } from "lucide-react"; // Import Lucide icons
 import FAQ from "../components/FAQ"; // Import the FAQ component
+import ContactSection from "../components/ContactSection";
 import CommonIssues from "../components/CommonIssues";
 
 import ServiceCards from "../components/ServiceCards";
@@ -31,6 +32,7 @@ export default function Home() {
   const servicesRef = useRef<HTMLElement>(null);
   const issuesRef = useRef<HTMLElement>(null);
   const faqRef = useRef<HTMLElement>(null);
+  const contactSectionRef = useRef<HTMLElement>(null);
 
   const openPriceModal = () => setIsPriceModalOpen(true);
   const closePriceModal = () => setIsPriceModalOpen(false);
@@ -144,6 +146,7 @@ export default function Home() {
         { name: "youtube", ref: youtubeRef },
         { name: "issues", ref: issuesRef },
         { name: "faq", ref: faqRef },
+        { name: "kapcsolat", ref: contactSectionRef },
       ];
       const viewportHeight = window.innerHeight;
       const scrollY = window.scrollY || window.pageYOffset;
@@ -362,12 +365,31 @@ export default function Home() {
       `}</style>
             <div className="mobile-nav-buttons" style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem', width: '100%', alignItems: 'center' }}>
               <button type="button" className={activeSection === "top" ? "nav-btn active" : "nav-btn"} onClick={() => { handleNavClick("top"); setMenuOpen(false); }}>{t("booking_button")}</button>
-              <button type="button" className={activeSection === "whyus" ? "nav-btn active" : "nav-btn"} onClick={() => { handleNavClick("whyus"); setMenuOpen(false); }}>{t("Miért mi?")}</button>
               <button type="button" className={activeSection === "services" ? "nav-btn active" : "nav-btn"} onClick={() => { handleNavClick("services"); setMenuOpen(false); }}>{t("Szolgáltatásaink")}</button>
+              <button type="button" className={activeSection === "whyus" ? "nav-btn active" : "nav-btn"} onClick={() => { handleNavClick("whyus"); setMenuOpen(false); }}>{t("Miért mi?")}</button>
               <button type="button" className={activeSection === "testimonials" ? "nav-btn active" : "nav-btn"} onClick={() => { handleNavClick("testimonials"); setMenuOpen(false); }}>{t("Vélemény")}</button>
               <button type="button" className={activeSection === "youtube" ? "nav-btn active" : "nav-btn"} onClick={() => { handleNavClick("youtube"); setMenuOpen(false); }}>{t("YouTube")}</button>
               <button type="button" className={activeSection === "issues" ? "nav-btn active" : "nav-btn"} onClick={() => { handleNavClick("issues"); setMenuOpen(false); }}>{t("Gyakori hibák")}</button>
               <button type="button" className={activeSection === "faq" ? "nav-btn active" : "nav-btn"} onClick={() => { handleNavClick("faq"); setMenuOpen(false); }}>{t("GYIK")}</button>
+              <button type="button" className={activeSection === "kapcsolat" ? "nav-btn active" : "nav-btn"} onClick={() => {
+                const contactSection = document.querySelector('.contact-section');
+                if (contactSection) {
+                  const h2 = contactSection.querySelector('h2');
+                  if (h2) {
+                    const headerHeight = 70;
+                    const rect = h2.getBoundingClientRect();
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    const top = rect.top + scrollTop - headerHeight - 8;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                  } else {
+                    contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                  setTimeout(() => setActiveSection('kapcsolat'), 400);
+                } else {
+                  setActiveSection('kapcsolat');
+                }
+                setMenuOpen(false);
+              }}>{t("Kapcsolatok")}</button>
             </div>
             <style>{`
               .mobile-menu {
@@ -448,6 +470,13 @@ export default function Home() {
                     <button type="button" className={activeSection === "youtube" ? "nav-btn active" : "nav-btn"} onClick={() => handleNavClick("youtube")}>{t("YouTube")}</button>
                     <button type="button" className={activeSection === "issues" ? "nav-btn active" : "nav-btn"} onClick={() => handleNavClick("issues")}>{t("Gyakori hibák")}</button>
                     <button type="button" className={activeSection === "faq" ? "nav-btn active" : "nav-btn"} onClick={() => handleNavClick("faq")}>{t("GYIK")}</button>
+                    <button type="button" className={activeSection === "kapcsolat" ? "nav-btn active" : "nav-btn"} onClick={() => {
+                      const contactSection = document.querySelector('.contact-section');
+                      if (contactSection) {
+                        contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        setActiveSection('kapcsolat');
+                      }
+                    }}>{t("Kapcsolatok")}</button>
                   </div>
                   <style>{`
                     .nav-btn {
@@ -709,6 +738,7 @@ export default function Home() {
           <FAQ />
         </div>
       </section>
+      <ContactSection ref={contactSectionRef} />
       </main>
     </>
   );
