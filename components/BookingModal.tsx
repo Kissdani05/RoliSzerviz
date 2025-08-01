@@ -2,15 +2,16 @@
 "use client"; // Add this for useState and useEffect
 
 import React, { useState, useEffect } from "react";
-import BookingToast from "./BookingToast";
+// BookingToast import removed
 import { useTranslation } from "../contexts/TranslationContext";
 
 interface BookingModalProps {
   isOpen: boolean;
   onClose: () => void;
+  setNotification?: (n: { message: string; type: "success" | "error" }) => void;
 }
 
-const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
+const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotification }) => {
   const { t } = useTranslation();
   const [isRendered, setIsRendered] = useState(isOpen);
   const [showContent, setShowContent] = useState(false);
@@ -39,14 +40,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
   const [availableFromHours, setAvailableFromHours] = useState<number[]>([]);
   const [availableToHours, setAvailableToHours] = useState<number[]>([]);
 
-  // Toast state
-  const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
-
-  // Helper to show toast
-  const showToast = (message: string, type: "success" | "error" = "success") => {
-    setToast({ message, type });
-    setTimeout(() => setToast(null), 5000);
-  };
+  // Toast logic removed
 
   const updateToHours = React.useCallback((selectedFrom: number) => {
     const toHours: number[] = [];
@@ -190,40 +184,40 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
     const toHour = parseInt(bookingTo);
 
     if (isNaN(fromHour) || isNaN(toHour) || toHour <= fromHour) {
-      showToast("Kérjük, válasszon legalább 1 órás időtartamot (pl. 10:00 - 11:00)!", "error");
+      alert("Kérjük, válasszon legalább 1 órás időtartamot (pl. 10:00 - 11:00)!");
       return;
     }
 
     if (services.length === 0) {
-      showToast("Kérjük, válasszon legalább egy szolgáltatást!", "error");
+      alert("Kérjük, válasszon legalább egy szolgáltatást!");
       return;
     }
 
     if (services.includes("Egyéb") && !otherService) {
-      showToast("Kérjük, írja le, milyen szolgáltatásra van szüksége!", "error");
+      alert("Kérjük, írja le, milyen szolgáltatásra van szüksége!");
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      showToast("Kérjük, érvényes email címet adjon meg!", "error");
+      alert("Kérjük, érvényes email címet adjon meg!");
       return;
     }
 
     const phoneRegex = /^(\+36|06)[0-9]{1,2}[0-9]{3,4}[0-9]{3,4}$/;
     if (!phoneRegex.test(phone)) {
-      showToast("Kérjük, érvényes magyar telefonszámot adjon meg!", "error");
+      alert("Kérjük, érvényes magyar telefonszámot adjon meg!");
       return;
     }
 
     const postalCodeRegex = /^[0-9]{4}$/;
     if (!postalCodeRegex.test(postalCode)) {
-      showToast("Kérjük, érvényes irányítószámot adjon meg!", "error");
+      alert("Kérjük, érvényes irányítószámot adjon meg!");
       return;
     }
 
     if (differentBilling && !postalCodeRegex.test(billingPostalCode)) {
-      showToast("Kérjük, érvényes számlázási irányítószámot adjon meg!", "error");
+      alert("Kérjük, érvényes számlázási irányítószámot adjon meg!");
       return;
     }
 
@@ -260,7 +254,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
       const data = await response.json();
 
       if (response.ok) {
-        showToast(data.message || "Köszönjük időpontfoglalását!", "success");
+        setNotification?.({ message: "", type: "success" });
         onClose();
         setFormData({
           name: "",
@@ -283,11 +277,11 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
         setShowOtherServiceInput(false);
         setShowBillingAddressInput(false);
       } else {
-        showToast(data.error || "Hiba történt az időpontfoglalás során.", "error");
+        setNotification?.({ message: data.error || "", type: "error" });
       }
     } catch (error) {
       console.error("Hiba:", error);
-      showToast("Hiba történt az időpontfoglalás során.", "error");
+      setNotification?.({ message: "", type: "error" });
     }
   };
 
@@ -303,13 +297,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
 
   return (
     <>
-      {toast && (
-        <BookingToast
-          message={toast.message}
-          type={toast.type}
-          onClose={() => setToast(null)}
-        />
-      )}
+      {/* BookingToast removed: no popup for booking success/failure */}
       <div
         className={`modal ${showContent ? "show" : ""}`}
         style={{ display: "flex" }}

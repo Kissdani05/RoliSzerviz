@@ -5,6 +5,7 @@ import Head from "next/head";
 import React, { useState, useRef, useEffect } from "react";
 import PriceModal from "../components/PriceModal";
 import BookingModal from "../components/BookingModal";
+import BookingNotification from "../components/BookingNotification";
 import { useTranslation } from "../contexts/TranslationContext";
 import LanguageSelector from "../components/LanguageSelector";
 import { Phone, Instagram, Facebook } from "lucide-react"; // Import Lucide icons
@@ -18,6 +19,11 @@ import Testimonials from "../components/Testimonials";
 
 
 export default function Home() {
+  // ...existing code...
+  const [bookingNotification, setBookingNotification] = useState<{
+    message: string;
+    type: "success" | "error";
+  } | null>(null);
   const { t } = useTranslation();
   const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
@@ -732,8 +738,56 @@ export default function Home() {
 
       <PriceModal isOpen={isPriceModalOpen} onClose={closePriceModal} />
       <div id="booking">
-        <BookingModal isOpen={isBookingModalOpen} onClose={closeBookingModal} />
+        <BookingModal
+          isOpen={isBookingModalOpen}
+          onClose={closeBookingModal}
+          setNotification={setBookingNotification}
+        />
       </div>
+      {/* Desktop notification: right top below nav bar */}
+      {bookingNotification && (
+        <BookingNotification
+          message={bookingNotification.message}
+          type={bookingNotification.type}
+          onClose={() => setBookingNotification(null)}
+          mobile={false}
+        />
+      )}
+      {/* Mobile notification: above fixed CTA bar */}
+      {bookingNotification && (
+        <div className="mobile-notification-wrapper">
+          <BookingNotification
+            message={bookingNotification.message}
+            type={bookingNotification.type}
+            onClose={() => setBookingNotification(null)}
+            mobile={true}
+          />
+        </div>
+      )}
+      <style>{`
+        @media (max-width: 800px) {
+          .booking-notification.desktop {
+            display: none !important;
+          }
+          .mobile-notification-wrapper {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 62px;
+            z-index: 3000;
+            width: 100vw;
+            pointer-events: none;
+          }
+          .booking-notification.mobile {
+            pointer-events: auto;
+          }
+        }
+        @media (min-width: 801px) {
+          .booking-notification.mobile {
+            display: none !important;
+          }
+        }
+      `}</style>
 
       <section ref={issuesRef} className="faq-section" id="issues" style={{ background: '#181818', color: '#fff', padding: '2.5rem 0 0 0', margin: '0', borderRadius: '0.5rem 0.5rem 0 0', boxShadow: '0 4px 24px rgba(0,0,0,0.08)', maxWidth: '100vw' }}>
         <div className="section-fade"><CommonIssues /></div>

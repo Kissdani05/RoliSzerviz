@@ -177,6 +177,8 @@ export const translations: Record<Locale, TranslationObject> = {
     Alapdíj: "Alapdíj",
     "Tartalmazza a háztól házig szerviz kiszállást Debrecen területén.": "Tartalmazza a háztól házig szerviz kiszállást Debrecen területén.",
     // Booking Modal
+    booking_success_notification: "Sikeres időpontfoglalás, várjon a visszaigazoló emailre.",
+    booking_error_notification: "Sikertelen időpontfoglalás",
     Név: "Név",
     "Email cím": "Email cím",
     Telefonszám: "Telefonszám",
@@ -394,6 +396,8 @@ export const translations: Record<Locale, TranslationObject> = {
     Alapdíj: "Base fee",
     "Tartalmazza a háztól házig szerviz kiszállást Debrecen területén.": "Includes door-to-door service within Debrecen.",
     // Booking Modal
+    booking_success_notification: "Booking successful, please wait for the confirmation email.",
+    booking_error_notification: "Booking failed.",
     Név: "Name",
     "Email cím": "Email address",
     Telefonszám: "Phone number",
@@ -607,6 +611,8 @@ export const translations: Record<Locale, TranslationObject> = {
     Alapdíj: "Grundgebühr",
     "Tartalmazza a háztól házig szerviz kiszállást Debrecen területén.": "Beinhaltet Haustürservice innerhalb von Debrecen.",
     // Booking Modal
+    booking_success_notification: "Erfolgreiche Terminbuchung, bitte warten Sie auf die Bestätigungs-E-Mail.",
+    booking_error_notification: "Terminbuchung fehlgeschlagen.",
     Név: "Name",
     "Email cím": "E-Mail-Adresse",
     Telefonszám: "Telefonnummer",
