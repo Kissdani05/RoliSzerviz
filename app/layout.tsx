@@ -49,9 +49,8 @@ export default function RootLayout({
     <html lang="hu">
       <head>
         <link rel="icon" href="/roller.webp" type="image/webp" />
-        <link rel="canonical" href="https://roliszerviz.hu/" />
-        <link rel="alternate" hrefLang="hu" href="https://roliszerviz.hu/" />
-        <link rel="alternate" hrefLang="en" href="https://roliszerviz.hu/electric-scooter-servicing/" />
+  <link rel="canonical" href="https://roliszerviz.hu/" />
+  <link rel="alternate" hrefLang="hu" href="https://roliszerviz.hu/" />
         <meta name="robots" content="index, follow" />
         <meta name="description" content="Elektromos roller szerviz Debrecenben, háztól-házig szállítással. Gyors javítás, időpontfoglalás online." />
         <meta property="og:title" content="Elektromos roller szerviz Debrecen – RoliSzerviz" />
