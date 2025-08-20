@@ -25,19 +25,10 @@ export const TranslationProvider = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname();
 
   useEffect(() => {
-    const savedLang =
-      (localStorage.getItem("preferredLanguage") as Locale) ||
-      (document.cookie.replace(
-        /(?:(?:^|.*;\s*)lang\s*=\s*([^;]*).*$)|^.*$/,
-        "$1"
-      ) as Locale) ||
-      (typeof navigator !== "undefined" &&
-        (navigator.language.substring(0, 2) as Locale));
-    if (translations[savedLang]) {
-      setLocale(savedLang);
-    } else {
-      setLocale("hu"); // Default to Hungarian if saved language is invalid
-    }
+    // Always use Hungarian as default, ignore browser/cookie/localStorage
+    setLocale("hu");
+    localStorage.setItem("preferredLanguage", "hu");
+    document.cookie = `lang=hu;path=/;max-age=31536000`;
   }, []);
 
   const changeLocale = (newLocale: Locale) => {

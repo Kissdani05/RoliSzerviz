@@ -48,6 +48,7 @@ export default function RootLayout({
   return (
     <html lang="hu">
       <head>
+        <link rel="icon" href="/roller.webp" type="image/webp" />
         <link rel="canonical" href="https://roliszerviz.hu/" />
         <link rel="alternate" hrefLang="hu" href="https://roliszerviz.hu/" />
         <link rel="alternate" hrefLang="en" href="https://roliszerviz.hu/electric-scooter-servicing/" />
@@ -84,7 +85,7 @@ export default function RootLayout({
         `}</script>
         {/* Google Analytics (GA4) */}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-451341567"
+          src="https://www.googletagmanager.com/gtag/js?id=GA4%20%7C%20451341567"
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
@@ -92,7 +93,7 @@ export default function RootLayout({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-451341567');
+            gtag('config', 'GA4 | 451341567');
           `}
         </Script>
       </head>
