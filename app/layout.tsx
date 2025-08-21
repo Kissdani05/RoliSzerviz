@@ -32,7 +32,6 @@ export const metadata: Metadata = {
     "elektromos roller szervíz debrecen",
     "roller szerviz",
     "debrecen roller",
-    "electric scooter repair near me",
     "debrecen roller szerviz",
     "kerékpár szerviz debrecen",
     "xiaomi roller szerviz debrecen",
@@ -84,7 +83,7 @@ export default function RootLayout({
         `}</script>
         {/* Google Analytics (GA4) */}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=GA4%20%7C%20451341567"
+          src="https://www.googletagmanager.com/gtag/js?id=G-NRMQFDNNR4"
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
@@ -92,7 +91,7 @@ export default function RootLayout({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'GA4 | 451341567');
+            gtag('config', 'G-NRMQFDNNR4');
           `}
         </Script>
       </head>
