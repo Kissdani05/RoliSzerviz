@@ -41,6 +41,7 @@ export const translations: Record<Locale, TranslationObject> = {
     Email: "Email",
     Helyszín: "Helyszín",
     Messenger: "Messenger",
+  choose_any_booking_option: "Vedd fel velünk a kapcsolatot messengeren, telefonon, vagy a megrendelő űrlap kitöltésével, a megrendelem a szervizt gombra kattintva.",
     // --- New testimonials (HU) ---
     testimonial_name_1: "Tóth Kati",
     testimonial_text_1: "Gyors szolgáltatás (az elviteltől a defektjavítás, defektálló feltöltés, kormányoszlop beállítás elvégzését követően a visszaszállításig pár óra telt el), profi, kedves és segítőkész kiszolgálás.",
@@ -70,7 +71,7 @@ export const translations: Record<Locale, TranslationObject> = {
     
     "Szolgáltatásaink részletesen": "Szolgáltatásaink részletesen",
     service_title_1: "Gumicsere, defektjavítás",
-    service_desc_1: "Gyors gumicsere, tömlőcsere, defektjavítás Debrecenben, háztól-házig szervizszolgáltatással. Minden típusú elektromos rollerhez! Háztól házig szerviz az alapdíjban!",
+  service_desc_1: "Gyors gumicsere, tömlőcsere, defektjavítás Debrecenben, háztól-házig szervizszolgáltatással akár néhány órán belül! Minden típusú elektromos rollerhez!",
     service_title_2: "Fékjavítás, fékcsere",
     service_desc_2: "Fékbetét, fékkar, bowden javítás és csere, fékbeállítás. Biztonságos fékhatás, rövid határidővel!",
     service_title_3: "Akkumulátor csere, diagnosztika",
@@ -132,9 +133,9 @@ export const translations: Record<Locale, TranslationObject> = {
     "A ROLI SZERVIZNÉL!": "A ROLISZERVIZNÉL!",
     "Elektromos roller és kerékpár szerviz Debrecenben":
       "Elektromos roller és kerékpár szerviz Debrecenben",
-      "Háztól házig szerviz az alapdíjban!":"Háztól házig szerviz az alapdíjban!",
-    "Gyors és professzionális megoldás minden típusú elektromos járműhöz, kényelmes háztól házig szállítással.":
-      "Gyors és professzionális megoldás minden típusú elektromos járműhöz, kényelmes háztól házig szállítással.",
+      "Háztól házig szerviz, a kényelmedért!":"Háztól házig szerviz, a kényelmedért!",
+    "Gyors és professzionális szervizelés minden típusú elektromos járműhöz, akár személyesen hozod el, akár a kényelmes háztól házig szállítást választod!":
+      "Gyors és professzionális szervizelés minden típusú elektromos járműhöz, akár személyesen hozod el, akár a kényelmes háztól házig szállítást választod!",
     Árlista: "Árlista",
     // Időpontfoglalás removed (duplicate)
     // Testimonials
@@ -265,6 +266,7 @@ export const translations: Record<Locale, TranslationObject> = {
     Email: "Email",
     Helyszín: "Location",
     Messenger: "Messenger",
+  choose_any_booking_option: "Contact us via Messenger, by phone, or by filling out the order form by clicking the Order Service button.",
     // --- New testimonials (EN) ---
     testimonial_name_1: "Kati Tóth",
     testimonial_text_1: "Fast service (from pickup, puncture repair, anti-puncture filling, and handlebar adjustment to return delivery, only a few hours passed), professional, kind and helpful staff.",
@@ -293,7 +295,7 @@ export const translations: Record<Locale, TranslationObject> = {
     
     "Szolgáltatásaink részletesen": "Our Services in Detail",
     service_title_1: "Tire change, puncture repair",
-    service_desc_1: "Fast tire change, tube replacement, puncture repair in Debrecen, with door-to-door service. For all types of electric scooters! Door-to-door service included in the base fee!",
+  service_desc_1: "Fast tire change, tube replacement, and puncture repair in Debrecen, with door-to-door service — often within a few hours! For all types of electric scooters!",
     service_title_2: "Brake repair, replacement",
     service_desc_2: "Brake pad, lever, cable repair and replacement, brake adjustment. Safe braking, quick turnaround!",
     service_title_3: "Battery replacement, diagnostics",
@@ -357,9 +359,10 @@ export const translations: Record<Locale, TranslationObject> = {
     "A ROLI SZERVIZNÉL!": "AT ROLISERVICE!",
     "Elektromos roller és kerékpár szerviz Debrecenben":
       "Electric scooter and bicycle service in Debrecen",
+    "Háztól házig szerviz, a kényelmedért!": "Door-to-door service for your convenience!",
     "Háztól házig szerviz az alapdíjban!": "Door-to-door service included in the base fee!",
-    "Gyors és professzionális megoldás minden típusú elektromos járműhöz, kényelmes háztól házig szállítással.":
-      "Fast and professional solution for all types of electric vehicles, with convenient door-to-door delivery.",
+    "Gyors és professzionális szervizelés minden típusú elektromos járműhöz, akár személyesen hozod el, akár a kényelmes háztól házig szállítást választod!":
+      "Fast and professional servicing for all types of electric vehicles — whether you bring it in yourself or choose our convenient door-to-door pickup and delivery!",
     Árlista: "Price List",
     // Időpontfoglalás removed (duplicate)
     // Testimonials
@@ -479,6 +482,7 @@ export const translations: Record<Locale, TranslationObject> = {
     Email: "E-Mail",
     Helyszín: "Standort",
     Messenger: "Messenger",
+  choose_any_booking_option: "Nehmen Sie Kontakt mit uns über Messenger, telefonisch oder indem Sie das Bestellformular über die Schaltfläche „Service bestellen“ ausfüllen.",
     // --- Neue Bewertungen (DE) ---
     testimonial_name_1: "Kati Tóth",
     testimonial_text_1: "Schneller Service (von der Abholung, Reifenpannenreparatur, pannensichere Befüllung, Lenksäuleneinstellung bis zur Rücklieferung vergingen nur wenige Stunden), professionell, freundlich und hilfsbereites Personal.",
@@ -507,7 +511,7 @@ export const translations: Record<Locale, TranslationObject> = {
     
     "Szolgáltatásaink részletesen": "Unsere Dienstleistungen im Detail",
     service_title_1: "Reifenwechsel, Pannenreparatur",
-    service_desc_1: "Schneller Reifenwechsel, Schlauchwechsel, Pannenreparatur in Debrecen, mit Haustürservice. Für alle E-Roller-Typen! Haustürservice in der Grundgebühr enthalten!",
+  service_desc_1: "Schneller Reifenwechsel, Schlauchwechsel und Pannenreparatur in Debrecen, mit Haustürservice – oft innerhalb weniger Stunden! Für alle E‑Roller‑Typen!",
     service_title_2: "Bremsenreparatur, Bremsenwechsel",
     service_desc_2: "Bremsbelag, Bremshebel, Bowdenzug Reparatur und Wechsel, Bremseneinstellung. Sicheres Bremsen, kurze Fristen!",
     service_title_3: "Akkutausch, Diagnose",
@@ -571,9 +575,10 @@ export const translations: Record<Locale, TranslationObject> = {
     "A ROLI SZERVIZNÉL!": "BEI ROLISERVICE!",
     "Elektromos roller és kerékpár szerviz Debrecenben":
       "Elektroroller- und Fahrradservice in Debrecen",
+    "Háztól házig szerviz, a kényelmedért!": "Haustürservice für Ihren Komfort!",
     "Háztól házig szerviz az alapdíjban!": "Haustürservice in der Grundgebühr enthalten!",
-    "Gyors és professzionális megoldás minden típusú elektromos járműhöz, kényelmes háztól házig szállítással.":
-      "Schnelle und professionelle Lösung für alle Arten von Elektrofahrzeugen, mit bequemer Haustürlieferung.",
+    "Gyors és professzionális szervizelés minden típusú elektromos járműhöz, akár személyesen hozod el, akár a kényelmes háztól házig szállítást választod!":
+      "Schneller und professioneller Service für alle Arten von Elektrofahrzeugen – ob Sie es selbst vorbeibringen oder unseren bequemen Haustür‑Abhol‑ und Lieferservice wählen!",
     Árlista: "Preisliste",
     // Időpontfoglalás removed (duplicate)
     // Testimonials

@@ -578,11 +578,11 @@ export default function Home() {
                 {t("Elektromos roller és kerékpár szerviz Debrecenben")}
               </p>
               <p className="hero-subtitle2">
-                {t("Háztól házig szerviz az alapdíjban!")}
+                {t("Háztól házig szerviz, a kényelmedért!")}
               </p>
               <p className="hero-description">
                 {t(
-                  "Gyors és professzionális megoldás minden típusú elektromos járműhöz, kényelmes háztól házig szállítással."
+                  "Gyors és professzionális szervizelés minden típusú elektromos járműhöz, akár személyesen hozod el, akár a kényelmes háztól házig szállítást választod!"
                 )}
               </p>
               <div className="hero-buttons">
