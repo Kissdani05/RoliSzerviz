@@ -47,27 +47,27 @@ export default function RootLayout({
   return (
     <html lang="hu">
       <head>
-        <link rel="icon" href="/roller.webp" type="image/webp" />
+  <link rel="icon" href="/logo.jpeg" type="image/jpeg" />
   <link rel="canonical" href="https://roliszerviz.hu/" />
   <link rel="alternate" hrefLang="hu" href="https://roliszerviz.hu/" />
         <meta name="robots" content="index, follow" />
         <meta name="description" content="Elektromos roller szerviz Debrecenben, háztól-házig szállítással. Gyors javítás, időpontfoglalás online." />
         <meta property="og:title" content="Elektromos roller szerviz Debrecen – RoliSzerviz" />
         <meta property="og:description" content="Gyors, elektromos roller szerviz Debrecenben, háztól-házig szállítással. Időpontfoglalás online!" />
-        <meta property="og:image" content="https://roliszerviz.hu/roller.webp" />
+  <meta property="og:image" content="https://roliszerviz.hu/logo.jpeg" />
         <meta property="og:url" content="https://roliszerviz.hu/" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="RoliSzerviz" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Elektromos roller szerviz Debrecen – RoliSzerviz" />
         <meta name="twitter:description" content="Gyors, garanciális elektromos roller szerviz Debrecenben, háztól-házig szállítással. Időpontfoglalás online!" />
-        <meta name="twitter:image" content="https://roliszerviz.hu/roller.webp" />
+  <meta name="twitter:image" content="https://roliszerviz.hu/logo.jpeg" />
         <script type="application/ld+json" suppressHydrationWarning>{`
           {
             "@context": "https://schema.org",
             "@type": "LocalBusiness",
             "name": "RoliSzerviz",
-            "image": "https://roliszerviz.hu/roller.webp",
+            "image": "https://roliszerviz.hu/logo.jpeg",
             "@id": "https://roliszerviz.hu/",
             "url": "https://roliszerviz.hu/",
             "telephone": "+36-30-254-2292",
