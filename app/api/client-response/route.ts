@@ -3,7 +3,7 @@ import nodemailer from "nodemailer";
 import { getBooking, updateBooking, Booking } from "../../../lib/bookingStore"; // Updated import to use KV functions
 import { emailWrapper } from "../../../lib/emailUtils";
 import { addBookingToCalendar } from '../../../lib/googleCalendar';
-import { fromZonedTime, format } from 'date-fns-tz';
+import { fromZonedTime } from 'date-fns-tz';
 
 const transporter = nodemailer.createTransport({
   service: "gmail",

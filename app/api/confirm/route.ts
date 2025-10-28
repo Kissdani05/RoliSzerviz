@@ -5,7 +5,7 @@ import nodemailer from "nodemailer";
 import { getBooking, updateBooking, Booking } from "../../../lib/bookingStore";
 import { emailWrapper } from "../../../lib/emailUtils";
 import { addBookingToCalendar } from '../../../lib/googleCalendar';
-import { fromZonedTime, format } from 'date-fns-tz';
+import { fromZonedTime } from 'date-fns-tz';
 
 const transporter = nodemailer.createTransport({
   service: "gmail",

@@ -117,8 +117,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotific
       // Reset animation by toggling the class
       el.classList.remove('flash');
       // Force reflow to restart animation reliably
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      void el.offsetWidth;
+      el.offsetWidth; // eslint-disable-line @typescript-eslint/no-unused-expressions
       el.classList.add('flash');
       // Clean up class after animation ends (0.8s x 2 = 1.6s)
       const endTimer = setTimeout(() => {
