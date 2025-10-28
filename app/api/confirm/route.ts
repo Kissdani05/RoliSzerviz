@@ -5,6 +5,7 @@ import nodemailer from "nodemailer";
 import { getBooking, updateBooking, Booking } from "../../../lib/bookingStore";
 import { emailWrapper } from "../../../lib/emailUtils";
 import { addBookingToCalendar } from '../../../lib/googleCalendar';
+import { fromZonedTime, format } from 'date-fns-tz';
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -52,8 +53,15 @@ export async function GET(request: NextRequest) {
       // Add to Google Calendar
       try {
         const [from, to] = updatedBooking.originalTime.split(' - ');
-        const startDateTime = `${updatedBooking.originalDate}T${from.trim()}:00+02:00`;
-        const endDateTime = `${updatedBooking.originalDate}T${to.trim()}:00+02:00`;
+        
+        // Create date objects in Europe/Budapest timezone
+        const startDateTimeLocal = `${updatedBooking.originalDate} ${from.trim()}`;
+        const endDateTimeLocal = `${updatedBooking.originalDate} ${to.trim()}`;
+        
+        // Convert to UTC ISO string format for Google Calendar
+        const startDateTime = fromZonedTime(startDateTimeLocal, 'Europe/Budapest').toISOString();
+        const endDateTime = fromZonedTime(endDateTimeLocal, 'Europe/Budapest').toISOString();
+        
         await addBookingToCalendar({
           summary: `RoliSzerviz foglalás: ${updatedBooking.name}`,
           description: `Szolgáltatások: ${updatedBooking.services.join(', ')}\nÜzenet: ${updatedBooking.message ?? ''}`,
