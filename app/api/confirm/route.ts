@@ -54,21 +54,40 @@ export async function GET(request: NextRequest) {
       try {
         const [from, to] = updatedBooking.originalTime.split(' - ');
         
-        // Create date objects in Europe/Budapest timezone
-        const startDateTimeLocal = `${updatedBooking.originalDate} ${from.trim()}`;
-        const endDateTimeLocal = `${updatedBooking.originalDate} ${to.trim()}`;
+        console.log('Calendar Debug:', {
+          originalDate: updatedBooking.originalDate,
+          originalTime: updatedBooking.originalTime,
+          from: from.trim(),
+          to: to.trim()
+        });
+        
+        // Create proper datetime strings for parsing
+        const startDateTimeLocal = `${updatedBooking.originalDate}T${from.trim()}:00`;
+        const endDateTimeLocal = `${updatedBooking.originalDate}T${to.trim()}:00`;
+        
+        console.log('Local datetime strings:', {
+          startDateTimeLocal,
+          endDateTimeLocal
+        });
         
         // Convert to UTC ISO string format for Google Calendar
         const startDateTime = fromZonedTime(startDateTimeLocal, 'Europe/Budapest').toISOString();
         const endDateTime = fromZonedTime(endDateTimeLocal, 'Europe/Budapest').toISOString();
         
-        await addBookingToCalendar({
+        console.log('Final datetime for calendar:', {
+          startDateTime,
+          endDateTime
+        });
+        
+        const calendarResult = await addBookingToCalendar({
           summary: `RoliSzerviz foglalás: ${updatedBooking.name}`,
           description: `Szolgáltatások: ${updatedBooking.services.join(', ')}\nÜzenet: ${updatedBooking.message ?? ''}`,
           startDateTime,
           endDateTime,
           location: `${updatedBooking.city}, ${updatedBooking.postalCode} ${updatedBooking.shippingAddress}`.replace(/\s*\d{1,2}:\d{2}(-\d{1,2}:\d{2})?/g, ''), // órát eltávolítja
         });
+        
+        console.log('Calendar event created successfully:', calendarResult?.id);
       } catch (calendarError) {
         console.error('Google Calendar event error:', calendarError);
       }
