@@ -59,7 +59,9 @@ export async function POST(request: Request) {
     // Construct the base URL for links
     const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
       ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-      : "http://localhost:3000";
+      : process.env.NODE_ENV === 'production' 
+        ? 'https://roliszerviz.hu' 
+        : "http://localhost:3000";
 
     const adminHtml = emailWrapper(`
       <h2>Új időpont foglalás</h2>

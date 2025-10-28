@@ -37,7 +37,9 @@ export async function POST(request: NextRequest) {
   // Construct the base URL for links
   const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
   ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-  : "http://localhost:3000";
+  : process.env.NODE_ENV === 'production' 
+    ? 'https://roliszerviz.hu' 
+    : "http://localhost:3000";
 
   if (foglalas.modificationSent) {
     return new NextResponse(
