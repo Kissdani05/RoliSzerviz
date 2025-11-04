@@ -9,7 +9,7 @@ const ContactSection = React.forwardRef<HTMLElement>((props, ref) => {
         <h2 style={{ color: 'var(--primary-color)', fontSize: '2rem', marginBottom: '1.2rem', fontWeight: 800, letterSpacing: '-1px' }}>{t('Kapcsolat')}</h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem', alignItems: 'center', justifyContent: 'center' }}>
           <div style={{ fontSize: '1.08rem', fontWeight: 500 }}>
-            <span style={{ color: '#f47b20', fontWeight: 700 }}>{t('Telefonszám')}:</span> <a href="tel:+36302542292" style={{ color: '#fff', textDecoration: 'underline' }}>+36 30 254 2292</a>
+            <span style={{ color: '#f47b20', fontWeight: 700 }}>{t('Telefonszám')}:</span> <a href="tel:+36204068055" style={{ color: '#fff', textDecoration: 'underline' }}>+36 20 406 8055</a>
           </div>
           <div style={{ fontSize: '1.08rem', fontWeight: 500 }}>
             <span style={{ color: '#f47b20', fontWeight: 700 }}>{t('Email')}:</span> <a href="mailto:roliszervizdebrecen@gmail.com" style={{ color: '#fff', textDecoration: 'underline' }}>roliszervizdebrecen@gmail.com</a>

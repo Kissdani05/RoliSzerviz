@@ -337,7 +337,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotific
           <div className="contact-cta" style={{ display: 'flex', justifyContent: 'center', marginTop: 10, marginBottom: 12 }}>
             <div className="contact-cta-wrap" style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', width: 'fit-content', gap: 8 }}>
               <a
-                href="tel:+36302542292"
+                href="tel:+36204068055"
                 className="phone-link"
                 ref={phoneLinkRef}
                 style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem', color: '#f47b20', textDecoration: 'none', fontWeight: 600, fontSize: '1.08rem', border: '2px solid #f47b20', borderRadius: 10, padding: '6px 12px' }}
@@ -345,7 +345,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotific
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginRight: 2 }}>
                   <path d="M22 16.92V21a2 2 0 0 1-2.18 2A19.86 19.86 0 0 1 3 5.18 2 2 0 0 1 5 3h4.09a2 2 0 0 1 2 1.72c.13 1.13.37 2.23.72 3.28a2 2 0 0 1-.45 2.11l-1.27 1.27a16 16 0 0 0 6.29 6.29l1.27-1.27a2 2 0 0 1 2.11-.45c1.05.35 2.15.59 3.28.72a2 2 0 0 1 1.72 2z" stroke="#f47b20" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-                +36 30 254 2292
+                +36 20 406 8055
               </a>
               <a
                 href="https://m.me/Roliszerviz.huDebrecen/"

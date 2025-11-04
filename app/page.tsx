@@ -237,9 +237,9 @@ export default function Home() {
             {/* X button removed as requested */}
             {/* Phone and Webshop directly below the X button */}
             <div className="mobile-menu-top">
-              <a href="tel:+36302542292" className="phone mobile-phone">
+              <a href="tel:+36204068055" className="phone mobile-phone">
                 <Phone size={18} />
-                +36 30 254 2292
+                +36 20 406 8055
               </a>
               <a href="/webshop" className="webshop-btn mobile-webshop">{t("Webshop")}</a>
             </div>
@@ -442,9 +442,9 @@ export default function Home() {
                 <div className="logo" style={{ cursor: 'pointer' }} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>{t("ROLI SZERVIZ")}</div>
                 <a href="/webshop" className="webshop-btn" style={{ fontWeight: 600, fontSize: '1.08rem' }}>{t("Webshop")}</a>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
-                  <a href="tel:+36302542292" className="phone" style={{ fontWeight: 500, fontSize: '1.08rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <a href="tel:+36204068055" className="phone" style={{ fontWeight: 500, fontSize: '1.08rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                     <Phone size={18} />
-                    +36 30 254 2292
+                    +36 20 406 8055
                   </a>
                   <div className="social-icons" style={{ display: 'flex', gap: '0.7rem', marginLeft: '1.2rem' }}>
                     <a href="https://www.facebook.com/Roliszerviz.huDebrecen?locale=hu_HU" aria-label="Facebook">
