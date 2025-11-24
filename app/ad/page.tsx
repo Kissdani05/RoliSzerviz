@@ -1,47 +1,59 @@
 "use client";
 
 import Link from "next/link";
+import React, { useState } from "react";
+import BookingModal from "../../components/BookingModal";
+import WhyUs from "../../components/WhyUs";
 
 export default function ArlistaAdsPage() {
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const openBooking = () => {
+    console.log('Opening booking modal');
+    setIsBookingOpen(true);
+  };
   return (
     <main className="page-light">
       {/* Hero */}
       <section className="hero">
         <div className="container">
-          <h1>Roliszerviz – Gyors és megbízható szerviz Debrecenben</h1>
-          <p className="subtitle">
-            Helyszíni javítás, karbantartás és teljes körű szerviz – azonnali
-            időpontfoglalással.
-          </p>
+          <h1 style={{ color: '#fff', fontSize: '2.5rem', lineHeight: 1.05 }}>Roliszerviz – Gyors és megbízható szerviz Debrecenben</h1>
+          <h2 style={{ color: '#fff', fontSize: '1rem', marginTop: '0.35rem' }} className="hero-subtitle2">Háztól házig szerviz, a kényelmedért!</h2>
+          
 
           <div className="cta-links">
-            <a href="tel:+36204068055" className="cta-link">
-              📞 +36 20 406 8055
-            </a>
-            <a href="#kapcsolat" className="cta-link">
-              ✉ Kapcsolatfelvétel
-            </a>
-            <a href="#foglalas" className="cta-link">
+            <button type="button" className="cta-link" onClick={openBooking}>
               → Időpontfoglalás
+            </button>
+            <a href="tel:+36204068055" className="cta-phone-secondary" aria-label="Hívás">
+              📞 +36 20 406 8055
             </a>
           </div>
 
           <Link href="/" className="back-link">
-            ← Vissza a főoldalra
+            Főoldal
           </Link>
         </div>
       </section>
 
-      {/* Árlista */}
-      <section className="pricing-section">
-        <div className="container">
-          <h2>Árlista</h2>
+      {/* Booking modal rendered at page root so it overlays correctly */}
+      <BookingModal isOpen={isBookingOpen} onClose={() => setIsBookingOpen(false)} />
+      {/* Debug indicator (temporary) */}
+      <div style={{ position: 'fixed', right: 12, bottom: 12, zIndex: 12000, background: 'rgba(0,0,0,0.6)', color: '#fff', padding: '6px 8px', borderRadius: 6, fontSize: 12 }}>
+        Booking open: {isBookingOpen ? 'yes' : 'no'}
+      </div>
 
-          <ul className="price-list">
-            <li>
-              <strong>Háztól házig szerviz alapdíj:</strong>
-              <span>3 000 Ft</span>
-            </li>
+      {/* Árlista + WhyUs two-column layout */}
+      <section className="pricing-section" style={{ background: '#181818', color: '#fff' }}>
+        <div className="container" style={{ background: '#181818', color: '#fff' }}>
+          <div className="pricing-row" style={{ background: '#181818', color: '#fff' }}>
+            <div className="price-column" style={{ background: '#181818', color: '#fff' }}>
+              <h2>Árlista</h2>
+
+              <ul className="price-list">
+                <li>
+                  <strong>Háztól házig szerviz alapdíj:</strong>
+                  <span>3 000 Ft</span>
+                </li>
 
             <li>
               <strong>Gumiszerelés, defektjavítás munkadíj:</strong>
@@ -112,34 +124,23 @@ export default function ArlistaAdsPage() {
             anyagköltségről. Ha a javítás során újabb hibák merülnek fel,
             azokról minden esetben előzetesen egyeztetünk.
           </p>
+            </div>
+            <aside className="whyus-column">
+              <WhyUs />
+            </aside>
+          </div>
         </div>
       </section>
 
       {/* Időpontfoglalás */}
-      <section id="foglalas" className="booking-section">
-        <div className="container">
-          <h2>Időpontfoglalás</h2>
-
-          <p>
-            Kérjük, töltsd ki az alábbi űrlapot – kollégáink rövid időn belül
-            felveszik veled a kapcsolatot.
-          </p>
-
-          {/* Itt javasolt a BookingModal teljes kódjának áthozása
-              inline komponensként, hogy 1/1-ben ugyanaz legyen.
-              Mivel ez több száz sor és már megvan a komponensben,
-              legegyszerűbb, ha a BookingModal-t külön oldalon is
-              megjeleníted, vagy egy új, nem-modalos BookingForm
-              komponenst hozol létre ugyanazzal a tartalommal. */}
-        </div>
-      </section>
+      
 
       {/* Kapcsolat */}
-      <section id="kapcsolat" className="contact-section">
-        <div className="container">
-          <h2>Kapcsolat</h2>
+      <section id="kapcsolat" className="contact-section" style={{ background: '#181818', color: '#fff' }}>
+        <div className="container" style={{ color: '#fff' }}>
+          <h2 style={{ color: '#fff'}}>Kapcsolat</h2>
 
-          <ul className="contact-list">
+          <ul className="contact-list" style={{ color: '#fff'}}>
             <li>
               <strong>Telefon:</strong> +36 20 406 8055
             </li>
@@ -166,11 +167,7 @@ export default function ArlistaAdsPage() {
       </section>
 
       {/* Mini footer */}
-      <footer className="mini-footer">
-        <a href="/adatkezeles">Adatkezelés</a>
-        <a href="/impresszum">Impresszum</a>
-        <p>© Roliszerviz</p>
-      </footer>
+      
     </main>
   );
 }

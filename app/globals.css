@@ -11,6 +11,7 @@
   --transition: all 0.3s ease;
 }
 
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -264,44 +265,69 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #333;
-  background-color: #fff;
+  /* Page background: light gray to match homepage body */
+  background-color: var(--light-gray);
+  color: #222;
   line-height: 1.6;
 }
 
-.page-light .container {
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem 0;
-}
-
-.page-light h1,
-.page-light h2 {
-  color: #222;
-  margin-bottom: 1rem;
-}
-
-.page-light h1 {
-  font-size: 2.5rem;
-  line-height: 1.2;
-}
-
-.page-light h2 {
-  font-size: 2rem;
-  line-height: 1.3;
-  margin-top: 3rem;
-}
-
-/* Hero szekció az arlista-ads oldalhoz */
 .page-light .hero {
-  background-image: url("/path/to/hero-background.jpg");
-  background-size: cover;
-  background-position: center;
+  background: linear-gradient(
+      to bottom,
+      rgba(14, 14, 14, 0.9),
+      rgba(14, 14, 14, 0.9)
+    ),
+    url("/Debrecen.webp") center/cover no-repeat;
   color: #fff;
   text-align: center;
-  padding: 4rem 0 2.5rem;
+  padding: 2.5rem 0 1.5rem;
+  min-height: 55vh;
 }
+
+.page-light .pricing-row {
+  display: grid;
+  /* two equal columns -> price column is exactly half the page */
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+.page-light .price-column {
+  width: 100%;
+  background: #fff;
+  color: #222;
+  padding: 1.25rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+.page-light .whyus-column {
+  /* ensure the WhyUs wrapper uses full column space */
+  width: 100%;
+}
+
+/* Force WhyUs items to stack vertically inside the right column */
+.page-light .whyus-column .whyus-grid {
+  grid-template-columns: 1fr !important;
+  gap: 1rem !important;
+}
+
+@media (max-width: 1000px) {
+  .page-light .pricing-row {
+    /* switch to flex column on small screens so we can reorder items */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  /* show WhyUs above the price column on mobile */
+  .page-light .whyus-column {
+    order: -1;
+    margin-bottom: 0.5rem;
+  }
+  .page-light .price-column {
+    width: 100%;
+    background: #fff;
+  }
+}
+ 
 
 .page-light .hero .subtitle {
   font-size: 1.25rem;
@@ -336,10 +362,82 @@ body {
   font-size: 0.9rem;
 }
 
+@media (max-width: 768px) {
+  /* On mobile stack the hero CTA buttons with vertical spacing */
+  .page-light .cta-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    align-items: center;
+  }
+  .page-light .cta-link {
+    width: 100%;
+    max-width: 360px;
+  }
+}
+
+/* Secondary phone CTA under primary booking button */
+.page-light .cta-phone-secondary {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: #fff;
+  text-decoration: none;
+  background: transparent;
+  border: 2px solid rgba(255,255,255,0.06);
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  opacity: 0.95;
+}
+.page-light .cta-phone-secondary:hover {
+  background: rgba(255,255,255,0.03);
+}
+
+@media (max-width: 768px) {
+  .page-light .cta-phone-secondary {
+    width: 100%;
+    max-width: 360px;
+    display: flex;
+    justify-content: center;
+  }
+}
+
 /* Árlista szekció */
 .page-light .pricing-section {
-  background-color: #f9f9f9;
+  /* Layout: price list + WhyUs sidebar */
+  background-color: transparent;
   padding: 2.5rem 0 3rem;
+}
+
+.page-light .pricing-row {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 2rem;
+  align-items: start;
+}
+
+.page-light .price-column {
+  max-width: 820px;
+  background: #fff;
+  color: #222;
+  padding: 1.25rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+.page-light .whyus-column {
+  /* keep inner WhyUs styling; remove extra container spacing */
+  display: block;
+}
+
+@media (max-width: 1000px) {
+  .page-light .pricing-row {
+    grid-template-columns: 1fr;
+  }
+  .page-light .price-column {
+    max-width: 100%;
+    background: #fff;
+  }
 }
 
 .page-light .price-list {
@@ -350,7 +448,20 @@ body {
 
 .page-light .price-list li {
   padding: 1.25rem 0;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.page-light .price-list li:first-child {
+  background: linear-gradient(90deg, rgba(244,123,32,0.08), rgba(244,123,32,0.02));
+  padding: 1.25rem 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+.page-light .price-list li:first-child strong {
+  color: var(--primary-color);
+}
+.page-light .price-list li:first-child span {
+  color: var(--primary-color);
+  font-weight: 800;
 }
 
 .page-light .price-list li:last-child {
@@ -365,7 +476,7 @@ body {
 
 .page-light .price-list li span {
   font-size: 1.3rem;
-  color: #ff6b00;
+  color: var(--primary-color);
 }
 
 .page-light .price-list li small {
@@ -418,7 +529,7 @@ body {
 .page-light .contact-list li {
   margin-bottom: 1rem;
   font-size: 1rem;
-  color: #333;
+  color: #fff;
 }
 
 .page-light .contact-list li strong {
