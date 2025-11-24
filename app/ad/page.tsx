@@ -2,11 +2,16 @@
 
 import Link from "next/link";
 import React, { useState } from "react";
+import BookingNotification from "../../components/BookingNotification";
 import BookingModal from "../../components/BookingModal";
 import WhyUs from "../../components/WhyUs";
 
 export default function ArlistaAdsPage() {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const [bookingNotification, setBookingNotification] = useState<{
+    message: string;
+    type: "success" | "error";
+  } | null>(null);
   const openBooking = () => {
     console.log('Opening booking modal');
     setIsBookingOpen(true);
@@ -36,11 +41,56 @@ export default function ArlistaAdsPage() {
       </section>
 
       {/* Booking modal rendered at page root so it overlays correctly */}
-      <BookingModal isOpen={isBookingOpen} onClose={() => setIsBookingOpen(false)} />
+      <BookingModal isOpen={isBookingOpen} onClose={() => setIsBookingOpen(false)} setNotification={setBookingNotification} />
       {/* Debug indicator (temporary) */}
       <div style={{ position: 'fixed', right: 12, bottom: 12, zIndex: 12000, background: 'rgba(0,0,0,0.6)', color: '#fff', padding: '6px 8px', borderRadius: 6, fontSize: 12 }}>
         Booking open: {isBookingOpen ? 'yes' : 'no'}
       </div>
+
+      {/* Desktop notification: right top below nav bar */}
+      {bookingNotification && (
+        <BookingNotification
+          message={bookingNotification.message}
+          type={bookingNotification.type}
+          onClose={() => setBookingNotification(null)}
+          mobile={false}
+        />
+      )}
+      {/* Mobile notification: above fixed CTA bar */}
+      {bookingNotification && (
+        <div className="mobile-notification-wrapper">
+          <BookingNotification
+            message={bookingNotification.message}
+            type={bookingNotification.type}
+            onClose={() => setBookingNotification(null)}
+            mobile={true}
+          />
+        </div>
+      )}
+      <style>{`
+        @media (max-width: 800px) {
+          .booking-notification.desktop {
+            display: none !important;
+          }
+          .mobile-notification-wrapper {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 62px;
+            z-index: 3000;
+            width: 100vw;
+            pointer-events: none;
+          }
+          .booking-notification.mobile {
+            pointer-events: auto;
+          }
+        }
+        @media (min-width: 801px) {
+          .booking-notification.mobile {
+            display: none !important;
+          }
+        }
+      `}</style>
 
       {/* Árlista + WhyUs two-column layout */}
       <section className="pricing-section" style={{ background: '#181818', color: '#fff' }}>
