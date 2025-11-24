@@ -22,7 +22,7 @@ export default function ArlistaAdsPage() {
 
           <div className="cta-links">
             <button type="button" className="cta-link" onClick={openBooking}>
-              → Időpontfoglalás
+              Időpontfoglalás
             </button>
             <a href="tel:+36204068055" className="cta-phone-secondary" aria-label="Hívás">
               📞 +36 20 406 8055
