@@ -3,8 +3,8 @@
 import Image from "next/image";
 import Head from "next/head";
 import React, { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import PriceModal from "../components/PriceModal";
-import BookingModal from "../components/BookingModal";
 import BookingNotification from "../components/BookingNotification";
 import { useTranslation } from "../contexts/TranslationContext";
 import LanguageSelector from "../components/LanguageSelector";
@@ -20,13 +20,13 @@ import Testimonials from "../components/Testimonials";
 
 export default function Home() {
   // ...existing code...
+  const router = useRouter();
   const [bookingNotification, setBookingNotification] = useState<{
     message: string;
     type: "success" | "error";
   } | null>(null);
   const { t } = useTranslation();
   const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
-  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
 
   const priceBtnRef = useRef<HTMLButtonElement>(null);
@@ -43,8 +43,7 @@ export default function Home() {
   const openPriceModal = () => setIsPriceModalOpen(true);
   const closePriceModal = () => setIsPriceModalOpen(false);
 
-  const openBookingModal = () => setIsBookingModalOpen(true);
-  const closeBookingModal = () => setIsBookingModalOpen(false);
+  const openBookingModal = () => router.push("/booking");
 
   // Aktív szekció követése
   const [activeSection, setActiveSection] = useState<string>("top");
@@ -737,13 +736,6 @@ export default function Home() {
       */}
 
       <PriceModal isOpen={isPriceModalOpen} onClose={closePriceModal} />
-      <div id="booking">
-        <BookingModal
-          isOpen={isBookingModalOpen}
-          onClose={closeBookingModal}
-          setNotification={setBookingNotification}
-        />
-      </div>
       {/* Desktop notification: right top below nav bar */}
       {bookingNotification && (
         <BookingNotification

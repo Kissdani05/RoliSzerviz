@@ -14,7 +14,7 @@ interface BookingModalProps {
 const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotification }) => {
   const { t } = useTranslation();
   const [isRendered, setIsRendered] = useState(isOpen);
-  const [showContent, setShowContent] = useState(false);
+  const [showContent, setShowContent] = useState(isOpen);
 
   const [formData, setFormData] = useState({
     name: "",
