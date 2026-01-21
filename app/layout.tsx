@@ -3,6 +3,7 @@ import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { TranslationProvider } from "../contexts/TranslationContext";
+import { BookingNotificationProvider } from "../contexts/BookingNotificationContext";
 import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
@@ -98,7 +99,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <TranslationProvider>{children}</TranslationProvider>
+        <BookingNotificationProvider>
+          <TranslationProvider>{children}</TranslationProvider>
+        </BookingNotificationProvider>
         <Analytics />
       </body>
     </html>

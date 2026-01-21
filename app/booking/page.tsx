@@ -1,17 +1,21 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Home from "../page";
 import BookingModal from "@/components/BookingModal";
-import BookingNotification from "@/components/BookingNotification";
+import { useBookingNotification } from "@/contexts/BookingNotificationContext";
 
 export default function BookingPage() {
   const router = useRouter();
-  const [bookingNotification, setBookingNotification] = useState<{
-    message: string;
-    type: "success" | "error";
-  } | null>(null);
+  const { setNotification } = useBookingNotification();
+
+  const handleBookingNotification = (n: { message: string; type: "success" | "error" }) => {
+    setNotification(n);
+    // After 500ms, close the modal
+    setTimeout(() => {
+      router.back();
+    }, 500);
+  };
 
   return (
     <>
@@ -19,15 +23,8 @@ export default function BookingPage() {
       <BookingModal 
         isOpen={true} 
         onClose={() => router.back()}
-        setNotification={setBookingNotification}
+        setNotification={handleBookingNotification}
       />
-      {bookingNotification && (
-        <BookingNotification
-          message={bookingNotification.message}
-          type={bookingNotification.type}
-          onClose={() => setBookingNotification(null)}
-        />
-      )}
     </>
   );
 }

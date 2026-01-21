@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import PriceModal from "../components/PriceModal";
 import BookingNotification from "../components/BookingNotification";
 import { useTranslation } from "../contexts/TranslationContext";
+import { useBookingNotification } from "../contexts/BookingNotificationContext";
 import LanguageSelector from "../components/LanguageSelector";
 import { Phone, Instagram, Facebook } from "lucide-react"; // Import Lucide icons
 import FAQ from "../components/FAQ"; // Import the FAQ component
@@ -21,10 +22,8 @@ import Testimonials from "../components/Testimonials";
 export default function Home() {
   // ...existing code...
   const router = useRouter();
-  const [bookingNotification, setBookingNotification] = useState<{
-    message: string;
-    type: "success" | "error";
-  } | null>(null);
+  const { notification, setNotification } = useBookingNotification();
+  
   const { t } = useTranslation();
   const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
 
@@ -737,21 +736,21 @@ export default function Home() {
 
       <PriceModal isOpen={isPriceModalOpen} onClose={closePriceModal} />
       {/* Desktop notification: right top below nav bar */}
-      {bookingNotification && (
+      {notification && (
         <BookingNotification
-          message={bookingNotification.message}
-          type={bookingNotification.type}
-          onClose={() => setBookingNotification(null)}
+          message={notification.message}
+          type={notification.type}
+          onClose={() => setNotification(null)}
           mobile={false}
         />
       )}
       {/* Mobile notification: above fixed CTA bar */}
-      {bookingNotification && (
+      {notification && (
         <div className="mobile-notification-wrapper">
           <BookingNotification
-            message={bookingNotification.message}
-            type={bookingNotification.type}
-            onClose={() => setBookingNotification(null)}
+            message={notification.message}
+            type={notification.type}
+            onClose={() => setNotification(null)}
             mobile={true}
           />
         </div>
