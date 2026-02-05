@@ -37,7 +37,7 @@ export const translations: Record<Locale, TranslationObject> = {
     nav_booking: "Időpontfoglalás/Árlista",
     Kapcsolatok: "Kapcsolatok",
     Kapcsolat: "Kapcsolat",
-    no_walkin_notice: "Időpont egyeztetés nélkül nem áll módunkba ügyfeleket fogadni",
+    no_walkin_notice: "Időpont egyeztetés nélkül nem áll módunkban ügyfeleket fogadni",
     Email: "Email",
     Helyszín: "Helyszín",
     Messenger: "Messenger",
