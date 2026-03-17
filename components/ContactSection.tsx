@@ -9,7 +9,7 @@ const ContactSection = React.forwardRef<HTMLElement>((props, ref) => {
         <h2 style={{ color: 'var(--primary-color)', fontSize: '2rem', marginBottom: '1.2rem', fontWeight: 800, letterSpacing: '-1px' }}>{t('Kapcsolat')}</h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem', alignItems: 'center', justifyContent: 'center' }}>
           <div style={{ fontSize: '1.08rem', fontWeight: 500 }}>
-            <span style={{ color: '#f47b20', fontWeight: 700 }}>{t('Telefonszám')}:</span> <a href="tel:+36204068055" style={{ color: '#fff', textDecoration: 'underline' }}>+36 20 406 8055</a>
+            <span style={{ color: '#f47b20', fontWeight: 700 }}>{t('Telefonszám')}:</span> <a href="tel:+36302542292" style={{ color: '#fff', textDecoration: 'underline' }}>+36 30 254 2292</a>
           </div>
           <div style={{ fontSize: '1.08rem', fontWeight: 500 }}>
             <span style={{ color: '#f47b20', fontWeight: 700 }}>{t('Email')}:</span> <a href="mailto:roliszervizdebrecen@gmail.com" style={{ color: '#fff', textDecoration: 'underline' }}>roliszervizdebrecen@gmail.com</a>
@@ -32,7 +32,7 @@ const ContactSection = React.forwardRef<HTMLElement>((props, ref) => {
           </div>
           <div style={{ fontSize: '1.08rem', fontWeight: 500, marginBottom: 12 }}>
         <div style={{ marginBottom: '1.5rem', fontWeight: 700, color: '#ffb86c', fontSize: '1.08rem' }}>{t('no_walkin_notice')}</div>
-            <span style={{ color: '#f47b20', fontWeight: 700 }}>{t('Helyszín')}:</span> Debrecen, Csáthy u. 44. Magyarország
+            <span style={{ color: '#f47b20', fontWeight: 700 }}>{t('Helyszín')}:</span> Debrecen, Kodály Zoltán u. 1/a. Magyarország
           </div>
           <div style={{ width: '100%', maxWidth: 480, margin: '0 auto', borderRadius: 12, overflow: 'hidden', boxShadow: '0 2px 12px rgba(0,0,0,0.10)' }}>
            <iframe
