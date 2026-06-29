@@ -71,7 +71,7 @@ export default function RootLayout({
             "image": "https://roliszerviz.hu/logo.jpeg",
             "@id": "https://roliszerviz.hu/",
             "url": "https://roliszerviz.hu/",
-            "telephone": "+36-20-406-8055",
+            "telephone": "+36-20-407-8868",
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Debrecen",
