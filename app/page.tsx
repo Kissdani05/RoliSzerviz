@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Head from "next/head";
 import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import PriceModal from "../components/PriceModal";
@@ -199,9 +198,6 @@ export default function Home() {
 
   return (
     <>
-      <Head>
-        <link rel="canonical" href="https://roliszerviz.hu/" />
-      </Head>
       <main>
       <header className="header">
         <div className="container">
