@@ -29,8 +29,8 @@ export default function ArlistaAdsPage() {
             <button type="button" className="cta-link" onClick={openBooking}>
               Időpontfoglalás
             </button>
-            <a href="tel:+36204078868" className="cta-phone-secondary" aria-label="Hívás">
-              📞 +36 20 407 8868
+            <a href="tel:+36204068055" className="cta-phone-secondary" aria-label="Hívás">
+              📞 +36 20 406 8055
             </a>
           </div>
 
@@ -192,7 +192,7 @@ export default function ArlistaAdsPage() {
 
           <ul className="contact-list" style={{ color: '#fff'}}>
             <li>
-              <strong>Telefon:</strong> +36 20 407 8868
+              <strong>Telefon:</strong> +36 20 406 8055
             </li>
             <li>
               <strong>Email:</strong> roliszervizdebrecen@gmail.com
