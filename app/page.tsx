@@ -256,7 +256,7 @@ export default function Home() {
           display: flex;
           flex-direction: row;
           align-items: center;
-          justify-content: space-between;
+          justify-content: flex-end;
           width: 100%;
           padding: min(3vw, 0.7rem) min(2vw, 0.5rem);
           background: var(--secondary-color);
@@ -274,10 +274,10 @@ export default function Home() {
           font-size: min(1.18rem, 5vw);
           color: #f47b20;
           text-align: center;
-          flex: 1;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
           min-height: 0;
         }
         .hamburger-btn {

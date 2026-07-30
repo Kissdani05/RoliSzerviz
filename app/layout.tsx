@@ -48,27 +48,27 @@ export default function RootLayout({
   return (
     <html lang="hu">
       <head>
-  <link rel="icon" href="/logo.jpeg" type="image/jpeg" />
+  <link rel="icon" href="/logo.png" type="image/png" />
   <link rel="canonical" href="https://roliszerviz.hu/" />
   <link rel="alternate" hrefLang="hu" href="https://roliszerviz.hu/" />
         <meta name="robots" content="index, follow" />
         <meta name="description" content="Elektromos roller szerviz Debrecenben, háztól-házig szállítással. Gyors javítás, időpontfoglalás online." />
         <meta property="og:title" content="Elektromos roller szerviz Debrecen – RoliSzerviz" />
         <meta property="og:description" content="Gyors, elektromos roller szerviz Debrecenben, háztól-házig szállítással. Időpontfoglalás online!" />
-  <meta property="og:image" content="https://roliszerviz.hu/logo.jpeg" />
+  <meta property="og:image" content="https://roliszerviz.hu/logo.png" />
         <meta property="og:url" content="https://roliszerviz.hu/" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="RoliSzerviz" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Elektromos roller szerviz Debrecen – RoliSzerviz" />
         <meta name="twitter:description" content="Gyors, garanciális elektromos roller szerviz Debrecenben, háztól-házig szállítással. Időpontfoglalás online!" />
-  <meta name="twitter:image" content="https://roliszerviz.hu/logo.jpeg" />
+  <meta name="twitter:image" content="https://roliszerviz.hu/logo.png" />
         <script type="application/ld+json" suppressHydrationWarning>{`
           {
             "@context": "https://schema.org",
             "@type": "LocalBusiness",
             "name": "RoliSzerviz",
-            "image": "https://roliszerviz.hu/logo.jpeg",
+            "image": "https://roliszerviz.hu/logo.png",
             "@id": "https://roliszerviz.hu/",
             "url": "https://roliszerviz.hu/",
             "telephone": "+36-20-406-8055",
