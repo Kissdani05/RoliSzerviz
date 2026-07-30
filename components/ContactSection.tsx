@@ -32,7 +32,7 @@ const ContactSection = React.forwardRef<HTMLElement>((props, ref) => {
           </div>
           <div style={{ fontSize: '1.08rem', fontWeight: 500, marginBottom: 12 }}>
         <div style={{ marginBottom: '1.5rem', fontWeight: 700, color: '#ffb86c', fontSize: '1.08rem' }}>{t('no_walkin_notice')}</div>
-            <span style={{ color: '#f47b20', fontWeight: 700 }}>{t('Helyszín')}:</span> Debrecen, Kodály Zoltán u. 1/a. Magyarország
+            <span style={{ color: '#f47b20', fontWeight: 700 }}>{t('Helyszín')}:</span> Debrecen, Kodály Zoltán u. 1/a. Magyarország.
           </div>
           <div style={{ width: '100%', maxWidth: 480, margin: '0 auto', borderRadius: 12, overflow: 'hidden', boxShadow: '0 2px 12px rgba(0,0,0,0.10)' }}>
            <iframe
