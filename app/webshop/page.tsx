@@ -1,7 +1,6 @@
 "use client"; // Required for useTranslation
 
 import Link from "next/link";
-import Head from "next/head";
 import { useTranslation } from "../../contexts/TranslationContext"; // Adjusted path
 
 export default function WebshopPage() {
@@ -9,9 +8,9 @@ export default function WebshopPage() {
 
   return (
     <>
-      <Head>
-        <link rel="canonical" href="https://roliszerviz.hu/webshop" />
-      </Head>
+      {/* Title/description/canonical now come from app/webshop/layout.tsx —
+          next/head doesn't do anything reliable inside an App Router client
+          component, so it was dropped here. */}
       <header className="header">
         <div className="container">
           <div className="logo" style={{ textAlign: 'center', width: '100%' }}>{t("ROLI SZERVIZ")}</div>

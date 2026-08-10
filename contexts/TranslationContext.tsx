@@ -8,7 +8,6 @@ import React, {
   ReactNode,
 } from "react";
 import { translations, Locale, TranslationKey } from "../lib/translations";
-import { usePathname } from "next/navigation";
 
 interface TranslationContextType {
   locale: Locale;
@@ -22,7 +21,6 @@ export const TranslationContext = createContext<TranslationContextType | undefin
 
 export const TranslationProvider = ({ children }: { children: ReactNode }) => {
   const [locale, setLocale] = useState<Locale>("hu");
-  const pathname = usePathname();
 
   useEffect(() => {
     // Always use Hungarian as default, ignore browser/cookie/localStorage
@@ -36,21 +34,25 @@ export const TranslationProvider = ({ children }: { children: ReactNode }) => {
       setLocale(newLocale);
       localStorage.setItem("preferredLanguage", newLocale);
       document.cookie = `lang=${newLocale};path=/;max-age=31536000`; // Expires in 1 year
+
+      // Only touch the tab title / meta description when the visitor actively
+      // switches language. Doing this on every mount used to immediately
+      // overwrite the carefully written, keyword-rich <title> and
+      // <meta name="description"> that Next's Metadata API renders on the
+      // server (see app/layout.tsx) with a shorter, less SEO-friendly
+      // version — which is what search engines saw when they rendered the
+      // page's JavaScript.
+      document.title = translations[newLocale]["oldalcim"] || document.title;
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription && translations[newLocale]["meta_leiras"]) {
+        metaDescription.setAttribute("content", translations[newLocale]["meta_leiras"]);
+      }
     }
   };
 
   const t = (key: TranslationKey): string => {
     return translations[locale]?.[key] || translations["hu"]?.[key] || key;
   };
-
-  // Update meta tags and title on locale change or pathname change
-  useEffect(() => {
-    document.title = t("oldalcim");
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute("content", t("meta_leiras"));
-    }
-  }, [locale, t, pathname]);
 
   return (
     <TranslationContext.Provider value={{ locale, t, changeLocale }}>
