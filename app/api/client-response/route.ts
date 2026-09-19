@@ -84,7 +84,9 @@ export async function GET(request: NextRequest) {
           description: `Szolgáltatások: ${updatedBookingState.services.join(', ')}\nÜzenet: ${updatedBookingState.message ?? ''}`,
           startDateTime,
           endDateTime,
-          location: `${updatedBookingState.city}, ${updatedBookingState.postalCode} ${updatedBookingState.shippingAddress}`,
+          location: updatedBookingState.inShop
+            ? 'Üzletben (az ügyfél hozza a rollert)'
+            : `${updatedBookingState.city}, ${updatedBookingState.postalCode} ${updatedBookingState.shippingAddress}`,
         });
         
         console.log('Client Response Calendar event created successfully:', calendarResult?.id);
@@ -110,6 +112,7 @@ export async function GET(request: NextRequest) {
           .map((service) => `<li>${service}</li>`)
           .join("")}</ul>
         <p>Telefonszám: ${updatedBookingState.phone}</p>
+        ${updatedBookingState.inShop ? `<p><strong>Átvétel:</strong> Az ügyfél behozza a rollert az üzletbe.</p>` : ""}
       `
       );
       await transporter.sendMail({
@@ -128,12 +131,14 @@ export async function GET(request: NextRequest) {
         <p style="color: white;"><strong>${updatedBookingState.newDate ?? "N/A"} ${
           updatedBookingState.newTime ?? "N/A"
         }</strong></p>
-        <p style="color: white;">Szállítási cím:</p>
-        <p style="color: white;"><strong>Cím:</strong> ${
-          updatedBookingState.postalCode
-        } ${updatedBookingState.shippingAddress}</p>
         ${
-          updatedBookingState.differentBilling
+          updatedBookingState.inShop
+            ? `<p style="color: white;">Kérjük, a megadott időpontban hozza be a rollert az üzletünkbe.</p>`
+            : `<p style="color: white;">Szállítási cím:</p>
+        <p style="color: white;"><strong>Cím:</strong> ${updatedBookingState.postalCode} ${updatedBookingState.shippingAddress}</p>`
+        }
+        ${
+          !updatedBookingState.inShop && updatedBookingState.differentBilling
             ? `<p style="color: white;"><strong>Számlázási cím:</strong> ${updatedBookingState.billingPostalCode} ${updatedBookingState.billingAddress}</p>`
             : ""
         }

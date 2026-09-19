@@ -15,6 +15,7 @@ export async function POST(request: Request) {
   try {
     const {
       name,
+      inShop,
       email,
       phone,
       city,
@@ -38,13 +39,13 @@ export async function POST(request: Request) {
       name,
       email,
       phone,
-      city,
-      postalCode,
-      shippingAddress,
-      differentBilling,
-      billingPostalCode,
-      billingAddress,
-      billingCity,
+      city: inShop ? "" : city,
+      postalCode: inShop ? "" : postalCode,
+      shippingAddress: inShop ? "" : shippingAddress,
+      differentBilling: inShop ? false : differentBilling,
+      billingPostalCode: inShop ? "" : billingPostalCode,
+      billingAddress: inShop ? "" : billingAddress,
+      billingCity: inShop ? "" : billingCity,
       services,
       message,
       status: "pending",
@@ -68,8 +69,10 @@ export async function POST(request: Request) {
       <p><strong>Név:</strong> ${name}</p>
       <p><strong>Email:</strong> ${email}</p>
       <p><strong>Telefonszám:</strong> ${phone}</p>
-      <p><strong>Cím:</strong> ${city}, ${postalCode}, ${shippingAddress}</p>
-      ${differentBilling && (billingCity || billingPostalCode || billingAddress) ? `<p><strong>Számlázási cím:</strong> ${billingCity ? billingCity : ''}${billingCity && (billingPostalCode || billingAddress) ? ', ' : ''}${billingPostalCode ? billingPostalCode : ''}${billingPostalCode && billingAddress ? ', ' : ''}${billingAddress ? billingAddress : ''}</p>` : ''}
+      ${inShop
+        ? `<p><strong>Átvétel:</strong> Az ügyfél nem kér háztól házig szolgáltatást, a rollert behozza az üzletbe.</p>`
+        : `<p><strong>Cím:</strong> ${city}, ${postalCode}, ${shippingAddress}</p>`}
+      ${!inShop && differentBilling && (billingCity || billingPostalCode || billingAddress) ? `<p><strong>Számlázási cím:</strong> ${billingCity ? billingCity : ''}${billingCity && (billingPostalCode || billingAddress) ? ', ' : ''}${billingPostalCode ? billingPostalCode : ''}${billingPostalCode && billingAddress ? ', ' : ''}${billingAddress ? billingAddress : ''}</p>` : ''}
       <p><strong>Szolgáltatások:</strong></p>
       <ul>${services
         .map((service: string) => `<li>${service}</li>`)

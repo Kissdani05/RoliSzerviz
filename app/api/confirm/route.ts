@@ -84,7 +84,9 @@ export async function GET(request: NextRequest) {
           description: `Szolgáltatások: ${updatedBooking.services.join(', ')}\nÜzenet: ${updatedBooking.message ?? ''}`,
           startDateTime,
           endDateTime,
-          location: `${updatedBooking.city}, ${updatedBooking.postalCode} ${updatedBooking.shippingAddress}`.replace(/\s*\d{1,2}:\d{2}(-\d{1,2}:\d{2})?/g, ''), // órát eltávolítja
+          location: updatedBooking.inShop
+            ? 'Üzletben (az ügyfél hozza a rollert)'
+            : `${updatedBooking.city}, ${updatedBooking.postalCode} ${updatedBooking.shippingAddress}`.replace(/\s*\d{1,2}:\d{2}(-\d{1,2}:\d{2})?/g, ''), // órát eltávolítja
         });
         
         console.log('Calendar event created successfully:', calendarResult?.id);
@@ -100,11 +102,13 @@ export async function GET(request: NextRequest) {
         <ul style="color:#fff;">${updatedBooking.services
           .map((service) => `<li>${service}</li>`)
           .join("")}</ul>
-        <p style="color:#fff;"><strong>Szállítási cím:</strong> ${updatedBooking.postalCode} ${
-          updatedBooking.shippingAddress
-        }</p>
         ${
-          updatedBooking.differentBilling
+          updatedBooking.inShop
+            ? `<p style="color:#fff;">Kérjük, a megadott időpontban hozza be a rollert az üzletünkbe.</p>`
+            : `<p style="color:#fff;"><strong>Szállítási cím:</strong> ${updatedBooking.postalCode} ${updatedBooking.shippingAddress}</p>`
+        }
+        ${
+          !updatedBooking.inShop && updatedBooking.differentBilling
             ? `<p style="color:#fff;"><strong>Számlázási cím:</strong> ${updatedBooking.billingPostalCode} ${updatedBooking.billingAddress}</p>`
             : ""
         }

@@ -26,6 +26,8 @@ export interface Booking {
   newDate?: string;
   newTime?: string;
   city: string;
+  // Derived: in-shop bookings are stored with an empty shipping address
+  inShop?: boolean;
 }
 
 export function generateId(email: string, date: string, time: string): string {
@@ -81,6 +83,7 @@ function fromDb(row: Record<string, unknown>): Booking {
     newDate: row.newdate ? String(row.newdate) : undefined,
     newTime: row.newtime ? String(row.newtime) : undefined,
     city: row.city as string,
+    inShop: !row.shippingaddress,
   };
 }
 

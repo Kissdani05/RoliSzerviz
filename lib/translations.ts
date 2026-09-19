@@ -158,7 +158,7 @@ export const translations: Record<Locale, TranslationObject> = {
       "Most 10% kedvezmény minden szervizre!",
     Igénylem: "Igénylem",
     // Price Modal
-    "Gumiszerelés, defektfajítás": "Gumiszerelés, defektfajítás",
+    "Gumiszerelés, defektjavítás": "Gumiszerelés, defektjavítás",
     "(anyagdíjat nem tartalmaz)": "(anyagdíjat nem tartalmaz)",
     "Fék beállítás, szerelés, légtelenítés":
       "Fék beállítás, szerelés, légtelenítés",
@@ -191,7 +191,8 @@ export const translations: Record<Locale, TranslationObject> = {
     "Számlázási cím": "Számlázási cím",
     Szolgáltatások: "Szolgáltatások",
     "Háztól házig szerviz": "Háztól házig szerviz",
-    // "Gumiszerelés, defektfajítás" already exists
+    in_shop_option: "Nem kérem a háztól házig szolgáltatást, a rollert beviszem az üzletbe",
+    // "Gumiszerelés, defektjavítás" already exists
     "Fék beállítás": "Fék beállítás",
     // "Karbantartás" already exists
     "Elektromos javítás": "Elektromos javítás",
@@ -383,7 +384,7 @@ export const translations: Record<Locale, TranslationObject> = {
     "Most 10% kedvezmény minden szervizre!": "10% discount on all services now!",
     Igénylem: "Claim It",
     // Price Modal
-    "Gumiszerelés, defektfajítás": "Tire mounting, puncture repair",
+    "Gumiszerelés, defektjavítás": "Tire mounting, puncture repair",
     "(anyagdíjat nem tartalmaz)": "(material costs not included)",
     "Fék beállítás, szerelés, légtelenítés": "Brake adjustment, repair, bleeding",
     Karbantartás: "Maintenance",
@@ -411,6 +412,7 @@ export const translations: Record<Locale, TranslationObject> = {
     "Számlázási cím": "Billing address",
     Szolgáltatások: "Services",
     "Háztól házig szerviz": "Door-to-door service",
+    in_shop_option: "I don't need the door-to-door service, I will bring the scooter to the shop",
     "Fék beállítás": "Brake adjustment",
     "Elektromos javítás": "Electrical repair",
     Egyéb: "Other",
@@ -600,7 +602,7 @@ export const translations: Record<Locale, TranslationObject> = {
       "Jetzt 10% Rabatt auf alle Dienstleistungen!",
     Igénylem: "Anfordern",
     // Price Modal
-    "Gumiszerelés, defektfajítás": "Reifenmontage, Pannenreparatur",
+    "Gumiszerelés, defektjavítás": "Reifenmontage, Pannenreparatur",
     "(anyagdíjat nem tartalmaz)": "(Materialkosten nicht enthalten)",
     "Fék beállítás, szerelés, légtelenítés": "Bremseneinstellung, Reparatur, Entlüftung",
     Karbantartás: "Wartung",
@@ -628,6 +630,7 @@ export const translations: Record<Locale, TranslationObject> = {
     "Számlázási cím": "Rechnungsadresse",
     Szolgáltatások: "Dienstleistungen",
     "Háztól házig szerviz": "Haustürservice",
+    in_shop_option: "Ich benötige keinen Haustürservice, ich bringe den Roller selbst in die Werkstatt",
     "Fék beállítás": "Bremseneinstellung",
     "Elektromos javítás": "Elektrische Reparatur",
     Egyéb: "Andere",

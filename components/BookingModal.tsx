@@ -18,6 +18,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotific
 
   const [formData, setFormData] = useState({
     name: "",
+    inShop: false,
     city: "",
     email: "",
     phone: "",
@@ -148,7 +149,20 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotific
     const { name, value, type } = e.target;
     if (type === "checkbox") {
       const checked = (e.target as HTMLInputElement).checked;
-      if (name === "differentBilling") {
+      if (name === "inShop") {
+        setShowBillingAddressInput(false);
+        setFormData((prev) => ({
+          ...prev,
+          inShop: checked,
+          city: checked ? "" : prev.city,
+          postalCode: checked ? "" : prev.postalCode,
+          shippingAddress: checked ? "" : prev.shippingAddress,
+          differentBilling: false,
+          billingPostalCode: "",
+          billingAddress: "",
+          billingCity: "",
+        }));
+      } else if (name === "differentBilling") {
         setShowBillingAddressInput(checked);
         setFormData((prev) => ({
           ...prev,
@@ -182,6 +196,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotific
 
     const {
       name,
+      inShop,
       email,
       phone,
       postalCode,
@@ -229,12 +244,12 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotific
     }
 
     const postalCodeRegex = /^[0-9]{4}$/;
-    if (!postalCodeRegex.test(postalCode)) {
+    if (!inShop && !postalCodeRegex.test(postalCode)) {
       alert("Kérjük, érvényes irányítószámot adjon meg!");
       return;
     }
 
-    if (differentBilling && !postalCodeRegex.test(billingPostalCode)) {
+    if (!inShop && differentBilling && !postalCodeRegex.test(billingPostalCode)) {
       alert("Kérjük, érvényes számlázási irányítószámot adjon meg!");
       return;
     }
@@ -253,6 +268,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotific
         },
         body: JSON.stringify({
           name,
+          inShop,
           city: formData.city,
           email,
           phone,
@@ -276,6 +292,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotific
         onClose();
         setFormData({
           name: "",
+          inShop: false,
           city: "",
           email: "",
           phone: "",
@@ -408,6 +425,83 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotific
             .booking-intro-sub {
               color: #555;
             }
+            .form-group label.in-shop-card {
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              padding: 12px 14px;
+              border: 2px solid #e5e7eb;
+              border-radius: 12px;
+              background: #fafafa;
+              cursor: pointer;
+              transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+              margin: 0;
+              font-weight: 500;
+            }
+            .form-group label.in-shop-card:hover {
+              border-color: rgba(244,123,32,0.5);
+            }
+            .form-group label.in-shop-card input {
+              position: absolute;
+              opacity: 0;
+              width: 0;
+              height: 0;
+            }
+            .in-shop-card:has(input:focus-visible) {
+              box-shadow: 0 0 0 3px rgba(244,123,32,0.3);
+            }
+            .form-group label.in-shop-card.active {
+              border-color: #f47b20;
+              background: rgba(244,123,32,0.08);
+            }
+            .in-shop-icon {
+              flex-shrink: 0;
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              width: 40px;
+              height: 40px;
+              border-radius: 10px;
+              background: rgba(244,123,32,0.12);
+              color: #f47b20;
+              transition: background 0.2s, color 0.2s;
+            }
+            .in-shop-card.active .in-shop-icon {
+              background: #f47b20;
+              color: #fff;
+            }
+            .in-shop-text {
+              flex: 1;
+              line-height: 1.35;
+              color: #1a1a1a;
+            }
+            .in-shop-switch {
+              flex-shrink: 0;
+              position: relative;
+              width: 44px;
+              height: 24px;
+              border-radius: 999px;
+              background: #d1d5db;
+              transition: background 0.2s;
+            }
+            .in-shop-switch::after {
+              content: "";
+              position: absolute;
+              top: 3px;
+              left: 3px;
+              width: 18px;
+              height: 18px;
+              border-radius: 50%;
+              background: #fff;
+              box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+              transition: transform 0.2s;
+            }
+            .in-shop-card.active .in-shop-switch {
+              background: #f47b20;
+            }
+            .in-shop-card.active .in-shop-switch::after {
+              transform: translateX(20px);
+            }
             @media (max-width: 600px) {
               .booking-intro-card {
                 padding: 10px 12px;
@@ -419,6 +513,27 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotific
             }
           `}</style>
           <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="inShop" className={`in-shop-card ${formData.inShop ? "active" : ""}`}>
+                <input
+                  type="checkbox"
+                  id="inShop"
+                  name="inShop"
+                  checked={formData.inShop}
+                  onChange={handleChange}
+                />
+                <span className="in-shop-icon" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3 9l1.5-5h15L21 9" />
+                    <path d="M3 9h18v2a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0V9z" />
+                    <path d="M5 13v8h14v-8" />
+                    <path d="M10 21v-5h4v5" />
+                  </svg>
+                </span>
+                <span className="in-shop-text">{t("in_shop_option")}</span>
+                <span className="in-shop-switch" aria-hidden="true" />
+              </label>
+            </div>
             <div className="form-group">
               <label htmlFor="name">{t("Név")}<span style={{color: 'var(--primary-color)', marginLeft: 4}}>*</span></label>
               <input
@@ -453,6 +568,8 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotific
                 required
               />
             </div>
+            {!formData.inShop && (
+            <>
             <div className="form-group">
               <label htmlFor="city">{t("Város")}<span style={{color: 'var(--primary-color)', marginLeft: 4}}>*</span></label>
               <input
@@ -543,6 +660,8 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotific
                 </div>
               </div>
             )}
+            </>
+            )}
             <div className="form-group">
               <label>{t("Szolgáltatások")}</label>
               <div className="services-checkbox-group">
@@ -551,11 +670,11 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotific
                     type="checkbox"
                     id="service1"
                     name="services"
-                    value="Gumiszerelés, defektfajítás"
-                    checked={formData.services.includes("Gumiszerelés, defektfajítás")}
+                    value="Gumiszerelés, defektjavítás"
+                    checked={formData.services.includes("Gumiszerelés, defektjavítás")}
                     onChange={handleChange}
                   />
-                  <label htmlFor="service1">{t("Gumiszerelés, defektfajítás")}</label>
+                  <label htmlFor="service1">{t("Gumiszerelés, defektjavítás")}</label>
                 </div>
                 <div className="checkbox-item">
                   <input
