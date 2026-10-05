@@ -48,7 +48,6 @@ export default function RootLayout({
   return (
     <html lang="hu">
       <head>
-  <link rel="icon" href="/logo.png" type="image/png" />
   <link rel="canonical" href="https://roliszerviz.hu/" />
   <link rel="alternate" hrefLang="hu" href="https://roliszerviz.hu/" />
         <meta name="robots" content="index, follow" />
