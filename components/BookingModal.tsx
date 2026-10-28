@@ -396,6 +396,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotific
             .phone-link.flash {
               animation: phoneFlash 0.8s ease-in-out 2;
               border-color: #f47b20;
+              
             }
 
             .booking-intro-card {
