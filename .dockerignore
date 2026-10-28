@@ -1,0 +1,13 @@
+.git
+.next
+node_modules
+db
+npm-debug.log*
+.DS_Store
+*.tsbuildinfo
+.env*
+!.env.example
+google-service-account.json
+Dockerfile
+.dockerignore
+README.md

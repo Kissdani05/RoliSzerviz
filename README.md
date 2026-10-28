@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# RoliSzerviz
 
-## Getting Started
+Next.js 15 oldal + Postgres (foglalások). Coolify-on fut, két Dockerfile alapú szolgáltatással.
 
-First, run the development server:
+## Fejlesztés
 
 ```bash
+cp .env.example .env.local   # majd töltsd ki
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Telepítés Coolify-ra
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 1. Adatbázis (`db/Dockerfile`)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- New Resource → Public/Private Git repo → ez a repo, Build Pack: **Dockerfile**
+- Base Directory: `/db`
+- Név / hostname: `roliszerviz-db` (ezt használja a `DATABASE_URL`)
+- Environment: `POSTGRES_PASSWORD=<erős jelszó>`
+- Storages: persistent volume → `/var/lib/postgresql/data`
+- Ne legyen domain és ne publikáld a portot.
 
-## Learn More
+Az `init.sql` csak az első induláskor, üres volume-on fut le, és létrehozza a `bookings` táblát.
 
-To learn more about Next.js, take a look at the following resources:
+### 2. Weboldal (`Dockerfile` a gyökérben)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- New Resource → ugyanez a repo, Build Pack: **Dockerfile**, Base Directory: `/`
+- Ports Exposes: `3000`
+- Domain: `https://roliszerviz.hu` (és `https://www.roliszerviz.hu`)
+- Environment: lásd `.env.example`
+  - `DATABASE_URL=postgres://roliszerviz:<jelszó>@roliszerviz-db:5432/roliszerviz`
+  - `SITE_URL=https://roliszerviz.hu`
+  - `BOOKING_EMAIL_USER`, `BOOKING_EMAIL_PASS`
+  - `GOOGLE_CALENDAR_ID`, `GOOGLE_SERVICE_ACCOUNT_JSON` (a JSON egy sorban)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+A két szolgáltatás legyen ugyanabban a Coolify projektben / environmentben, hogy a belső hálózaton elérjék egymást.
 
-## Deploy on Vercel
+### 3. Meglévő adatok átvitele Supabase-ből
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Supabase → Project Settings → Database → connection string (session pooler), majd:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+pg_dump "$SUPABASE_DB_URL" --data-only --table=public.bookings --no-owner --no-privileges > bookings.sql
+psql "$COOLIFY_DATABASE_URL" -f bookings.sql
+```
+
+(A Coolify DB-t ehhez ideiglenesen elérhetővé teheted, vagy a `bookings.sql`-t a konténerbe másolva `psql`-lel töltheted be.)
+
+### 4. DNS
+
+Az `A` rekordot (`roliszerviz.hu`, `www`) irányítsd a Coolify szerver IP-jére, és vedd le a domaint a Vercelről.

@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-// Updated import to use KV functions
 import { getBooking } from "../../../lib/bookingStore";
 
 export async function GET(request: NextRequest) {
@@ -12,7 +11,7 @@ export async function GET(request: NextRequest) {
     });
   }
 
-  // Get booking from Vercel KV
+  // Get booking from database
   const foglalas = await getBooking(id);
   if (!foglalas) {
     return new NextResponse(
@@ -22,11 +21,10 @@ export async function GET(request: NextRequest) {
   }
 
   // Construct the base URL for the form action
-  const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
-  ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-  : process.env.NODE_ENV === 'production' 
+  const baseUrl = process.env.SITE_URL ||
+      (process.env.NODE_ENV === 'production' 
     ? 'https://roliszerviz.hu' 
-    : "http://localhost:3000";
+    : "http://localhost:3000");
 
   if (foglalas.modificationSent) {
     return new NextResponse(

@@ -1,4 +1,4 @@
-import { getSupabaseClient } from "./supabaseClient";
+import { getPool } from "./db";
 
 export interface Booking {
   id: string;
@@ -87,28 +87,31 @@ function fromDb(row: Record<string, unknown>): Booking {
   };
 }
 
-// Functions to interact with Supabase
+// Functions to interact with Postgres
 export async function getBooking(id: string): Promise<Booking | null> {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase
-    .from("bookings")
-    .select("*")
-    .eq("id", id)
-    .single();
-  if (error || !data) {
-    console.error("Error fetching booking from Supabase:", error);
+  try {
+    const { rows } = await getPool().query(
+      "SELECT * FROM bookings WHERE id = $1",
+      [id]
+    );
+    return rows[0] ? fromDb(rows[0]) : null;
+  } catch (error) {
+    console.error("Error fetching booking from Postgres:", error);
     return null;
   }
-  return fromDb(data);
 }
 
 export async function saveBooking(booking: Booking): Promise<void> {
-  const supabase = getSupabaseClient();
-  const { error } = await supabase.from("bookings").insert([
-    toDb(booking),
-  ]);
-  if (error) {
-    console.error("Error saving booking to Supabase:", error);
+  const row = Object.entries(toDb(booking)).filter(([, v]) => v !== undefined);
+  const columns = row.map(([col]) => col).join(", ");
+  const placeholders = row.map((_, i) => `$${i + 1}`).join(", ");
+  try {
+    await getPool().query(
+      `INSERT INTO bookings (${columns}) VALUES (${placeholders})`,
+      row.map(([, v]) => v)
+    );
+  } catch (error) {
+    console.error("Error saving booking to Postgres:", error);
   }
 }
 
@@ -116,22 +119,30 @@ export async function updateBooking(
   id: string,
   updates: Partial<Booking>
 ): Promise<Booking | null> {
-  const supabase = getSupabaseClient();
-  const { error } = await supabase
-    .from("bookings")
-    .update(toDb(updates))
-    .eq("id", id);
-  if (error) {
-    console.error("Error updating booking in Supabase:", error);
-    return null;
+  // Only touch columns that were actually passed in (column = lowercased key)
+  const keys = Object.keys(updates).map((k) => k.toLowerCase());
+  const row = Object.entries(toDb(updates)).filter(
+    ([col, v]) => col !== "id" && v !== undefined && keys.includes(col)
+  );
+  if (row.length > 0) {
+    const assignments = row.map(([col], i) => `${col} = $${i + 2}`).join(", ");
+    try {
+      await getPool().query(
+        `UPDATE bookings SET ${assignments} WHERE id = $1`,
+        [id, ...row.map(([, v]) => v)]
+      );
+    } catch (error) {
+      console.error("Error updating booking in Postgres:", error);
+      return null;
+    }
   }
   return getBooking(id);
 }
 
 export async function deleteBooking(id: string): Promise<void> {
-  const supabase = getSupabaseClient();
-  const { error } = await supabase.from("bookings").delete().eq("id", id);
-  if (error) {
-    console.error("Error deleting booking from Supabase:", error);
+  try {
+    await getPool().query("DELETE FROM bookings WHERE id = $1", [id]);
+  } catch (error) {
+    console.error("Error deleting booking from Postgres:", error);
   }
 }

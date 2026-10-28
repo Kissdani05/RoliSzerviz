@@ -1,7 +1,6 @@
 // filepath: /Users/ezy/Projects/Others/dani/next-roliszerviz/app/api/confirm/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-// Updated import to use KV functions
 import { getBooking, updateBooking, Booking } from "../../../lib/bookingStore";
 import { emailWrapper } from "../../../lib/emailUtils";
 import { addBookingToCalendar } from '../../../lib/googleCalendar';
@@ -28,7 +27,7 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  // Get booking from Vercel KV
+  // Get booking from database
   const foglalas = await getBooking(id);
   if (!foglalas) {
     return new NextResponse(
@@ -47,7 +46,7 @@ export async function GET(request: NextRequest) {
   try {
     let updatedBooking: Booking | null = null;
     if (action === "accept") {
-      // Update booking in Vercel KV
+      // Update booking in database
       updatedBooking = await updateBooking(id, { status: "accepted" });
       if (!updatedBooking) throw new Error("Booking update failed");
       // Add to Google Calendar
@@ -130,7 +129,7 @@ export async function GET(request: NextRequest) {
     }
 
     if (action === "reject") {
-      // Update booking in Vercel KV
+      // Update booking in database
       updatedBooking = await updateBooking(id, { status: "rejected" });
       if (!updatedBooking) throw new Error("Booking update failed");
 

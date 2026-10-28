@@ -4,7 +4,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { TranslationProvider } from "../contexts/TranslationContext";
 import { BookingNotificationProvider } from "../contexts/BookingNotificationContext";
-import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -101,7 +100,6 @@ export default function RootLayout({
         <BookingNotificationProvider>
           <TranslationProvider>{children}</TranslationProvider>
         </BookingNotificationProvider>
-        <Analytics />
       </body>
     </html>
   );

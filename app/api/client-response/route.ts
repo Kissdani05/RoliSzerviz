@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-import { getBooking, updateBooking, Booking } from "../../../lib/bookingStore"; // Updated import to use KV functions
+import { getBooking, updateBooking, Booking } from "../../../lib/bookingStore";
 import { emailWrapper } from "../../../lib/emailUtils";
 import { addBookingToCalendar } from '../../../lib/googleCalendar';
 import { fromZonedTime } from 'date-fns-tz';

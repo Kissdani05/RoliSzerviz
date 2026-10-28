@@ -54,15 +54,14 @@ export async function POST(request: Request) {
       originalTime: time,
     };
 
-    // Save booking to Vercel KV
+    // Save booking to database
     await saveBooking(newBooking);
 
     // Construct the base URL for links
-    const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
-      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-      : process.env.NODE_ENV === 'production' 
+    const baseUrl = process.env.SITE_URL ||
+      (process.env.NODE_ENV === 'production' 
         ? 'https://roliszerviz.hu' 
-        : "http://localhost:3000";
+        : "http://localhost:3000");
 
     const adminHtml = emailWrapper(`
       <h2>Új időpont foglalás</h2>

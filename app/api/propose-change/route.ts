@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-import { getBooking, updateBooking } from "../../../lib/bookingStore"; // Updated import to use KV functions
+import { getBooking, updateBooking } from "../../../lib/bookingStore";
 import { emailWrapper } from "../../../lib/emailUtils";
 
 const transporter = nodemailer.createTransport({
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // Get booking from Vercel KV
+  // Get booking from database
   const foglalas = await getBooking(id);
   if (!foglalas) {
     return new NextResponse(
@@ -35,11 +35,10 @@ export async function POST(request: NextRequest) {
   }
 
   // Construct the base URL for links
-  const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
-  ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-  : process.env.NODE_ENV === 'production' 
+  const baseUrl = process.env.SITE_URL ||
+      (process.env.NODE_ENV === 'production' 
     ? 'https://roliszerviz.hu' 
-    : "http://localhost:3000";
+    : "http://localhost:3000");
 
   if (foglalas.modificationSent) {
     return new NextResponse(
@@ -54,7 +53,7 @@ export async function POST(request: NextRequest) {
 
   const newTime = `${newFrom}:00 - ${newTo}:00`;
 
-  // Update booking in Vercel KV
+  // Update booking in database
   const updatedBooking = await updateBooking(id, {
     status: "proposed",
     newDate: newDate,

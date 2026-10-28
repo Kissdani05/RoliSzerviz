@@ -1,4 +1,4 @@
--- Bookings table for Vercel Postgres
+-- Bookings table (runs once, on first start of an empty Postgres volume)
 CREATE TABLE IF NOT EXISTS bookings (
   id TEXT PRIMARY KEY,
   email TEXT NOT NULL,
