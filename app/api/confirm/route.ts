@@ -7,7 +7,14 @@ import { addBookingToCalendar } from '../../../lib/googleCalendar';
 import { fromZonedTime } from 'date-fns-tz';
 
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  // Port 587 (STARTTLS): Hetzner blocks outbound 465
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false,
+  requireTLS: true,
+  connectionTimeout: 10000,
+  greetingTimeout: 10000,
+  socketTimeout: 20000,
   auth: {
     user: process.env.BOOKING_EMAIL_USER,
     pass: process.env.BOOKING_EMAIL_PASS,

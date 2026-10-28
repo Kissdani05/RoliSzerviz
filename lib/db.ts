@@ -8,6 +8,7 @@ export function getPool(): Pool {
     globalForPg.pgPool = new Pool({
       connectionString: process.env.DATABASE_URL,
       max: 5,
+      connectionTimeoutMillis: 5000,
     });
   }
   return globalForPg.pgPool;

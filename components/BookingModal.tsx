@@ -38,6 +38,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotific
 
   const [showOtherServiceInput, setShowOtherServiceInput] = useState(false);
   const [showBillingAddressInput, setShowBillingAddressInput] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [availableFromHours, setAvailableFromHours] = useState<number[]>([]);
   const [availableToHours, setAvailableToHours] = useState<number[]>([]);
   const phoneLinkRef = useRef<HTMLAnchorElement>(null);
@@ -193,6 +194,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotific
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (isSubmitting) return;
 
     const {
       name,
@@ -261,6 +263,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotific
     const timeRange = `${bookingFrom}:00 - ${bookingTo}:00`;
 
     try {
+      setIsSubmitting(true);
       const response = await fetch("/api/send-email", {
         method: "POST",
         headers: {
@@ -317,6 +320,8 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotific
     } catch (error) {
       console.error("Hiba:", error);
       setNotification?.({ message: "", type: "error" });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -844,8 +849,8 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotific
                 onChange={handleChange}
               ></textarea>
             </div>
-            <button type="submit" className="btn btn-primary">
-              {t("booking_button")}
+            <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+              {isSubmitting ? "Küldés..." : t("booking_button")}
             </button>
           </form>
         </div>
