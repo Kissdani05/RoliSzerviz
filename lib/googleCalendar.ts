@@ -11,7 +11,11 @@ function getGoogleAuth() {
   let credentials;
   
   if (process.env.GOOGLE_SERVICE_ACCOUNT_JSON) {
-    credentials = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
+    // Accepts raw JSON or base64-encoded JSON (safer in env var UIs)
+    const raw = process.env.GOOGLE_SERVICE_ACCOUNT_JSON.trim();
+    credentials = JSON.parse(
+      raw.startsWith('{') ? raw : Buffer.from(raw, 'base64').toString('utf8')
+    );
     console.log('Using credentials from environment variable');
   } else {
     // Fallback to reading from file
