@@ -91,9 +91,9 @@ export async function POST(request: NextRequest) {
       <p style="color: white;">Üdvözlettel,<br>RoliSzerviz</p>
     `);
     await transporter.sendMail({
-      from: process.env.BOOKING_EMAIL_USER,
+      from: `"ROLISZERVIZ" <${process.env.BOOKING_EMAIL_USER}>`,
       to: updatedBooking.email,
-      subject: "Új időpont javaslat",
+      subject: "ROLISZERVIZ – Új időpont javaslat",
       html: newDateHtml,
     });
 

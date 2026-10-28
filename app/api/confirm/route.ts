@@ -122,9 +122,9 @@ export async function GET(request: NextRequest) {
         <p style="color:#fff;">Üdvözlettel,<br>RoliSzerviz</p>`
       );
       await transporter.sendMail({
-        from: process.env.BOOKING_EMAIL_USER,
+        from: `"ROLISZERVIZ" <${process.env.BOOKING_EMAIL_USER}>`,
         to: updatedBooking.email,
-        subject: "Foglalás elfogadva",
+        subject: "ROLISZERVIZ – Foglalás elfogadva",
         html: acceptHtml,
       });
       return new NextResponse(
@@ -148,9 +148,9 @@ export async function GET(request: NextRequest) {
         <p style="color:#fff;">Üdvözlettel,<br>RoliSzerviz</p>`
       );
       await transporter.sendMail({
-        from: process.env.BOOKING_EMAIL_USER,
+        from: `"ROLISZERVIZ" <${process.env.BOOKING_EMAIL_USER}>`,
         to: updatedBooking.email,
-        subject: "Foglalás elutasítva",
+        subject: "ROLISZERVIZ – Foglalás elutasítva",
         html: rejectHtml,
       });
       return new NextResponse(

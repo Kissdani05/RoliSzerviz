@@ -153,9 +153,9 @@ export async function GET(request: NextRequest) {
       `
       );
       await transporter.sendMail({
-        from: process.env.BOOKING_EMAIL_USER,
+        from: `"ROLISZERVIZ" <${process.env.BOOKING_EMAIL_USER}>`,
         to: updatedBookingState.email,
-        subject: "Foglalás visszaigazolva",
+        subject: "ROLISZERVIZ – Foglalás visszaigazolva",
         html: clientConfirmationHtml,
       });
 
@@ -213,9 +213,9 @@ export async function GET(request: NextRequest) {
       `
       );
       await transporter.sendMail({
-        from: process.env.BOOKING_EMAIL_USER,
+        from: `"ROLISZERVIZ" <${process.env.BOOKING_EMAIL_USER}>`,
         to: updatedBookingState.email,
-        subject: "Időpont módosítási javaslat visszautasítva",
+        subject: "ROLISZERVIZ – Időpont módosítási javaslat visszautasítva",
         html: clientNotificationHtml,
       });
 
