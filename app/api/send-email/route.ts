@@ -94,7 +94,7 @@ export async function POST(request: Request) {
 
     const adminMailOptions = {
       from: process.env.BOOKING_EMAIL_USER,
-      to: process.env.BOOKING_EMAIL_USER, // Send to admin
+      to: process.env.BOOKING_ADMIN_EMAIL || process.env.BOOKING_EMAIL_USER, // Send to admin
       subject: "Új időpont foglalás",
       html: adminHtml,
     };

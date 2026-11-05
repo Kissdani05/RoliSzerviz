@@ -124,7 +124,7 @@ export async function GET(request: NextRequest) {
       );
       await transporter.sendMail({
         from: process.env.BOOKING_EMAIL_USER,
-        to: process.env.BOOKING_EMAIL_USER, // Admin
+        to: process.env.BOOKING_ADMIN_EMAIL || process.env.BOOKING_EMAIL_USER, // Admin
         subject: "Az ügyfél elfogadta a módosított időpontot",
         html: adminNotificationHtml,
       });
@@ -198,7 +198,7 @@ export async function GET(request: NextRequest) {
       );
       await transporter.sendMail({
         from: process.env.BOOKING_EMAIL_USER,
-        to: process.env.BOOKING_EMAIL_USER, // Admin
+        to: process.env.BOOKING_ADMIN_EMAIL || process.env.BOOKING_EMAIL_USER, // Admin
         subject: "Az ügyfél elutasította a módosított időpontot",
         html: adminNotificationHtml,
       });
