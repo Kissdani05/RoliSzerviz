@@ -202,7 +202,7 @@ const AdminFinance: React.FC = () => {
         <div className="adm-card adm-empty">Ebben az időszakban nincs tétel.</div>
       ) : (
         <div className="adm-card adm-table-card">
-          <table className="adm-table">
+          <table className="adm-table adm-finance-table">
             <thead>
               <tr>
                 <th>Dátum</th>
@@ -216,19 +216,19 @@ const AdminFinance: React.FC = () => {
             <tbody>
               {visible.map((transaction) => (
                 <tr key={transaction.id}>
-                  <td>{formatDate(transaction.date)}</td>
-                  <td>
+                  <td className="adm-tx-date">{formatDate(transaction.date)}</td>
+                  <td className="adm-tx-type">
                     <span className={`adm-type adm-type-${transaction.type}`}>
                       {transaction.type === "income" ? "Bevétel" : "Kiadás"}
                     </span>
                   </td>
-                  <td>{transaction.category}</td>
-                  <td className="adm-muted">{transaction.description}</td>
-                  <td className="adm-num">
+                  <td className="adm-tx-category">{transaction.category}</td>
+                  <td className="adm-tx-note adm-muted">{transaction.description}</td>
+                  <td className="adm-tx-amount adm-num">
                     {transaction.type === "income" ? "+" : "−"}
                     {formatMoney(transaction.amount)}
                   </td>
-                  <td className="adm-num">
+                  <td className="adm-tx-delete adm-num">
                     <button
                       type="button"
                       className="adm-icon-btn"

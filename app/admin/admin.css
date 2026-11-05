@@ -12,6 +12,7 @@
   --adm-bad: #f87171;
   --adm-info: #7ab3f5;
   min-height: 100vh;
+  min-height: 100dvh;
   background: var(--adm-page);
   color: var(--adm-ink);
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -58,6 +59,7 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
+  overflow-y: auto;
   padding: 1.25rem 0.75rem;
   background: #0a0a0a;
   border-right: 1px solid var(--adm-border);
@@ -112,8 +114,9 @@
 
 .adm-main {
   min-width: 0;
-  max-width: 1120px;
+  max-width: 1240px;
   width: 100%;
+  margin-inline: auto;
   padding: 1.75rem 2rem 3rem;
 }
 
@@ -626,6 +629,10 @@
   list-style: none;
 }
 
+.adm-blocked-list strong {
+  white-space: nowrap;
+}
+
 .adm-blocked-list li {
   display: flex;
   align-items: center;
@@ -648,15 +655,12 @@
   justify-self: start;
 }
 
-.adm-finance-form .adm-segment button {
-  min-height: 34px;
-}
-
 .adm-finance-note {
   grid-column: span 2;
 }
 
 .adm-table-card {
+  container-type: inline-size;
   padding: 0;
   overflow-x: auto;
 }
@@ -688,6 +692,13 @@
   text-align: right;
 }
 
+.adm-table .adm-tx-category,
+.adm-table .adm-tx-note {
+  min-width: 120px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
 .adm-type {
   display: inline-flex;
   align-items: center;
@@ -712,7 +723,7 @@
 /* Tiles */
 .adm-tiles {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 165px), 1fr));
   gap: 0.75rem;
 }
 
@@ -734,14 +745,17 @@
 .adm-tile strong {
   font-size: 1.35rem;
   font-weight: 700;
-  white-space: nowrap;
 }
 
 /* Charts */
 .adm-chart-grid-2 {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 430px), 1fr));
   gap: 1rem;
+}
+
+.adm-chart-grid-2 > * {
+  min-width: 0;
 }
 
 .adm-chart {
@@ -822,7 +836,6 @@
 }
 
 .adm-chart-column {
-  position: relative;
   flex: 1;
   min-width: 0;
   height: 100%;
@@ -870,6 +883,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
+  margin: 0 4px;
   padding: 0.5rem 0.65rem;
   border: 1px solid #4d4d4d;
   border-radius: 8px;
@@ -877,14 +891,6 @@
   font-size: 0.82rem;
   white-space: nowrap;
   pointer-events: none;
-}
-
-.adm-tooltip.right {
-  left: calc(100% + 4px);
-}
-
-.adm-tooltip.left {
-  right: calc(100% + 4px);
 }
 
 .adm-tooltip-row {
@@ -898,6 +904,10 @@
   color: var(--adm-ink);
 }
 
+.adm-chart-table {
+  overflow-x: auto;
+}
+
 .adm-chart-table summary {
   font-size: 0.85rem;
   color: var(--adm-ink-2);
@@ -907,6 +917,15 @@
 .adm-chart-table .adm-table {
   margin-top: 0.4rem;
   font-size: 0.88rem;
+}
+
+.adm-chart-table .adm-table th,
+.adm-chart-table .adm-table td {
+  padding: 0.45rem 0.4rem;
+}
+
+.adm-chart-table .adm-table td:first-child {
+  white-space: normal;
 }
 
 .adm-hbars {
@@ -949,7 +968,7 @@
   border-radius: 0 4px 4px 0;
 }
 
-/* Mobile */
+/* Responsive: shell, then content, then phones */
 @media (max-width: 860px) {
   .adm-shell {
     grid-template-columns: minmax(0, 1fr);
@@ -961,6 +980,7 @@
     grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 2px;
     height: auto;
+    overflow: visible;
     padding: 0.35rem;
     border-right: 0;
     border-bottom: 1px solid var(--adm-border);
@@ -978,6 +998,7 @@
     flex-direction: column;
     justify-content: center;
     gap: 0.15rem;
+    min-height: 48px;
     padding: 0.35rem 0.15rem;
     font-size: 0.7rem;
     line-height: 1.15;
@@ -988,30 +1009,80 @@
     padding: 1.1rem 1rem 2.5rem;
   }
 
-  .adm-chart-grid-2,
-  .adm-propose,
-  .adm-details {
-    grid-template-columns: minmax(0, 1fr);
+  /* Below 16px iOS zooms the page when a field gets focus */
+  .adm-input {
+    font-size: 16px;
   }
 
-  .adm-finance-form {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .adm-input,
+  .adm-btn {
+    min-height: 44px;
   }
 
-  .adm-finance-form .adm-segment,
-  .adm-finance-note,
-  .adm-finance-form .adm-btn {
-    grid-column: 1 / -1;
+  .adm-segment button {
+    min-height: 40px;
+  }
+
+  .adm-icon-btn,
+  .adm-booking-delete {
+    width: 40px;
+    height: 40px;
+  }
+
+  .adm-switch {
+    min-height: 44px;
+  }
+
+  .adm-details a {
+    display: inline-block;
+    padding: 0.5rem 0;
+  }
+
+  .adm-chart-table summary {
+    padding: 0.55rem 0;
+  }
+
+  .adm-search {
+    flex-basis: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .adm-title {
+    margin-bottom: 0.9rem;
+    font-size: 1.3rem;
+  }
+
+  .adm-card {
+    padding: 0.9rem;
+  }
+
+  .adm-booking,
+  .adm-table-card {
+    padding: 0;
+  }
+
+  .adm-booking-bar {
+    align-items: flex-start;
+  }
+
+  .adm-booking-delete {
+    margin: 0.35rem 0.3rem 0 0;
   }
 
   .adm-booking-head {
     grid-template-columns: minmax(0, 1fr) 18px;
     gap: 0.35rem 0.75rem;
+    padding: 0.8rem 0.4rem 0.8rem 0.9rem;
   }
 
   .adm-booking-when {
-    flex-direction: row;
-    gap: 0.5rem;
+    flex-flow: row wrap;
+    gap: 0 0.5rem;
+  }
+
+  .adm-booking-when strong {
+    white-space: nowrap;
   }
 
   .adm-booking-who,
@@ -1023,17 +1094,214 @@
     align-items: flex-start;
   }
 
+  .adm-ordered {
+    white-space: normal;
+  }
+
   .adm-chevron {
     grid-column: 2;
     grid-row: 1;
   }
 
+  .adm-booking-body,
+  .adm-delete-confirm {
+    padding-inline: 0.9rem;
+  }
+
+  .adm-details,
+  .adm-propose {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .adm-propose {
+    padding: 0.5rem;
+  }
+
+  .adm-propose-side .adm-btn {
+    width: 100%;
+  }
+
+  .adm-finance-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .adm-finance-note,
+  .adm-finance-form .adm-btn {
+    grid-column: 1 / -1;
+  }
+
+  .adm-tooltip {
+    left: 0 !important;
+    right: 0 !important;
+  }
+}
+
+/* Too narrow for the columns: the finance table turns into a card per item */
+@container (max-width: 680px) {
+  .adm-finance-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .adm-finance-table,
+  .adm-finance-table tbody {
+    display: block;
+  }
+
+  .adm-finance-table tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    grid-template-areas:
+      "category amount delete"
+      "note     note   delete"
+      "meta     meta   delete";
+    align-items: center;
+    gap: 0.1rem 0.6rem;
+    padding: 0.65rem 0.4rem 0.65rem 0.9rem;
+    border-bottom: 1px solid var(--adm-border);
+  }
+
+  .adm-finance-table tbody tr:last-child {
+    border-bottom: 0;
+  }
+
+  .adm-finance-table td,
+  .adm-finance-table tbody tr:last-child td {
+    display: block;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .adm-finance-table td:empty {
+    display: none;
+  }
+
+  .adm-table .adm-tx-category {
+    grid-area: category;
+    min-width: 0;
+    font-weight: 600;
+  }
+
+  .adm-table .adm-tx-note {
+    grid-area: note;
+    min-width: 0;
+    font-size: 0.88rem;
+  }
+
+  .adm-tx-amount {
+    grid-area: amount;
+    font-weight: 700;
+  }
+
+  .adm-tx-delete {
+    grid-area: delete;
+  }
+
+  .adm-tx-date {
+    grid-area: meta;
+    font-size: 0.82rem;
+    color: var(--adm-ink-2);
+  }
+
+  /* Date and type share the last row of the card */
+  .adm-tx-type {
+    grid-area: meta;
+    justify-self: end;
+    margin-right: 0.2rem;
+    font-size: 0.82rem;
+    color: var(--adm-ink-2);
+  }
+}
+
+@media (max-width: 480px) {
+  .adm-segment {
+    display: flex;
+    width: 100%;
+  }
+
+  .adm-segment button {
+    flex: 1;
+    min-width: 0;
+    padding: 0.3rem 0.2rem;
+    font-size: 0.88rem;
+    white-space: normal;
+  }
+
+  .adm-count {
+    display: block;
+    margin-left: 0;
+    line-height: 1.1;
+  }
+
+  .adm-actions .adm-btn {
+    flex: 1 1 100%;
+  }
+
+  .adm-finance-form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .adm-field-inline {
+    flex: 1 1 100%;
+  }
+
+  .adm-field-inline .adm-input {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .adm-toolbar > .adm-btn {
+    flex: 1 1 100%;
+  }
+
+  .adm-inline-form .adm-field,
+  .adm-inline-form .adm-btn {
+    flex: 1 1 100%;
+  }
+
+  .adm-week-hours {
+    width: 100%;
+  }
+
+  .adm-week-hours .adm-input {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+  }
+
   .adm-week-row {
     flex-wrap: wrap;
+    gap: 0.25rem 1rem;
     padding: 0.5rem 0;
   }
 
-  .adm-search {
-    flex-basis: 100%;
+  .adm-tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  .adm-tile {
+    padding: 0.7rem 0.75rem;
+  }
+
+  .adm-tile strong {
+    font-size: 1.1rem;
+  }
+
+  .adm-chart-table .adm-table {
+    font-size: 0.82rem;
+  }
+
+  .adm-chart-table .adm-table th,
+  .adm-chart-table .adm-table td {
+    padding-inline: 0.2rem;
+  }
+
+  .adm-chart-labels.dense span:nth-last-child(even) {
+    visibility: hidden;
   }
 }

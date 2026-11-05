@@ -90,7 +90,13 @@ const AdminBarChart: React.FC<AdminBarChartProps> = ({
                 </div>
                 {activeRow === rowIndex && (
                   <div
-                    className={`adm-tooltip ${rowIndex > rows.length / 2 ? "left" : "right"}`}
+                    className="adm-tooltip"
+                    style={
+                      // Opens towards the side of the plot that has more room
+                      rowIndex >= rows.length / 2
+                        ? { right: `${((rows.length - rowIndex) / rows.length) * 100}%` }
+                        : { left: `${((rowIndex + 1) / rows.length) * 100}%` }
+                    }
                   >
                     <strong>{row.fullLabel}</strong>
                     {series.map((item, seriesIndex) => (
@@ -105,7 +111,7 @@ const AdminBarChart: React.FC<AdminBarChartProps> = ({
             ))}
           </div>
         </div>
-        <div className="adm-chart-labels">
+        <div className={`adm-chart-labels ${rows.length > 6 ? "dense" : ""}`}>
           {rows.map((row) => (
             <span key={row.fullLabel}>{row.label}</span>
           ))}

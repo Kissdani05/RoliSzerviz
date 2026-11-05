@@ -154,7 +154,7 @@ const AdminBookings: React.FC = () => {
         <input
           className="adm-input adm-search"
           type="search"
-          placeholder="Keresés név, e-mail vagy telefon alapján"
+          placeholder="Név, e-mail vagy telefon"
           aria-label="Keresés"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
