@@ -28,12 +28,20 @@ export interface Booking {
   city: string;
   // Derived: in-shop bookings are stored with an empty shipping address
   inShop?: boolean;
+  // Derived: when the booking was placed, from the timestamp in its id
+  orderedAt?: string;
 }
 
 export function generateId(email: string, date: string, time: string): string {
   return Buffer.from(`${email}_${date}_${time}_${Date.now()}`).toString(
     "base64url"
   );
+}
+
+function orderedAtFromId(id: string): string | undefined {
+  const timestamp = Number(Buffer.from(id, "base64url").toString().split("_").pop());
+  const date = new Date(timestamp);
+  return timestamp > 0 && !isNaN(date.getTime()) ? date.toISOString() : undefined;
 }
 
 // Helper to map Booking camelCase to db snake/lowercase
@@ -84,6 +92,7 @@ function fromDb(row: Record<string, unknown>): Booking {
     newTime: row.newtime ? String(row.newtime) : undefined,
     city: row.city as string,
     inShop: !row.shippingaddress,
+    orderedAt: orderedAtFromId(row.id as string),
   };
 }
 

@@ -22,5 +22,14 @@ export const formatMoney = (amount: number) =>
 export const formatDate = (dateKey: string) =>
   dateKey.replace(/^(\d{4})-(\d{2})-(\d{2})$/, "$1. $2. $3.");
 
+export const formatDateTime = (iso: string) =>
+  new Intl.DateTimeFormat("hu-HU", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(new Date(iso));
+
 export const errorMessage = (error: unknown) =>
   error instanceof Error ? error.message : "Váratlan hiba történt.";

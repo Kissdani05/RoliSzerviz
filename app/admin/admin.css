@@ -243,10 +243,6 @@
   color: var(--adm-ink-2);
 }
 
-.adm-push {
-  margin-left: auto;
-}
-
 .adm-icon-btn {
   display: inline-flex;
   align-items: center;
@@ -347,13 +343,26 @@
   padding: 0;
 }
 
+.adm-booking-bar {
+  display: flex;
+  align-items: center;
+}
+
+.adm-booking-delete {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  margin-right: 0.6rem;
+}
+
 .adm-booking-head {
+  flex: 1;
+  min-width: 0;
   display: grid;
   grid-template-columns: 130px minmax(0, 1fr) auto 18px;
   align-items: center;
   gap: 1rem;
-  width: 100%;
-  padding: 0.8rem 1.1rem;
+  padding: 0.8rem 0.6rem 0.8rem 1.1rem;
   border-radius: 12px;
   text-align: left;
   cursor: pointer;
@@ -379,6 +388,38 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.adm-booking-state {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.1rem;
+}
+
+.adm-ordered {
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.adm-delete-confirm {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem 1rem;
+  padding: 0.7rem 1.1rem;
+  border-top: 1px solid var(--adm-border);
+  background: #241a1a;
+}
+
+.adm-delete-confirm:last-child {
+  border-radius: 0 0 11px 11px;
+}
+
+.adm-delete-buttons {
+  display: inline-flex;
+  gap: 0.5rem;
 }
 
 .adm-status {
@@ -974,8 +1015,12 @@
   }
 
   .adm-booking-who,
-  .adm-status {
+  .adm-booking-state {
     grid-column: 1;
+  }
+
+  .adm-booking-state {
+    align-items: flex-start;
   }
 
   .adm-chevron {

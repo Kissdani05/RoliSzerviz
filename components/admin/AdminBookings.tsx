@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Trash2 } from "lucide-react";
 import type { Booking } from "../../lib/bookingStore";
 import {
   Availability,
@@ -10,7 +10,7 @@ import {
   toDateKey,
 } from "../../lib/bookingDates";
 import BookingCalendar from "../BookingCalendar";
-import { adminFetch, errorMessage, formatDate } from "./adminApi";
+import { adminFetch, errorMessage, formatDate, formatDateTime } from "./adminApi";
 
 type View = "open" | "upcoming" | "history";
 
@@ -83,7 +83,15 @@ const AdminBookings: React.FC = () => {
 
   const visible = useMemo(() => {
     const query = search.trim().toLowerCase();
-    const direction = view === "history" ? -1 : 1;
+    const byAppointment = (a: Booking, b: Booking) =>
+      appointment(a).date.localeCompare(appointment(b).date);
+    // To-dos: latest order on top. Others: by appointment, history newest first.
+    const compare = (a: Booking, b: Booking) => {
+      if (view === "open") {
+        return (b.orderedAt ?? "").localeCompare(a.orderedAt ?? "") || byAppointment(a, b);
+      }
+      return view === "history" ? byAppointment(b, a) : byAppointment(a, b);
+    };
     return bookings
       .filter((booking) => viewOf(booking, today) === view)
       .filter(
@@ -93,10 +101,7 @@ const AdminBookings: React.FC = () => {
             value?.toLowerCase().includes(query)
           )
       )
-      .sort(
-        (a, b) =>
-          direction * appointment(a).date.localeCompare(appointment(b).date)
-      );
+      .sort(compare);
   }, [bookings, search, today, view]);
 
   const runAction = async (id: string, body: object, successText: string) => {
@@ -122,7 +127,7 @@ const AdminBookings: React.FC = () => {
     setNotice(null);
     try {
       await adminFetch(`/api/admin/bookings/${encodeURIComponent(id)}`, { method: "DELETE" });
-      setNotice({ type: "ok", text: "Foglalás törölve." });
+      setNotice({ type: "ok", text: "Foglalás törölve, az ügyfél nem kapott értesítést." });
       setOpenId(null);
       await load();
     } catch (error) {
@@ -215,25 +220,67 @@ const BookingRow: React.FC<BookingRowProps> = ({
 
   return (
     <li className="adm-card adm-booking">
-      <button
-        type="button"
-        className="adm-booking-head"
-        aria-expanded={isOpen}
-        onClick={onToggle}
-      >
-        <span className="adm-booking-when">
-          <strong>{formatDate(date)}</strong>
-          <span className="adm-muted">{time}</span>
-        </span>
-        <span className="adm-booking-who">
-          <strong>{booking.name}</strong>
-          <span className="adm-muted adm-ellipsis">{booking.services.join(", ")}</span>
-        </span>
-        <span className={`adm-status status-${booking.status}`}>
-          {STATUS_LABELS[booking.status]}
-        </span>
-        <ChevronDown size={18} className={`adm-chevron ${isOpen ? "open" : ""}`} aria-hidden="true" />
-      </button>
+      <div className="adm-booking-bar">
+        <button
+          type="button"
+          className="adm-booking-head"
+          aria-expanded={isOpen}
+          onClick={onToggle}
+        >
+          <span className="adm-booking-when">
+            <strong>{formatDate(date)}</strong>
+            <span className="adm-muted">{time}</span>
+          </span>
+          <span className="adm-booking-who">
+            <strong>{booking.name}</strong>
+            <span className="adm-muted adm-ellipsis">{booking.services.join(", ")}</span>
+          </span>
+          <span className="adm-booking-state">
+            <span className={`adm-status status-${booking.status}`}>
+              {STATUS_LABELS[booking.status]}
+            </span>
+            {booking.orderedAt && (
+              <span className="adm-muted adm-ordered">
+                Rendelve: {formatDateTime(booking.orderedAt)}
+              </span>
+            )}
+          </span>
+          <ChevronDown size={18} className={`adm-chevron ${isOpen ? "open" : ""}`} aria-hidden="true" />
+        </button>
+        <button
+          type="button"
+          className="adm-icon-btn adm-booking-delete"
+          aria-label={`${booking.name} foglalásának törlése`}
+          title="Törlés értesítés nélkül"
+          onClick={() => setConfirmDelete(true)}
+        >
+          <Trash2 size={17} aria-hidden="true" />
+        </button>
+      </div>
+
+      {confirmDelete && (
+        <div className="adm-delete-confirm">
+          <span>Biztosan törlöd? Nem vonható vissza, és az ügyfél nem kap értesítést.</span>
+          <span className="adm-delete-buttons">
+            <button
+              type="button"
+              className="adm-btn adm-btn-ghost"
+              disabled={isBusy}
+              onClick={() => setConfirmDelete(false)}
+            >
+              Mégse
+            </button>
+            <button
+              type="button"
+              className="adm-btn adm-btn-danger"
+              disabled={isBusy}
+              onClick={() => act(() => onDelete(booking.id))}
+            >
+              Törlés
+            </button>
+          </span>
+        </div>
+      )}
 
       {isOpen && (
         <div className="adm-booking-body">
@@ -308,24 +355,6 @@ const BookingRow: React.FC<BookingRowProps> = ({
                   Elutasítom
                 </button>
               </>
-            )}
-            {confirmDelete ? (
-              <button
-                type="button"
-                className="adm-btn adm-btn-danger adm-push"
-                disabled={isBusy}
-                onClick={() => act(() => onDelete(booking.id))}
-              >
-                Biztosan törlöd? Nem vonható vissza
-              </button>
-            ) : (
-              <button
-                type="button"
-                className="adm-btn adm-btn-ghost adm-push"
-                onClick={() => setConfirmDelete(true)}
-              >
-                Törlés
-              </button>
             )}
           </div>
         </div>
