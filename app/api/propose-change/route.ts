@@ -1,22 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import nodemailer from "nodemailer";
-import { getBooking, updateBooking } from "../../../lib/bookingStore";
-import { emailWrapper } from "../../../lib/emailUtils";
-
-const transporter = nodemailer.createTransport({
-  // Port 587 (STARTTLS): Hetzner blocks outbound 465
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
-  requireTLS: true,
-  connectionTimeout: 10000,
-  greetingTimeout: 10000,
-  socketTimeout: 20000,
-  auth: {
-    user: process.env.BOOKING_EMAIL_USER,
-    pass: process.env.BOOKING_EMAIL_PASS,
-  },
-});
+import { getBooking } from "../../../lib/bookingStore";
+import { getAvailability } from "../../../lib/availability";
+import { proposeBookingChange } from "../../../lib/bookingActions";
+import { getSlotError } from "../../../lib/bookingDates";
 
 export async function POST(request: NextRequest) {
   const formData = await request.formData();
@@ -32,6 +18,14 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  const slotError = getSlotError(newDate, parseInt(newFrom), parseInt(newTo), await getAvailability());
+  if (slotError) {
+    return new NextResponse(
+      `<p style='color:red;'>${slotError}</p>`,
+      { status: 400, headers: { "Content-Type": "text/html; charset=utf-8" } }
+    );
+  }
+
   // Get booking from database
   const foglalas = await getBooking(id);
   if (!foglalas) {
@@ -40,12 +34,6 @@ export async function POST(request: NextRequest) {
       { headers: { "Content-Type": "text/html" } }
     );
   }
-
-  // Construct the base URL for links
-  const baseUrl = process.env.SITE_URL ||
-      (process.env.NODE_ENV === 'production' 
-    ? 'https://roliszerviz.hu' 
-    : "http://localhost:3000");
 
   if (foglalas.modificationSent) {
     return new NextResponse(
@@ -60,42 +48,9 @@ export async function POST(request: NextRequest) {
 
   const newTime = `${newFrom}:00 - ${newTo}:00`;
 
-  // Update booking in database
-  const updatedBooking = await updateBooking(id, {
-    status: "proposed",
-    newDate: newDate,
-    newTime: newTime,
-    modificationSent: true,
-  });
-
-  if (!updatedBooking) {
-    // Handle error if update failed (e.g., booking not found by updateBooking)
-    return new NextResponse(
-      "<p style='color:red;'>Hiba a foglalás módosítása közben.</p>",
-      { headers: { "Content-Type": "text/html" } }
-    );
-  }
-
   try {
-    const newDateHtml = emailWrapper(`
-      <meta charset="UTF-8">
-      <h2 style="color: white;">Új időpont javaslat</h2>
-      <p style="color: white;">Kedves ${updatedBooking.name}!</p>
-      <p style="color: white;">Sajnáljuk, de az eredeti foglalt időpont (${updatedBooking.originalDate} ${updatedBooking.originalTime}) nem elérhető.</p>
-      <p style="color: white;">Az alábbi új időpontot javasoljuk Önnek:</p>
-      <p style="color: white;"><strong>${updatedBooking.newDate} ${updatedBooking.newTime}</strong></p>
-      <div class="button-container" style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
-          <a href="${baseUrl}/api/client-response?id=${id}&response=accept" style="background: #4CAF50; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px; margin-right: 10px;">✅ Elfogadom</a>
-          <a href="${baseUrl}/api/client-response?id=${id}&response=reject" style="background: #f44336; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px;">❌ Elutasítom</a>
-      </div>
-      <p style="color: white;">Üdvözlettel,<br>RoliSzerviz</p>
-    `);
-    await transporter.sendMail({
-      from: `"ROLISZERVIZ" <${process.env.BOOKING_EMAIL_USER}>`,
-      to: updatedBooking.email,
-      subject: "ROLISZERVIZ – Új időpont javaslat",
-      html: newDateHtml,
-    });
+    const { booking: updatedBooking, emailSent } = await proposeBookingChange(id, newDate, newTime);
+    if (!emailSent) throw new Error("Proposal email failed");
 
     return new NextResponse(
       `

@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { generateId, saveBooking, Booking } from "../../../lib/bookingStore";
 import { emailWrapper } from "../../../lib/emailUtils";
+import { getAvailability } from "../../../lib/availability";
+import { getSlotError } from "../../../lib/bookingDates";
 
 const transporter = nodemailer.createTransport({
   // Port 587 (STARTTLS): Hetzner blocks outbound 465
@@ -37,6 +39,12 @@ export async function POST(request: Request) {
       time,
       message,
     } = await request.json();
+
+    const [fromHour, toHour] = String(time).split(" - ").map((part) => parseInt(part));
+    const slotError = getSlotError(String(date), fromHour, toHour, await getAvailability());
+    if (slotError) {
+      return NextResponse.json({ error: slotError }, { status: 400 });
+    }
 
     // Generate unique ID for the booking
     const id = generateId(email, date, time);

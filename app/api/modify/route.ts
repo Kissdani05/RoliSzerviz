@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getBooking } from "../../../lib/bookingStore";
+import { getAvailability } from "../../../lib/availability";
+import { getDayHours, getFirstBookableDate } from "../../../lib/bookingDates";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -60,25 +62,17 @@ export async function GET(request: NextRequest) {
   const currentHour = now.getHours();
   const currentDate = now.toISOString().split("T")[0];
 
-  let minDate = currentDate;
-  if (currentHour >= 16) {
-    const tomorrow = new Date(now);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    minDate = tomorrow.toISOString().split("T")[0];
-  }
+  const availability = await getAvailability();
+  const minDate = getFirstBookableDate(now, availability) ?? currentDate;
+  const minDateHours = getDayHours(minDate, availability);
 
   let timeOptions = "";
-  for (let h = 9; h <= 16; h++) {
-    // For the modification form, allow suggesting same-day times if it's not past,
-    // or if it is past, only allow future times.
-    // This logic might need refinement based on exact requirements for modification lead time.
-    if (
-      currentDate === minDate &&
-      h <= currentHour &&
-      new Date(minDate).getDate() === now.getDate()
-    )
-      continue;
-    timeOptions += `<option value="${h}">${h}:00</option>`;
+  if (minDateHours) {
+    for (let h = minDateHours.fromHour; h < minDateHours.toHour; h++) {
+      // Only future times can be suggested for today
+      if (currentDate === minDate && h <= currentHour) continue;
+      timeOptions += `<option value="${h}">${h}:00</option>`;
+    }
   }
 
   return new NextResponse(
@@ -98,6 +92,7 @@ export async function GET(request: NextRequest) {
             .time-container { display: flex; gap: 10px; }
             .time-container select { width: 50%; }
             .info { background: #1a1a1a; padding: 10px; border-radius: 4px; margin-bottom: 15px; border-left: 3px solid #f47b20; }
+            .hint { margin: -8px 0 15px; font-size: 0.9em; color: #9ca3af; }
         </style>
     </head>
     <body>
@@ -111,6 +106,7 @@ export async function GET(request: NextRequest) {
             <input type="hidden" name="id" value="${id}" />
             <label for="newDate">Új dátum:</label>
             <input type="date" name="newDate" id="newDate" min="${minDate}" required />
+            <p class="hint">Csak a foglalható napokra lehet időpontot ajánlani.</p>
             <label for="newFrom">Új idő:</label>
             <div class="time-container">
                 <select name="newFrom" id="newFrom" required onchange="updateToOptions()">
@@ -122,25 +118,31 @@ export async function GET(request: NextRequest) {
         </form>
 
         <script>
+            const availability = ${JSON.stringify(availability)};
+
+            function getHours(dateValue) {
+                if (availability.blockedDates.includes(dateValue)) return null;
+                const hours = availability.weekly[new Date(dateValue + 'T00:00:00Z').getUTCDay()];
+                return hours && hours.isOpen ? hours : null;
+            }
+
             function updateToOptions() {
                 const fromSelect = document.getElementById('newFrom');
                 const toSelect = document.getElementById('newTo');
                 const selectedFrom = parseInt(fromSelect.value);
-                
+                const hours = getHours(document.getElementById('newDate').value);
+
                 toSelect.innerHTML = '';
-                if (!isNaN(selectedFrom)) {
-                    for (let h = selectedFrom + 1; h <= 17; h++) {
+                if (hours && !isNaN(selectedFrom)) {
+                    for (let h = selectedFrom + 1; h <= hours.toHour; h++) {
                         const opt = document.createElement('option');
                         opt.value = h;
                         opt.textContent = h + ':00';
                         toSelect.appendChild(opt);
                     }
-                    if (toSelect.options.length > 0) {
-                       toSelect.value = toSelect.options[0].value;
-                    }
                 }
             }
-            
+
             document.addEventListener('DOMContentLoaded', function() {
                 const newDateInput = document.getElementById('newDate');
                 newDateInput.value = '${minDate}'; // Pre-fill with minDate
@@ -149,27 +151,29 @@ export async function GET(request: NextRequest) {
                 newDateInput.addEventListener('change', function() {
                     const now = new Date();
                     const selectedDateValue = this.value;
+                    const hours = getHours(selectedDateValue);
+                    this.setCustomValidity(hours ? '' : 'Erre a napra nem lehet időpontot ajánlani.');
+                    this.reportValidity();
+
                     const isToday = now.toISOString().split("T")[0] === selectedDateValue;
-                    const currentHour = now.getHours();
-                    
                     const fromSelect = document.getElementById('newFrom');
                     const originalFromValue = fromSelect.value;
                     fromSelect.innerHTML = '';
-                    
-                    let newFromHours = [];
-                    for (let h = 9; h <= 16; h++) {
-                        if (isToday && h <= currentHour && new Date(selectedDateValue).getDate() === now.getDate()) continue;
-                        newFromHours.push(h);
-                        const opt = document.createElement('option');
-                        opt.value = h;
-                        opt.textContent = h + ':00';
-                        fromSelect.appendChild(opt);
+
+                    const newFromHours = [];
+                    if (hours) {
+                        for (let h = hours.fromHour; h < hours.toHour; h++) {
+                            if (isToday && h <= now.getHours()) continue;
+                            newFromHours.push(h);
+                            const opt = document.createElement('option');
+                            opt.value = h;
+                            opt.textContent = h + ':00';
+                            fromSelect.appendChild(opt);
+                        }
                     }
-                    
-                    if (newFromHours.includes(parseInt(originalFromValue))){
+
+                    if (newFromHours.includes(parseInt(originalFromValue))) {
                         fromSelect.value = originalFromValue;
-                    } else if (fromSelect.options.length > 0) {
-                        fromSelect.value = fromSelect.options[0].value;
                     }
                     updateToOptions();
                 });

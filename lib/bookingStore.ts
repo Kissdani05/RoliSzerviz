@@ -101,6 +101,13 @@ export async function getBooking(id: string): Promise<Booking | null> {
   }
 }
 
+export async function listBookings(): Promise<Booking[]> {
+  const { rows } = await getPool().query(
+    "SELECT * FROM bookings ORDER BY originaldate DESC, originaltime DESC"
+  );
+  return rows.map(fromDb);
+}
+
 export async function saveBooking(booking: Booking): Promise<void> {
   const row = Object.entries(toDb(booking)).filter(([, v]) => v !== undefined);
   const columns = row.map(([col]) => col).join(", ");

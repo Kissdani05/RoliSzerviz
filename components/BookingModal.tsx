@@ -4,6 +4,14 @@
 import React, { useState, useEffect, useRef } from "react";
 // BookingToast import removed
 import { useTranslation } from "../contexts/TranslationContext";
+import BookingCalendar from "./BookingCalendar";
+import {
+  Availability,
+  DEFAULT_AVAILABILITY,
+  getDayHours,
+  getFirstBookableDate,
+  toDateKey,
+} from "../lib/bookingDates";
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -39,16 +47,19 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotific
   const [showOtherServiceInput, setShowOtherServiceInput] = useState(false);
   const [showBillingAddressInput, setShowBillingAddressInput] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [availability, setAvailability] = useState<Availability>(DEFAULT_AVAILABILITY);
+  const [minBookingDate, setMinBookingDate] = useState("");
   const [availableFromHours, setAvailableFromHours] = useState<number[]>([]);
   const [availableToHours, setAvailableToHours] = useState<number[]>([]);
   const phoneLinkRef = useRef<HTMLAnchorElement>(null);
 
   // Toast logic removed
 
-  const updateToHours = React.useCallback((selectedFrom: number) => {
+  const updateToHours = React.useCallback((selectedFrom: number, date: string) => {
+    const dayHours = getDayHours(date, availability);
     const toHours: number[] = [];
-    if (!isNaN(selectedFrom)) {
-      for (let h = selectedFrom + 1; h <= 17; h++) {
+    if (dayHours && !isNaN(selectedFrom)) {
+      for (let h = selectedFrom + 1; h <= dayHours.toHour; h++) {
         toHours.push(h);
       }
     }
@@ -58,16 +69,19 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotific
     } else {
       setFormData((prev) => ({ ...prev, bookingTo: "" }));
     }
-  }, []);
+  }, [availability]);
 
   const updateAvailableHours = React.useCallback((date: string) => {
     const now = new Date();
-    const isToday = now.toISOString().split("T")[0] === date;
+    const isToday = toDateKey(now) === date;
     const currentHour = now.getHours();
+    const dayHours = getDayHours(date, availability);
     const fromHours: number[] = [];
-    for (let h = 9; h <= 16; h++) {
-      if (isToday && h <= currentHour) continue;
-      fromHours.push(h);
+    if (dayHours) {
+      for (let h = dayHours.fromHour; h < dayHours.toHour; h++) {
+        if (isToday && h <= currentHour) continue;
+        fromHours.push(h);
+      }
     }
     setAvailableFromHours(fromHours);
     if (fromHours.length > 0) {
@@ -75,12 +89,12 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotific
         ...prev,
         bookingFrom: fromHours[0].toString(),
       }));
-      updateToHours(fromHours[0]);
+      updateToHours(fromHours[0], date);
     } else {
       setFormData((prev) => ({ ...prev, bookingFrom: "", bookingTo: "" }));
       setAvailableToHours([]);
     }
-  }, [updateToHours]);
+  }, [availability, updateToHours]);
 
   useEffect(() => {
     if (isOpen) {
@@ -88,20 +102,6 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotific
       const timer = setTimeout(() => {
         setShowContent(true);
       }, 10);
-
-      // Initialize date and time when modal opens
-      const now = new Date();
-      const currentHour = now.getHours();
-      const currentDate = now.toISOString().split("T")[0];
-      let minDate = currentDate;
-      if (currentHour >= 16) {
-        const tomorrow = new Date(now);
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        minDate = tomorrow.toISOString().split("T")[0];
-      }
-      setFormData((prev) => ({ ...prev, bookingDate: minDate }));
-      updateAvailableHours(minDate);
-
       return () => clearTimeout(timer);
     } else {
       setShowContent(false);
@@ -110,7 +110,27 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotific
       }, 300);
       return () => clearTimeout(timer);
     }
-  }, [isOpen, updateAvailableHours]);
+  }, [isOpen]);
+
+  // Load the bookable days and pre-select the first one when modal opens
+  useEffect(() => {
+    if (!isOpen) return;
+    let cancelled = false;
+    fetch("/api/availability", { cache: "no-store" })
+      .then((response) => (response.ok ? response.json() : DEFAULT_AVAILABILITY))
+      .catch(() => DEFAULT_AVAILABILITY)
+      .then((loaded: Availability) => {
+        if (cancelled) return;
+        const now = new Date();
+        const firstDate = getFirstBookableDate(now, loaded);
+        setAvailability(loaded);
+        setMinBookingDate(firstDate ?? toDateKey(now));
+        setFormData((prev) => ({ ...prev, bookingDate: firstDate ?? "" }));
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [isOpen]);
 
   // Flash the phone number twice when modal opens
   useEffect(() => {
@@ -138,9 +158,9 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotific
 
   useEffect(() => {
     if (isOpen && formData.bookingFrom) {
-      updateToHours(parseInt(formData.bookingFrom));
+      updateToHours(parseInt(formData.bookingFrom), formData.bookingDate);
     }
-  }, [isOpen, formData.bookingFrom, updateToHours]);
+  }, [isOpen, formData.bookingFrom, formData.bookingDate, updateToHours]);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -777,23 +797,17 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotific
               </div>
             </div>
             <div className="form-group">
-              <label htmlFor="bookingDate">{t("Válassz napot")}</label>
-              <input
-                type="date"
-                id="bookingDate"
-                name="bookingDate"
-                value={formData.bookingDate}
-                onChange={handleChange}
-                required
-                min={(() => {
-                  const now = new Date();
-                  const year = now.getFullYear();
-                  const month = (now.getMonth() + 1).toString().padStart(2, '0');
-                  const day = now.getDate().toString().padStart(2, '0');
-                  return `${year}-${month}-${day}`;
-                })()}
-                style={{ color: formData.bookingDate && new Date(formData.bookingDate) < new Date(new Date().toISOString().split('T')[0]) ? '#aaa' : undefined, background: formData.bookingDate && new Date(formData.bookingDate) < new Date(new Date().toISOString().split('T')[0]) ? '#eee' : undefined }}
-              />
+              <label id="bookingDateLabel">{t("Válassz napot")}</label>
+              {minBookingDate && (
+                <BookingCalendar
+                  key={minBookingDate}
+                  value={formData.bookingDate}
+                  minDate={minBookingDate}
+                  availability={availability}
+                  labelledBy="bookingDateLabel"
+                  onChange={(date) => setFormData((prev) => ({ ...prev, bookingDate: date }))}
+                />
+              )}
             </div>
 
             <div className="form-group">
@@ -807,7 +821,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotific
                   required
                 >
                   {availableFromHours.map((hour) => {
-                    const isPast = formData.bookingDate === new Date().toISOString().split("T")[0] && hour <= new Date().getHours();
+                    const isPast = formData.bookingDate === toDateKey(new Date()) && hour <= new Date().getHours();
                     return (
                       <option
                         key={hour}
@@ -835,7 +849,12 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, setNotific
                 </select>
               </div>
               <small>
-                {t("Csak 9:00 és 17:00 között lehet foglalni, minimum 1 óra")}
+                {(() => {
+                  const dayHours = getDayHours(formData.bookingDate, availability);
+                  return t("booking_hours_notice")
+                    .replace("{from}", String(dayHours?.fromHour ?? 9))
+                    .replace("{to}", String(dayHours?.toHour ?? 17));
+                })()}
               </small>
             </div>
 

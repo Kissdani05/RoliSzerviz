@@ -1,25 +1,7 @@
 // filepath: /Users/ezy/Projects/Others/dani/next-roliszerviz/app/api/confirm/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import nodemailer from "nodemailer";
-import { getBooking, updateBooking, Booking } from "../../../lib/bookingStore";
-import { emailWrapper } from "../../../lib/emailUtils";
-import { addBookingToCalendar } from '../../../lib/googleCalendar';
-import { fromZonedTime } from 'date-fns-tz';
-
-const transporter = nodemailer.createTransport({
-  // Port 587 (STARTTLS): Hetzner blocks outbound 465
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
-  requireTLS: true,
-  connectionTimeout: 10000,
-  greetingTimeout: 10000,
-  socketTimeout: 20000,
-  auth: {
-    user: process.env.BOOKING_EMAIL_USER,
-    pass: process.env.BOOKING_EMAIL_PASS,
-  },
-});
+import { getBooking } from "../../../lib/bookingStore";
+import { acceptBooking, rejectBooking } from "../../../lib/bookingActions";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -50,83 +32,15 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  try {
-    let updatedBooking: Booking | null = null;
-    if (action === "accept") {
-      // Update booking in database
-      updatedBooking = await updateBooking(id, { status: "accepted" });
-      if (!updatedBooking) throw new Error("Booking update failed");
-      // Add to Google Calendar
-      try {
-        const [from, to] = updatedBooking.originalTime.split(' - ');
-        
-        console.log('Calendar Debug:', {
-          originalDate: updatedBooking.originalDate,
-          originalTime: updatedBooking.originalTime,
-          from: from.trim(),
-          to: to.trim()
-        });
-        
-        // Create proper datetime strings for parsing
-        const startDateTimeLocal = `${updatedBooking.originalDate}T${from.trim()}:00`;
-        const endDateTimeLocal = `${updatedBooking.originalDate}T${to.trim()}:00`;
-        
-        console.log('Local datetime strings:', {
-          startDateTimeLocal,
-          endDateTimeLocal
-        });
-        
-        // Convert to UTC ISO string format for Google Calendar
-        const startDateTime = fromZonedTime(startDateTimeLocal, 'Europe/Budapest').toISOString();
-        const endDateTime = fromZonedTime(endDateTimeLocal, 'Europe/Budapest').toISOString();
-        
-        console.log('Final datetime for calendar:', {
-          startDateTime,
-          endDateTime
-        });
-        
-        const calendarResult = await addBookingToCalendar({
-          summary: `RoliSzerviz foglalás: ${updatedBooking.name}`,
-          description: `Szolgáltatások: ${updatedBooking.services.join(', ')}\nÜzenet: ${updatedBooking.message ?? ''}`,
-          startDateTime,
-          endDateTime,
-          location: updatedBooking.inShop
-            ? 'Üzletben (az ügyfél hozza a rollert)'
-            : `${updatedBooking.city}, ${updatedBooking.postalCode} ${updatedBooking.shippingAddress}`.replace(/\s*\d{1,2}:\d{2}(-\d{1,2}:\d{2})?/g, ''), // órát eltávolítja
-        });
-        
-        console.log('Calendar event created successfully:', calendarResult?.id);
-      } catch (calendarError) {
-        console.error('Google Calendar event error:', calendarError);
-      }
+  const emailErrorResponse = new NextResponse(
+    "<p style='color:red;'>Hiba történt az email küldése során</p>",
+    { headers: { "Content-Type": "text/html" } }
+  );
 
-      const acceptHtml = emailWrapper(
-        `<h2 style="color:#fff;">Foglalás visszaigazolás</h2>
-        <p style="color:#fff;">Kedves ${updatedBooking.name}!</p>
-        <p style="color:#fff;">A(z) ${updatedBooking.originalDate} ${updatedBooking.originalTime} időpontot elfogadtuk.</p>
-        <p style="color:#fff;"><strong>Szolgáltatások:</strong></p>
-        <ul style="color:#fff;">${updatedBooking.services
-          .map((service) => `<li>${service}</li>`)
-          .join("")}</ul>
-        ${
-          updatedBooking.inShop
-            ? `<p style="color:#fff;">Kérjük, a megadott időpontban hozza be a rollert az üzletünkbe.</p>`
-            : `<p style="color:#fff;"><strong>Szállítási cím:</strong> ${updatedBooking.postalCode} ${updatedBooking.shippingAddress}</p>`
-        }
-        ${
-          !updatedBooking.inShop && updatedBooking.differentBilling
-            ? `<p style="color:#fff;"><strong>Számlázási cím:</strong> ${updatedBooking.billingPostalCode} ${updatedBooking.billingAddress}</p>`
-            : ""
-        }
-        <p style="color:#fff;">Köszönjük foglalását!</p>
-        <p style="color:#fff;">Üdvözlettel,<br>RoliSzerviz</p>`
-      );
-      await transporter.sendMail({
-        from: `"ROLISZERVIZ" <${process.env.BOOKING_EMAIL_USER}>`,
-        to: updatedBooking.email,
-        subject: "ROLISZERVIZ – Foglalás elfogadva",
-        html: acceptHtml,
-      });
+  try {
+    if (action === "accept") {
+      const { emailSent } = await acceptBooking(id);
+      if (!emailSent) return emailErrorResponse;
       return new NextResponse(
         `
         <meta charset="UTF-8">
@@ -136,23 +50,8 @@ export async function GET(request: NextRequest) {
     }
 
     if (action === "reject") {
-      // Update booking in database
-      updatedBooking = await updateBooking(id, { status: "rejected" });
-      if (!updatedBooking) throw new Error("Booking update failed");
-
-      const rejectHtml = emailWrapper(
-        `<h2 style="color:#fff;">Foglalás elutasítva</h2>
-        <p style="color:#fff;">Kedves ${updatedBooking.name}!</p>
-        <p style="color:#fff;">Sajnáljuk, a(z) ${updatedBooking.originalDate} ${updatedBooking.originalTime} időpontot nem tudjuk elfogadni.</p>
-        <p style="color:#fff;">Kérjük, látogasson vissza oldalunkra és foglaljon másik időpontot.</p>
-        <p style="color:#fff;">Üdvözlettel,<br>RoliSzerviz</p>`
-      );
-      await transporter.sendMail({
-        from: `"ROLISZERVIZ" <${process.env.BOOKING_EMAIL_USER}>`,
-        to: updatedBooking.email,
-        subject: "ROLISZERVIZ – Foglalás elutasítva",
-        html: rejectHtml,
-      });
+      const { emailSent } = await rejectBooking(id);
+      if (!emailSent) return emailErrorResponse;
       return new NextResponse(
         `<meta charset="UTF-8">
         <p style='color:red;'>Foglalás elutasítva és az ügyfelet értesítettük.</p>`,
@@ -164,10 +63,7 @@ export async function GET(request: NextRequest) {
       headers: { "Content-Type": "text/html" },
     });
   } catch (error) {
-    console.error("Email küldési hiba a /confirm útvonalon:", error);
-    return new NextResponse(
-      "<p style='color:red;'>Hiba történt az email küldése során</p>",
-      { headers: { "Content-Type": "text/html" } }
-    );
+    console.error("Foglalás módosítási hiba a /confirm útvonalon:", error);
+    return emailErrorResponse;
   }
 }
